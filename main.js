@@ -20,6 +20,7 @@ $('.form-createExpert').on('submit', function(e) {
 
   signUp(email, password, userData, function() {
     $form.html('');
+    goToExpertLandingPage();
   });
 });
 
@@ -40,6 +41,7 @@ $('.form-createCompany').on('submit', function(e) {
 
   signUp(email, password, userData, function() {
     $form.html('');
+    goToCompanyLandingPage();
   });
 });
 
@@ -62,7 +64,6 @@ var signUp = function(email, password, data, successCallback, errorCallback) {
   );
 };
 
-
 var login = function(email, password) {
   Parse.User.logIn(email, password).then(function() {
     window.alert('log in, not sign up');
@@ -70,3 +71,11 @@ var login = function(email, password) {
     window.alert('total fail');
   });
 };
+
+var goToExpertLandingPage = function() {
+  window.location.href = "/edit_profile.html";
+}
+
+var goToCompanyLandingPage = function() {
+  window.location.href = "/list.html";
+}
