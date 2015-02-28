@@ -9,6 +9,25 @@ $('#login').on('click', function(e) {
   $('#loginModal').modal('show');
 });
 
+$('.form-login').on('submit', function(e) {
+  var $form = $(this);
+  // Prevent Default Submit Event
+  e.preventDefault();
+
+  // Get data from the form and put them into variables
+  var data = $form.serializeArray(),
+    email = data[0].value,
+    password = data[1].value;
+
+  login(email, password).then(function(user) {
+    $('#retry').hide();
+    navBasedOnRole(getUserRole());
+  }, function() {
+    $('#retry').show();
+    $form.find('[type=password]').val('');
+  });
+});
+
 $('.form-createExpert').on('submit', function(e) {
   var $form = $(this);
   // Prevent Default Submit Event
@@ -70,6 +89,13 @@ $('#ctaForm').on('submit', function(e) {
   return false;
 });
 
+var getUserRole = function() {
+  var currentUser = Parse.User.current();
+  if (currentUser) {
+    return currentUser.get("role");
+  }
+};
+
 var signUp = function(email, password, data, successCallback, errorCallback) {
   Parse.User.signUp(email, password, data).then(function(x, y, z) {
       console.log('user created success');
@@ -90,12 +116,16 @@ var signUp = function(email, password, data, successCallback, errorCallback) {
 };
 
 var login = function(email, password) {
-  Parse.User.logIn(email, password).then(function() {
-    window.alert('log in, not sign up');
-  }, function(error) {
-    window.alert('total fail');
-  });
+  return Parse.User.logIn(email, password);
 };
+
+var navBasedOnRole = function(role) {
+  if (role == EXPERT_ROLE) {
+    goToExpertLandingPage();
+  } else if (role == COMPANY_ROLE) {
+    goToCompanyLandingPage();
+  }
+}
 
 var goToExpertLandingPage = function() {
   window.location.href = "/edit_profile.html";
