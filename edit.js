@@ -11,16 +11,20 @@ if (!currentUser) {
   window.alert('the user should exist here, goto some login page now');
 }
 
-console.log(currentUser);
-if (currentUser.price) {
-  // TODO update price string
-}
-
 var selected_roles = currentUser.get('expertise') || [];
+// Only works if the user key is the same as the html id
+var init_field = function(user, key, value) {
+  var data = user.get(key);
+  if (data) {
+    $('#' + key).val(data);
+  }
+}
 
 expertiseQuery.find().then(function(results) {
   currentUser.fetch().then(function(user) {
     selected_roles = user.get('expertise');
+    init_field(user, 'price');
+    init_field(user, 'details');
     console.log(results);
     var copy_roles_hack = [];
     unselected_roles = results.filter(function(role) {
@@ -33,9 +37,7 @@ expertiseQuery.find().then(function(results) {
       return true;
     });
     selected_roles = copy_roles_hack;
-    var html = getRolesPills(unselected_roles);
-    $('.unselected_role_pills').html(getRolesPills(unselected_roles));
-    $('.selected_role_pills').html(getRolesPills(selected_roles));
+    renderPills()
   });
 }, function (error) {
   console.log(error);
@@ -43,7 +45,16 @@ expertiseQuery.find().then(function(results) {
 
 $('.form-editExpert').on('submit', function(e) {
   console.log('save the info to the user and the user to the roles');
-  currentUser.save('expertise', selected_roles);
+  var $form = $(this);
+  var data = $form.serializeArray();
+  currentUser.set('expertise', selected_roles);
+  var price = data[0].value;
+  if (price[0] == '$') {
+    price.splice(0,1);
+  }
+  currentUser.set('price', price);
+  currentUser.set('details', data[1].value);
+  currentUser.save();
 });
 
 var getRolesPills = function(roles) {
@@ -60,28 +71,23 @@ var getRolesPills = function(roles) {
   return pills_html.join('');
 };
 
-var unselectRole = function(e) {
+var pillClickHandler = function(removeFrom, addTo, e) {
   var id = $(this).data('id');
-  for (var i in selected_roles) {
-    if (selected_roles[i].id == id) {
-      var role = selected_roles.splice(i, 1)[0];
-      addRole(unselected_roles, role);
+  for (var i in removeFrom) {
+    if (removeFrom[i].id == id) {
+      var role = removeFrom.splice(i, 1)[0];
+      addRole(addTo, role);
     }
   }
-  $('.unselected_role_pills').html(getRolesPills(unselected_roles));
-  $('.selected_role_pills').html(getRolesPills(selected_roles));
+  renderPills();
+};
+
+var unselectRole = function(e) {
+  pillClickHandler.apply(this, selected_roles, unselected_roles, e);
 };
 
 var selectRole = function(e) {
-  var id = $(this).data('id');
-  for (var i in unselected_roles) {
-    if (unselected_roles[i].id == id) {
-      var role = unselected_roles.splice(i, 1)[0];
-      addRole(selected_roles, role);
-    }
-  }
-  $('.unselected_role_pills').html(getRolesPills(unselected_roles));
-  $('.selected_role_pills').html(getRolesPills(selected_roles));
+  pillClickHandler.apply(this, unselected_roles, selected_roles, e);
 };
 
 var addRole = function(role_list, role) {
@@ -94,3 +100,7 @@ var addRole = function(role_list, role) {
 $('.selected_role_pills').on('click', '.role', unselectRole);
 $('.unselected_role_pills').on('click', '.role', selectRole);
 
+var renderPills = function() {
+  $('.unselected_role_pills').html(getRolesPills(unselected_roles));
+  $('.selected_role_pills').html(getRolesPills(selected_roles));
+};
