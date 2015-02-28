@@ -26,7 +26,7 @@ app.configure('development', function(){
 app.get('/', function(req, res) {
   res.sendfile('web/launchpage.html');
 });
-app.get('/page', function(req, res) {
+app.get('/realindex', function(req, res) {
   res.sendfile('web/index.html');
 });
 app.get('/signup', main.signup);

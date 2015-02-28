@@ -24,6 +24,10 @@
       $(function(){
         $("#expertse_placeholder").load("expertise.html");
       });
+
+      $(function(){
+        $("#box_template_placeholder").load("expert_box.html");
+      });
     </script>
     <style>
       .expertise {
@@ -62,19 +66,21 @@
 		<!-- Main -->
 			<section id="main" class="container 75%">
 				<header>
-          <h4>What skills are hiring for?</h4>
+          <h4>What skills are you looking for?</h4>
           <ul id="filter_container" style="list-style-type: none;"></ul>
 
           <!--h4>
             Search: <input id="search" type="search" value="angularjs"/>
           </h4-->
 					<h4 style="display:none" id="searchterm-container">These hiring experts match your search for <strong><span id="searchterm"></span></strong>.</h4>
+          <h4 style="display:none" id="zerohero">Whoops, looks like our experts aren't <span style="font-style:italic">that</span> good</span></strong>.</h4>
 				</header>
         <div id="boxes"></div>
 			</section>
 
 		<!-- Footer -->
 			<footer id="footer">
+<!--
 				<ul class="icons">
 					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
@@ -82,34 +88,14 @@
 					<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
 					<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
 					<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
-				</ul>
+				</ul>-->
 				<ul class="copyright">
-					<li>&copy; Untitled. All rights reserved.</li>
+					<li>&copy; Interview Club. All rights reserved.</li>
 				</ul>
 			</footer>
 
-  <script type="template" id="box-template">
-      <div class="box" style="height: 350px">
-        <div>
-          <img src="<%= image %>" style="width:100px;height:100px;">
-          <h4><%= name %></h4>
-          <h4>"<%= desc %>"
-          </h4>
-          $<%= hourly %>/hr &middot; <a href="#">View resume</a>
-          &middot;
-          <span class="fa fa-home"></span>
-          &middot;
-          <span class="fa fa-github"></span>
-          &middot;
-          <span class="fa fa-linkedin"></span>
-          <div><%= skills %></div>
-          <div style="margin-top:15px">
-            <a href="#" class="button special" data-toggle="modal" data-target="#companySignupModal">Hire this interviewer</a>
-          </div>
-        </div>
-      </div>
-  </script>
-    <div class="modal fade" id="companySignupModal" tabindex="-1" role="dialog">
+
+    <div class="modal fade" id="requestModal" tabindex="-1" role="dialog">
       <div class="modal-dialog" style="margin-top: 10%">
         <div class="modal-content">
           <div class="modal-header">
@@ -118,15 +104,25 @@
           </div>
           <div class="modal-body">
             <div id="company_form">
-              <form class="form-createExpert">
-                <label for="inputName">Company</label>
-                <input type="text" name="name" id="inputName" placeholder="Company name" required="" autofocus="">
-                <label for="inputEmail">Contact email address</label>
-                <input type="email" name="email" id="inputEmail" placeholder="Email address" required="" autofocus="">
-                <label for="inputDesc">What do you need help with?</label>
+              <style>
+                .form-createRequest label {
+                  font-size: 14px;
+                }
+              </style>
+              <form class="form-createRequest">
+                <label for="inputName">Candidate name</label>
+                <input type="text" name="name" id="candidateName" placeholder="" required="" autofocus="">
+                <label for="inputEmail" style="margin-top:15px">Candidate email</label>
+                <input type="email" name="email" id="candidateEmail" placeholder="" required="" autofocus="">
+                <label for="inputPhone" style="margin-top:15px">Candidate phone</label>
+                <input type="text" name="phone" id="candidatePhone" placeholder="" required="" autofocus="">
+                <label for="candidateFocus" style="margin-top:15px">What should the interview focus on?</label>
                 <textarea id="inputDesc"></textarea>
                 <div style="margin-top: 20px">
-                  <button class="button btn btn-lg btn-primary btn-block" type="submit">Submit request</button>
+                  <button class="button btn btn-lg btn-primary btn-block" style="background-color:#e89980;font-size:16px;" type="submit">Submit request</button>
+                  <p style="margin-top:10px">
+                  The interviewer will have 1 business day to confirm to your request.
+                  </p>
                 </div>
               </form>
             </div>
@@ -135,6 +131,7 @@
       </div>
     </div>
 
+    <div style="display:none" id="box_template_placeholder"></div>
     <div style="display:none" id="expertse_placeholder"></div>
 	</body>
 </html>

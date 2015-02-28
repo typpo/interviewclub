@@ -9,6 +9,7 @@ userQuery.equalTo('role', 'Expert');
 
 var Expertise = Parse.Object.extend('Expertise');
 var expertiseQuery = new Parse.Query(Expertise);
+var InterviewRequest = Parse.Object.extend('InterviewRequest');
 
 var EXPERT_ROLE = "Expert";
 var COMPANY_ROLE = "Company";
@@ -42,6 +43,44 @@ $(function() {
         setUpUser(users[i]);
       }
     }
+  });
+
+  var currentExpertId = -1;
+  setTimeout(function() {
+    // I hate myself
+    $('.request-modal-button').on('click', function() {
+      currentExpertId = $(this).data('expert-id');
+      return true; // bubble
+    });
+  }, 800);
+  $('.form-createRequest').on('submit', function(e) {
+    var name = $('#candidateName').val();
+    var email = $('#candidateEmail').val();
+    var phone = $('#candidatePhone').val();
+    var focus = $('#candidateFocus').val();
+
+    userQuery.get(currentExpertId, {
+      success: function(expert) {
+        var ir = new InterviewRequest();
+        ir.set('candidateName', name);
+        ir.set('candidateEmail', email);
+        ir.set('candidatePhone', phone);
+        ir.set('candidateFocus', focus);
+        ir.set('company', currentCompany);
+        ir.set('expert', expert);
+        ir.save({
+          success: function(saved) {
+            // Send to email endpoint
+            $.get('/send?email=' + expert.get('username') + '&company=' + currentCompany.get('companyName')
+                 + '&requestId=' + saved.id + '&price=' + expert.get('price'));
+          }
+        });
+
+        $('#requestModal').modal('hide');
+      }
+    });
+
+    return false;
   });
 
   var t = null;
@@ -89,6 +128,12 @@ function applyFilters() {
 }
 
 function updateVisibleBoxs(usersToShow) {
+  if (!usersToShow.length) {
+    $('#zerohero').show();
+  } else {
+    $('#zerohero').hide();
+  }
+
   for (var i in userToBox) {
     if ($.inArray(i, usersToShow) !== -1) {
       userToBox[i].show();
@@ -163,7 +208,9 @@ function addBox(opts) {
     desc: opts.get('details'),
     hourly: opts.get('price'),
     image: image ? image.url() : '',
-    skills: skills
+    skills: skills,
+    expert_id: opts.id,
+    ui: 'list'
   }));
   $('#boxes').append($box);
   return $box;
