@@ -9,6 +9,11 @@ $('#login').on('click', function(e) {
   $('#loginModal').modal('show');
 });
 
+$('.open-company-signup').on('click', function() {
+  $('#companySignupModal').modal('show');
+  return false;
+});
+
 $('.form-login').on('submit', function(e) {
   var $form = $(this);
   // Prevent Default Submit Event
