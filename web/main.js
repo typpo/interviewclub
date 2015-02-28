@@ -11,6 +11,16 @@ $('#login').on('click', function(e) {
 
 $('.open-company-signup').on('click', function() {
   $('#companySignupModal').modal('show');
+  setTimeout(function() {
+    $('#companyEmail').focus();
+  }, 500);
+  return false;
+});
+$('.open-expert-signup').on('click', function() {
+  $('#expertSignupModal').modal('show');
+  setTimeout(function() {
+    $('#expertEmail').focus();
+  }, 500);
   return false;
 });
 
