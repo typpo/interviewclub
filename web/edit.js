@@ -28,6 +28,8 @@ expertiseQuery.find().then(function(results) {
     selected_expertises = user.get('expertise');
     init_field(user, 'price');
     init_field(user, 'details');
+    init_field(user, 'givenName');
+    init_field(user, 'familyName');
     var socialImage = user.get('socialImage');
     var userImage = user.get('image');
     if (userImage || socialImage) {
@@ -75,6 +77,8 @@ $('.form-editExpert').on('submit', function(e) {
   }
   currentUser.set('price', price);
   currentUser.set('details', data[1].value);
+  currentUser.set('givenName', data[2].value);
+  currentUser.set('familyName', data[3].value);
   currentUser.set('social', current_socials);
   // This should really wait for the upload promise...
   if (user_image) currentUser.set('image', user_image);
