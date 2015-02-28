@@ -43,8 +43,58 @@ $('.form-login').on('submit', function(e) {
   });
 });
 
-var getCreepyInfo = function(user) {
-  // Hit our endpoint
+var creepyWhiteList = {
+  'linkedin': true,
+  'angellist': true,
+  'github': true,
+  'hackernews': true,
+  'stackexchange': true,
+  'bitbucket': true,
+  'twitter': true,
+  'stackoverflow': true
+}
+var getCreepyInfo = function(user, callback) {
+  $.get('/creepyInfo?email=' + user.getUsername(), function(data) {
+    // I'm sure there's a better way to do this
+    user.fetch().then(function() {
+      console.log(data);
+      for (var i in data.photos) {
+        if (data.photos[i].isPrimary) {
+          user.set('socialImage', data.photos[i].url);
+          break;
+        }
+      }
+      if (data.contactInfo) {
+        var info = data.contactInfo;
+        if (info.givenName) user.set('givenName', info.givenName);
+        if (info.familyName) user.set('familyName', info.familyName);
+      }
+      for (var i in data.organizations) {
+        if (data.organizations[i].isPrimary) {
+          user.set('organization', data.organizations[i].name);
+        }
+      }
+      var profiles = [];
+      var longestBio = '';
+      for (var i in data.socialProfiles) {
+        var profile = data.socialProfiles[i];
+        if (profile.bio) {
+          if (profile.bio.length > longestBio.length) {
+            longestBio = profile.bio;
+          }
+        }
+        if (creepyWhiteList[profile.typeId]) {
+          profiles.push({
+            name: profile.typeName,
+            url: profile.url
+          });
+        }
+      }
+      if (longestBio) user.set('details', longestBio);
+      if (profiles.length) user.set('social', profiles);
+      user.save().then(callback);
+    });
+  });
 };
 
 $('.form-createExpert').on('submit', function(e) {
@@ -62,7 +112,7 @@ $('.form-createExpert').on('submit', function(e) {
 
   signUp(email, password, userData, function() {
     $form.html('');
-    goToExpertLandingPage();
+    getCreepyInfo(Parse.User.current(), goToExpertLandingPage);
   });
 });
 
@@ -130,12 +180,12 @@ var getUserRole = function() {
 };
 
 var signUp = function(email, password, data, successCallback, errorCallback) {
-  Parse.User.signUp(email, password, data).then(function(x, y, z) {
+  Parse.User.signUp(email, password, data).then(function() {
       console.log('user created success');
       if (successCallback) {
         successCallback();
       }
-    }, function(x, y, z) {
+    }, function(error) {
       console.log('user create failed!')
       // I think this code might be a fail because the user exists already.
       if (error.code == 202) {
