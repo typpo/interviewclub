@@ -1,4 +1,4 @@
-# Created by https://www.gitignore.io
+app/secrets.js
 
 ### Vim ###
 [._]*.s[a-w][a-z]

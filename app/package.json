@@ -9,6 +9,7 @@
     "express": "3.0.6",
     "sitemap": "latest",
     "hjs": "*",
-    "less-middleware": "*"
+    "less-middleware": "*",
+    "sparkpost": "*"
   }
 }
