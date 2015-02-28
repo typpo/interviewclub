@@ -1,7 +1,13 @@
 'use strict';
 
 $(function() {
+  exampleBox();
+  exampleBox();
+  exampleBox();
+  exampleBox();
+});
 
+function exampleBox() {
   addBox({
     name: 'Andy Kearney',
     tags: 'javascript, java, jslayout, angular, chrome extensions',
@@ -9,9 +15,7 @@ $(function() {
     hourly: 150,
     img: 'http://i.imgur.com/7NIuzYp.png',
   });
-
-  console.log('it is done');
-});
+}
 
 function addBox(opts) {
   var $box = tmpl(document.getElementById('box-template').innerHTML, opts);
