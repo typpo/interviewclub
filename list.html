@@ -6,16 +6,17 @@ Hello world
 
 
 <form id="company-signup">
-<input type="text" id="company-name" placeholder="Company name">
-<input type="email" id="company-email" placeholder="Email address">
-<input type="password" id="company-password" placeholder="Password">
-<button class="btn signup" type="submit">Sign-up</button>
-</form>
+<input type="text" id="company-name" name="name" placeholder="Company name">
+<input type="email" id="company-email" name="email" placeholder="Email address">
+<input type="password" id="company-password" name="password" placeholder="Password">
 
-What are you looking for?
+<div>What skills are you looking for?</div>
 <form id="expertise-selection">
-<label><input type="checkbox" name="ios" value="ios">iOS</label>
-<label><input type="checkbox" name="AngularJS" value="ios">AngularJS</label>
+<label><input type="checkbox" name="ios" value="iOS">iOS</label>
+<label><input type="checkbox" name="angularjs" value="AngularJS">AngularJS</label>
+
+<div>
 <button class="btn signup" type="submit">Sign-up</button>
+</div>
 </form>
 <script src="search.js"></script>
