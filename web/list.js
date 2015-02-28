@@ -181,17 +181,6 @@ var getExpertisesPills = function(expertises) {
   return pills_html.join('');
 };
 
-function filter(term) {
-  $('#boxes').html('');
-  data.forEach(function(obj) {
-    var str = obj.name + obj.tags + obj.desc;
-    if (str.toLowerCase().indexOf(term) > -1) {
-      addBox(obj);
-    }
-  });
-  $('#searchterm').text(term);
-}
-
 function exampleBox() {
   addBox();
 }
