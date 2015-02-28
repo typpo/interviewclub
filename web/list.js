@@ -71,13 +71,12 @@ $(function() {
         ir.save({
           success: function(saved) {
             // Send to email endpoint
-            $.get('/send?email=' + expert.username + '&company=' + currentCompany.companyName
-                 + '&requestId=' + saved.id + '&price=' + expert.price);
+            $.get('/send?email=' + expert.get('username') + '&company=' + currentCompany.get('companyName')
+                 + '&requestId=' + saved.id + '&price=' + expert.get('price'));
           }
         });
 
         $('#requestModal').modal('hide');
-        console.log('send request');
       }
     });
 

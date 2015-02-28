@@ -22,7 +22,7 @@ exports.request_interview = function(req, res) {
 
   // Add some content to your email
   //trans.html = '<html><body><h1>Congratulations, {{name}}!</h1><p>You just sent your very first mailing!</p></body></html>';
-  trans.text = '{{company}} would like to pay you {{price}} to conduct a technical interview.  Click to accept: http://gointerview.club/accept.html?id={{requestId}}.  You\'ll coordinate the interview times with the company.';
+  trans.text = '{{company}} would like to pay you ${{price}} to conduct a technical interview!  Click to accept: http://gointerview.club/accept.html?id={{requestId}}.\r\n\r\nYou\'ll coordinate the interview times with the company.';
   trans.substitutionData = {
     company: req.query.company,
     price: req.query.price,
