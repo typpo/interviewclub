@@ -1,5 +1,4 @@
 'use strict'
-console.log('set up');
 Parse.$ = jQuery;
 Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9LvdiJ95Acg9EGyWIgpNf9WNCy");
 
@@ -27,6 +26,14 @@ $('.form-createExpert').on('submit', function(e) {
       login(email, password);
     }
   });
+});
+
+$('#company').click(function(e) {
+  console.log('company');
+});
+
+$('#expert').click(function(e) {
+  console.log('expert');
 });
 
 var login = function(email, password) {
