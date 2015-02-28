@@ -209,7 +209,8 @@ function addBox(opts) {
     hourly: opts.get('price'),
     image: image ? image.url() : '',
     skills: skills,
-    expert_id: opts.id
+    expert_id: opts.id,
+    ui: 'list'
   }));
   $('#boxes').append($box);
   return $box;
