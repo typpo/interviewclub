@@ -68,6 +68,7 @@ $(function() {
         ir.set('candidateFocus', focus);
         ir.set('company', currentCompany);
         ir.set('expert', expert);
+        ir.set('state', 'REQUESTED');
         ir.save({
           success: function(saved) {
             // Send to email endpoint
