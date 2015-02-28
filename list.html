@@ -17,6 +17,12 @@
 			<link rel="stylesheet" href="css/style.css" />
 			<link rel="stylesheet" href="css/style-wide.css" />
 		</noscript>
+    <link rel="stylesheet" href="/css/bootstrap-modal.css">
+    <!-- Optional theme -->
+    <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"-->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 	</head>
 	<body>
@@ -78,7 +84,7 @@
 					<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
 				</ul>
 				<ul class="copyright">
-					<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					<li>&copy; Untitled. All rights reserved.</li>
 				</ul>
 			</footer>
 
@@ -98,10 +104,35 @@
           &middot;
           <span class="fa fa-linkedin"></span>
           <div style="margin-top:15px">
-            <a href="#" class="button special">Hire this interviewer</a>
+            <a href="#" class="button special" data-toggle="modal" data-target="#companySignupModal">Hire this interviewer</a>
           </div>
         </div>
       </div>
   </script>
+    <div class="modal fade" id="companySignupModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" style="margin-top: 10%">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span style="float:right;cursor:pointer" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+            <h4 class="modal-title" id="myModalLabel">Reserve this expert to help with your hiring.</h4>
+          </div>
+          <div class="modal-body">
+            <div id="company_form">
+              <form class="form-createExpert">
+                <label for="inputName">Company</label>
+                <input type="text" name="name" id="inputName" placeholder="Company name" required="" autofocus="">
+                <label for="inputEmail">Contact email address</label>
+                <input type="email" name="email" id="inputEmail" placeholder="Email address" required="" autofocus="">
+                <label for="inputDesc">What do you need help with?</label>
+                <textarea id="inputDesc"></textarea>
+                <div style="margin-top: 20px">
+                  <button class="button btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 	</body>
 </html>
