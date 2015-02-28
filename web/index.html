@@ -40,7 +40,7 @@
 				<nav id="nav">
 					<ul>
 						<li>
-							<a href="#">Login</a>
+							<a href="#" id="login" class="button special">Login</a>
             </li>
 <!--
 							<ul>
@@ -164,25 +164,6 @@ letting them interview your candidates.
 
 			</section>
 
-		<!-- CTA -->
-			<section id="cta">
-
-				<h2>Sign up for beta access</h2>
-				<p>We'll let you know when we're ready!</p>
-
-				<form>
-					<div class="row uniform 50%">
-						<div class="8u 12u(mobilep)">
-							<input type="email" name="email" id="email" placeholder="Email Address" />
-						</div>
-						<div class="4u 12u(mobilep)">
-							<input type="submit" value="Sign Up" class="fit" />
-						</div>
-					</div>
-				</form>
-
-			</section>
-
 		<!-- Footer -->
 			<footer id="footer">
 				<ul class="icons">
@@ -218,6 +199,33 @@ letting them interview your candidates.
                   </label>
                 </div>
                 <button class="button btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span style="float:right;cursor:pointer" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+            <h4 class="modal-title" id="myModalLabel">Login</h4>
+          </div>
+          <div class="modal-body">
+            <div id="expert_form" >
+              <form class="form-createExpert">
+                <label for="inputEmail">Email address</label>
+                <input type="email" name="email" id="inputEmail" placeholder="Email address" required="" autofocus="">
+                <label for="inputPassword">Password</label>
+                <input type="password" name="password" id="inputPassword" placeholder="Password" required="">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="remember-me" style="opacity:1;position:inherit;"> Remember me
+                  </label>
+                </div>
+                <button class="button btn btn-lg btn-primary btn-block" type="submit">Log in</button>
               </form>
             </div>
           </div>

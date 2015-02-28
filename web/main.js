@@ -5,6 +5,10 @@ Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9Lvd
 var EXPERT_ROLE = "Expert";
 var COMPANY_ROLE = "Company";
 
+$('#login').on('click', function(e) {
+  $('#loginModal').modal('show');
+});
+
 $('.form-createExpert').on('submit', function(e) {
   var $form = $(this);
   // Prevent Default Submit Event
