@@ -19,8 +19,28 @@
 			<link rel="stylesheet" href="css/style-wide.css" />
 		</noscript>
     <link rel="stylesheet" href="/css/bootstrap-modal.css">
-    <!-- Optional theme -->
-    <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"-->
+
+    <script>
+      $(function(){
+        $("#expertse_placeholder").load("expertise.html");
+      });
+    </script>
+    <style>
+      .expertise {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .selected {
+        color: red;
+
+      }
+    </style>
+
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -42,9 +62,12 @@
 		<!-- Main -->
 			<section id="main" class="container 75%">
 				<header>
-          <h4>
+          <h4>What skills are hiring for?</h4>
+          <ul id="filter_container" style="list-style-type: none;"></ul>
+
+          <!--h4>
             Search: <input id="search" type="search" value="angularjs"/>
-          </h4>
+          </h4-->
 					<h4 style="display:none" id="searchterm-container">These hiring experts match your search for <strong><span id="searchterm"></span></strong>.</h4>
 				</header>
         <div id="boxes"></div>
@@ -111,5 +134,7 @@
         </div>
       </div>
     </div>
+
+    <div style="display:none" id="expertse_placeholder"></div>
 	</body>
 </html>

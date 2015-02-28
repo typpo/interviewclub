@@ -17,6 +17,8 @@ var userToBox = {};  // user id to box in list
 var expertiseToUser = {};  // expertise id to user id
 var expertiseMap = {};  // expertise id to name
 
+var appliedFilters = [];
+
 $(function() {
   if (!checkCompanyLogin()) {
     alert('This page is just for companies!');
@@ -30,6 +32,7 @@ $(function() {
         var expertise = results[i];
         expertiseMap[expertise.id] = expertise.get("name");
       }
+      setUpFilters(results);
     }
   });
 
@@ -54,14 +57,57 @@ $(function() {
       }
     }, 250);
   });
+
+  $('#filter_container').on('click', '.expertise', toggleFilter);
 });
+
+function toggleFilter(e) {
+  $(this).toggleClass('selected');
+  var id = $(this).data('id');
+  var filterIndex = $.inArray(id, appliedFilters);
+  if (filterIndex === -1) {
+    appliedFilters.push(id);
+  } else {
+    appliedFilters.splice(filterIndex, 1);
+  }
+  applyFilters();
+}
+
+function applyFilters() {
+  var filteredUsers = Object.keys(userToBox);  // all users.
+  for (var i in appliedFilters) {
+    var expertiseId = appliedFilters[i];
+    var expertUsers = expertiseToUser[expertiseId];
+    if (expertUsers) {
+      filteredUsers = $(filteredUsers).filter(expertUsers);
+    } else {
+      filteredUsers = [];
+      break;  // no users match.
+    }
+  }
+  updateVisibleBoxs(filteredUsers);
+}
+
+function updateVisibleBoxs(usersToShow) {
+  for (var i in userToBox) {
+    if ($.inArray(i, usersToShow) !== -1) {
+      userToBox[i].show();
+    } else {
+      userToBox[i].hide();
+    }
+  }
+}
 
 function setUpUser(user) {
   var box = addBox(user);
   userToBox[user.id] = box;
   var userExpertise = user.get("expertise");
   for (var i in userExpertise) {
-    expertiseToUser[userExpertise[i].id] = user.id;
+    if (expertiseToUser[userExpertise[i].id]) {
+      expertiseToUser[userExpertise[i].id].push(user.id);
+    } else {
+      expertiseToUser[userExpertise[i].id] = [user.id];
+    }
   }
 };
 
@@ -70,9 +116,24 @@ function checkCompanyLogin() {
   return user.get("role") === COMPANY_ROLE;
 }
 
-function setUpFilters(expertise) {
-
+function setUpFilters(expertises) {
+  var expertiseHtml = getExpertisesPills(expertises);
+  $('#filter_container').html(expertiseHtml);
 }
+
+var getExpertisesPills = function(expertises) {
+  var pills_html = [];
+  for (var i in expertises) {
+    pills_html.push(tmpl('expertise_pill', {
+      expertise: {
+        id: expertises[i].id,
+        name: expertises[i].get('name')
+      }
+    }));
+  }
+  console.log(pills_html);
+  return pills_html.join('');
+};
 
 function filter(term) {
   $('#boxes').html('');
@@ -97,13 +158,13 @@ function addBox(opts) {
     if (i > 0) skills += ', ';
     skills += expertise[i].get('name');
   }
-  var $box = tmpl(document.getElementById('box-template').innerHTML, {
+  var $box = $(tmpl(document.getElementById('box-template').innerHTML, {
     name: opts.getUsername(),
     desc: opts.get('details'),
     hourly: opts.get('price'),
     image: image ? image.url() : '',
     skills: skills
-  });
+  }));
   $('#boxes').append($box);
   return $box;
 }

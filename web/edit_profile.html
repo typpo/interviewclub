@@ -45,25 +45,35 @@
 
 		<!-- Main -->
 			<section id="main" class="container 75%">
-          <div class="box">
-            Edit your information!
-            <div id="information_form">
               <form class="form-editExpert">
-                <label for="price">Price per interview</label>
-                <input name="price" id="price" placeholder="80" required=""></input>
-              <input name="details" id="details" placeholder="Add a description here"  required=""></input>
-              <div class="expertise_selection">
-                selected expertises
-                <ul class="selected_expertise_pills"></ul>
-                unselected expertises
-                <ul class="unselected_expertise_pills"></ul>
+          <div class="box">
+            <h3>Edit your information</h3>
+            <div id="information_form">
+              <div style="margin-bottom: 18px;">
+                <label for="price">Price per interview ($/hr)</label>
+                <input name="price" id="price" placeholder="100" required=""></input>
               </div>
-              <input id="fileupload" type="file" required></input>
-              <div id="image" style="display:none;width:100px;height:100px;"></div>
-              <button type="submit">Save</button>
-            </form>
+              <div style="margin-bottom: 18px;">
+                <label>Details - tell us about yourself!</label>
+                <textarea name="details" id="details"></textarea>
+              </div>
+              <div style="margin-bottom: 18px;">
+                <label>Profile picture</label>
+                <input id="fileupload" type="file" required></input>
+                <div id="image" style="display:none;width:100px;height:100px;"></div>
+              </div>
           </div>
         </div>
+        <div class="expertise_selection box">
+          Selected expertises
+          <ul class="selected_expertise_pills" style="margin-top: 7px"></ul>
+          Unselected expertises
+          <ul class="unselected_expertise_pills" style="margin-top: 7px"></ul>
+        </div>
+        <div class="box">
+              <button type="submit" class="button" style="background-color:orange;font-size:18px">Save</button>
+        </div>
+        </form>
 			</section>
 
 		<!-- Footer -->
