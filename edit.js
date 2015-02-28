@@ -5,7 +5,6 @@ Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9Lvd
 var Expertise = Parse.Object.extend('Expertise');
 var expertiseQuery = new Parse.Query(Expertise);
 var unselected_roles = [];
-var selected_roles = [];
 
 var currentUser = Parse.User.current();
 if (!currentUser) {
@@ -17,28 +16,34 @@ if (currentUser.price) {
   // TODO update price string
 }
 
-var currentRoles = currentUser.get('expertise') || [];
+var selected_roles = currentUser.get('expertise') || [];
 
 expertiseQuery.find().then(function(results) {
-  console.log(results);
-  unselected_roles = results.filter(function(role) {
-    for (var i in currentRoles) {
-      if (currentRoles[i].id == role.id) {
-        return false;
+  currentUser.fetch().then(function(user) {
+    selected_roles = user.get('expertise');
+    console.log(results);
+    var copy_roles_hack = [];
+    unselected_roles = results.filter(function(role) {
+      for (var i in selected_roles) {
+        if (selected_roles[i].id == role.id) {
+          copy_roles_hack.push(role);
+          return false;
+        }
       }
-    }
-    return true;
+      return true;
+    });
+    selected_roles = copy_roles_hack;
+    var html = getRolesPills(unselected_roles);
+    $('.unselected_role_pills').html(getRolesPills(unselected_roles));
+    $('.selected_role_pills').html(getRolesPills(selected_roles));
   });
-  var html = getRolesPills(unselected_roles);
-  $('.unselected_role_pills').html(getRolesPills(unselected_roles));
-  $('.selected_role_pills').html(getRolesPills(selected_roles));
 }, function (error) {
   console.log(error);
 });
 
 $('.form-editExpert').on('submit', function(e) {
   console.log('save the info to the user and the user to the roles');
-
+  currentUser.save('expertise', selected_roles);
 });
 
 var getRolesPills = function(roles) {
