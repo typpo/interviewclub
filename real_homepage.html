@@ -16,8 +16,11 @@
     <script type="text/javascript" src="lib/tmpl.js"></script>
 
     <!-- Latest compiled and minified CSS -->
+<!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
+-->
+    <link rel="stylesheet" href="/css/bootstrap-modal.css">
     <!-- Optional theme -->
     <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"-->
 
@@ -32,66 +35,6 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 	</head>
 	<body class="landing">
-
-    <div class="modal fade" id="expertSignupModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Start interviewing today!</h4>
-          </div>
-          <div class="modal-body">
-            <div id="expert_form" >
-              <form class="form-createExpert">
-                <label for="inputEmail">Email address</label>
-                <input type="email" name="email" id="inputEmail" placeholder="Email address" required="" autofocus="">
-                <label for="inputPassword">Password</label>
-                <input type="password" name="password" id="inputPassword" placeholder="Password" required="">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" value="remember-me" style="opacity:1;position:inherit;"> Remember me
-                  </label>
-                </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-              </form>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="companySignupModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Never sit through a bad interview again!</h4>
-          </div>
-          <div class="modal-body">
-            <div id="company_form">
-              <form class="form-createExpert">
-                <label for="inputName">Comapny name</label>
-                <input type="text" name="name" id="inputName" placeholder="Company name" required="" autofocus="">
-                <label for="inputEmail">Email address</label>
-                <input type="email" name="email" id="inputEmail" placeholder="Email address" required="" autofocus="">
-                <label for="inputPassword">Password</label>
-                <input type="password" name="password" id="inputPassword" placeholder="Password" required="">
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                  </label>
-                </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
 		<!-- Header -->
 			<header id="header" class="alt">
@@ -260,6 +203,66 @@ letting them interview your candidates.
 					<li>&copy; Untitled. All rights reserved.</li>
 				</ul>
 			</footer>
+
+    <div class="modal fade" id="expertSignupModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span style="float:right;cursor:pointer" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+            <h4 class="modal-title" id="myModalLabel">Start interviewing today!</h4>
+          </div>
+          <div class="modal-body">
+            <div id="expert_form" >
+              <form class="form-createExpert">
+                <label for="inputEmail">Email address</label>
+                <input type="email" name="email" id="inputEmail" placeholder="Email address" required="" autofocus="">
+                <label for="inputPassword">Password</label>
+                <input type="password" name="password" id="inputPassword" placeholder="Password" required="">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="remember-me" style="opacity:1;position:inherit;"> Remember me
+                  </label>
+                </div>
+                <button class="button btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="button btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="button btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="companySignupModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span style="float:right;cursor:pointer" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+            <h4 class="modal-title" id="myModalLabel">Never sit through a bad interview again!</h4>
+          </div>
+          <div class="modal-body">
+            <div id="company_form">
+              <form class="form-createExpert">
+                <label for="inputName">Company</label>
+                <input type="text" name="name" id="inputName" placeholder="Company name" required="" autofocus="">
+                <label for="inputEmail">Email address</label>
+                <input type="email" name="email" id="inputEmail" placeholder="Email address" required="" autofocus="">
+                <label for="inputPassword">Password</label>
+                <input type="password" name="password" id="inputPassword" placeholder="Password" required="">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                  </label>
+                </div>
+                <button class="button btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="main.js"></script>
 	</body>
 </html>
