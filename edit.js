@@ -83,11 +83,11 @@ var pillClickHandler = function(removeFrom, addTo, e) {
 };
 
 var unselectRole = function(e) {
-  pillClickHandler.apply(this, selected_roles, unselected_roles, e);
+  pillClickHandler.call(this, selected_roles, unselected_roles, e);
 };
 
 var selectRole = function(e) {
-  pillClickHandler.apply(this, unselected_roles, selected_roles, e);
+  pillClickHandler.call(this, unselected_roles, selected_roles, e);
 };
 
 var addRole = function(role_list, role) {
