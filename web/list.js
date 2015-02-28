@@ -4,6 +4,7 @@ Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9Lvd
 
 var currentCompany = Parse.User.current();
 var userQuery = new Parse.Query(Parse.User);
+userQuery.include('expertise');
 userQuery.equalTo('role', 'Expert');
 
 var Expertise = Parse.Object.extend('Expertise');
@@ -89,10 +90,19 @@ function exampleBox() {
 }
 
 function addBox(opts) {
+  var image = opts.get('image');
+  var expertise = opts.get('expertise');
+  var skills = '';
+  for (var i in expertise) {
+    if (i > 0) skills += ', ';
+    skills += expertise[i].get('name');
+  }
   var $box = tmpl(document.getElementById('box-template').innerHTML, {
     name: opts.getUsername(),
     desc: opts.get('details'),
-    hourly: opts.get('price')
+    hourly: opts.get('price'),
+    image: image ? image.url() : '',
+    skills: skills
   });
   $('#boxes').append($box);
   return $box;

@@ -68,6 +68,7 @@
   <script type="template" id="box-template">
       <div class="box" style="height: 350px">
         <div>
+          <img src="<%= image %>" style="width:100px;height:100px;">
           <h4><%= name %></h4>
           <h4>"<%= desc %>"
           </h4>
@@ -78,6 +79,7 @@
           <span class="fa fa-github"></span>
           &middot;
           <span class="fa fa-linkedin"></span>
+          <div><%= skills %></div>
           <div style="margin-top:15px">
             <a href="#" class="button special" data-toggle="modal" data-target="#companySignupModal">Hire this interviewer</a>
           </div>
