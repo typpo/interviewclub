@@ -1,11 +1,11 @@
 home Page
 <div id="expert_form">
   <form class="form-signin">
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+    <h2>Please sign in</h2>
+    <label for="inputEmail">Email address</label>
+    <input type="email" name="email" id="inputEmail" placeholder="Email address" required="" autofocus="">
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" placeholder="Password" required="">
     <div class="checkbox">
       <label>
         <input type="checkbox" value="remember-me"> Remember me
@@ -14,5 +14,7 @@ home Page
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   </form>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.16.min.js"></script>
 <script type="text/javascript" src="lib/tmpl.js"></script>
 <script src="main.js"></script>
