@@ -1227,9 +1227,12 @@
     */
 /*, url("../images/banner.jpg")
  * */
-background-color: #34495e;
+		background-image: url("images/overlay.png") , url("../images/keyboard.jpg");
+    /*
+    background-color: #34495e;
   background-image: -webkit-radial-gradient(top center, circle, #34495e, #2e2f2b);
     background-image: radial-gradient(top center, circle, #34495e, #2e2f2b);
+    */
 		background-position: top left,						center center;
 		background-repeat: repeat,							no-repeat;
 		background-size: auto,							cover;
