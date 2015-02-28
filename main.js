@@ -3,26 +3,36 @@ console.log('set up');
 Parse.$ = jQuery;
 Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9LvdiJ95Acg9EGyWIgpNf9WNCy");
 
-$('.form-signin').on('submit', function(e) {
+$('.form-createExpert').on('submit', function(e) {
 
-    // Prevent Default Submit Event
-    e.preventDefault();
+  var $form = $(this);
 
-    // Get data from the form and put them into variables
-    var data = $(this).serializeArray(),
-        email = data[0].value,
-        password = data[1].value;
+  // Prevent Default Submit Event
+  e.preventDefault();
 
-    // Call Parse Login function with those variables
-    Parse.User.signUp(email, password, {
-        // If the username and password matches
-        success: function(user) {
-            alert('Welcome!');
-        },
-        // If there is an error
-        error: function(user, error) {
-            console.log(error);
-        }
-    });
+  // Get data from the form and put them into variables
+  var data = $form.serializeArray(),
+      email = data[0].value,
+      password = data[1].value;
 
+  // TODO create a roll for experts.
+  // Call Parse Login function with those variables
+  Parse.User.signUp(email, password).then(function(x, y, z) {
+    console.log('user created success');
+    $form.html('');
+  }, function(x, y, z) {
+    console.log('user create failed!')
+    // I think this code might be a fail because the user exists already.
+    if (x.code == 202) {
+      login(email, password);
+    }
+  });
 });
+
+var login = function(email, password) {
+  Parse.User.logIn(email, password).then(function() {
+    window.alert('log in, not sign up');
+  }, function(error) {
+    window.alert('total fail');
+  });
+};
