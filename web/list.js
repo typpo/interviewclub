@@ -44,6 +44,15 @@ $(function() {
     }
   });
 
+  $('.form-createRequest').on('submit', function(e) {
+    var name = $('#candidateName').val();
+    var email = $('#candidateEmail').val();
+    var phone = $('#candidatePhone').val();
+    var focus = $('#candidateFocus').val();
+
+    return false;
+  });
+
   var t = null;
   $('#search').on('keydown', function() {
     if (t) clearTimeout(t);

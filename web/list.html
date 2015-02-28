@@ -118,15 +118,25 @@
           </div>
           <div class="modal-body">
             <div id="company_form">
-              <form class="form-createExpert">
-                <label for="inputName">Company</label>
-                <input type="text" name="name" id="inputName" placeholder="Company name" required="" autofocus="">
-                <label for="inputEmail">Contact email address</label>
-                <input type="email" name="email" id="inputEmail" placeholder="Email address" required="" autofocus="">
-                <label for="inputDesc">What do you need help with?</label>
+              <style>
+                .form-createRequest label {
+                  font-size: 14px;
+                }
+              </style>
+              <form class="form-createRequest">
+                <label for="inputName">Candidate name</label>
+                <input type="text" name="name" id="candidateName" placeholder="" required="" autofocus="">
+                <label for="inputEmail" style="margin-top:15px">Candidate email</label>
+                <input type="email" name="email" id="candidateEmail" placeholder="" required="" autofocus="">
+                <label for="inputPhone" style="margin-top:15px">Candidate phone</label>
+                <input type="text" name="phone" id="candidatePhone" placeholder="" required="" autofocus="">
+                <label for="candidateFocus" style="margin-top:15px">What should the interview focus on?</label>
                 <textarea id="inputDesc"></textarea>
                 <div style="margin-top: 20px">
-                  <button class="button btn btn-lg btn-primary btn-block" type="submit">Submit request</button>
+                  <button class="button btn btn-lg btn-primary btn-block" style="background-color:#e89980;font-size:16px;" type="submit">Submit request</button>
+                  <p style="margin-top:10px">
+                  The interviewer will have 1 business day to confirm to your request.
+                  </p>
                 </div>
               </form>
             </div>
