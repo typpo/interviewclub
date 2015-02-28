@@ -9,6 +9,7 @@ userQuery.equalTo('role', 'Expert');
 
 var Expertise = Parse.Object.extend('Expertise');
 var expertiseQuery = new Parse.Query(Expertise);
+var InterviewRequest = Parse.Object.extend('InterviewRequest');
 
 var EXPERT_ROLE = "Expert";
 var COMPANY_ROLE = "Company";
@@ -44,11 +45,41 @@ $(function() {
     }
   });
 
+  var currentExpertId = -1;
+  setTimeout(function() {
+    // I hate myself
+    $('.request-modal-button').on('click', function() {
+      currentExpertId = $(this).data('expert-id');
+      return true; // bubble
+    });
+  }, 800);
   $('.form-createRequest').on('submit', function(e) {
     var name = $('#candidateName').val();
     var email = $('#candidateEmail').val();
     var phone = $('#candidatePhone').val();
     var focus = $('#candidateFocus').val();
+
+    userQuery.get(currentExpertId, {
+      success: function(expert) {
+        var ir = new InterviewRequest();
+        ir.set('candidateName', name);
+        ir.set('candidateEmail', email);
+        ir.set('candidatePhone', phone);
+        ir.set('candidateFocus', focus);
+        ir.set('company', currentCompany);
+        ir.set('expert', expert);
+        ir.save({
+          success: function(saved) {
+            // Send to email endpoint
+            $.get('/send?email=' + expert.username + '&company=' + currentCompany.companyName
+                 + '&requestId=' + saved.id + '&price=' + expert.price);
+          }
+        });
+
+        $('#requestModal').modal('hide');
+        console.log('send request');
+      }
+    });
 
     return false;
   });
@@ -172,7 +203,8 @@ function addBox(opts) {
     desc: opts.get('details'),
     hourly: opts.get('price'),
     image: image ? image.url() : '',
-    skills: skills
+    skills: skills,
+    expert_id: opts.id
   }));
   $('#boxes').append($box);
   return $box;

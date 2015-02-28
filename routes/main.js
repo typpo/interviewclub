@@ -21,8 +21,12 @@ exports.request_interview = function(req, res) {
 
   // Add some content to your email
   //trans.html = '<html><body><h1>Congratulations, {{name}}!</h1><p>You just sent your very first mailing!</p></body></html>';
-  trans.text = '{{company}} would like to pay you $xx for an hour of your time.  Accept?';
-  trans.substitutionData = {company: req.query.company};
+  trans.text = '{{company}} would like to pay you {{price}} to conduct a technical interview.  Click to accept: http://gointerview.club/accept.html?id={{requestId}}.  You\'ll coordinate the interview times with the company.';
+  trans.substitutionData = {
+    company: req.query.company,
+    price: req.query.price,
+    requestId: req.query.requestId
+  };
 
   // Pick someone to receive your email
   trans.recipients = [{ address: { name: 'gointerview.club', email: querystring.unescape(req.query.email) } }];
@@ -39,6 +43,40 @@ exports.request_interview = function(req, res) {
 
   res.send('ok');
 };
+
+exports.accepted_interview = function(req, res) {
+  // TODO accepted interview email to company
+  var trans = {};
+
+  // Set some metadata for your email
+  trans.campaign = 'interview-mail';
+  trans.from = 'interview_club_manager@gointerview.club';
+  trans.subject = 'Someone wants to pay you to interview';
+
+  // Add some content to your email
+  //trans.html = '<html><body><h1>Congratulations, {{name}}!</h1><p>You just sent your very first mailing!</p></body></html>';
+  trans.text = '{{company}} would like to pay you {{price}} to conduct a technical interview.  Click to accept: http://gointerview.club/accept.html?id={{requestId}}.  You\'ll coordinate the interview times with the company.';
+  trans.substitutionData = {
+    company: req.query.company,
+    price: req.query.price,
+    requestId: req.query.requestId
+  };
+
+  // Pick someone to receive your email
+  trans.recipients = [{ address: { name: 'gointerview.club', email: querystring.unescape(req.query.email) } }];
+
+  // Send it off into the world!
+  sparkpost.transmission.send(trans, function(err, res) {
+    if (err) {
+      console.log('Whoops! Something went wrong');
+      console.log(err);
+    } else {
+      console.log('Woohoo! You just sent your first mailing!');
+    }
+  });
+
+  res.send('ok');
+}
 
 exports.signup = function(req, res) {
   if (!req.query.email) {
