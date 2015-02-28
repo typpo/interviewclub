@@ -26,6 +26,17 @@ expertiseQuery.find().then(function(results) {
     selected_roles = user.get('expertise');
     init_field(user, 'price');
     init_field(user, 'details');
+    var userImage = user.get('image');
+    if (userImage) {
+      var img = document.createElement("img");
+      $(img).width('100px');
+      $(img).height('100px');
+      img.src = userImage.url();
+
+      var image = $('#image');
+      image.html(img);
+      image.show();
+    }
     console.log(results);
     var copy_roles_hack = [];
     unselected_roles = results.filter(function(role) {
@@ -111,29 +122,29 @@ var renderPills = function() {
 var uploadFile = function(file) {
   var parseFile = new Parse.File(file.name, file);
   parseFile.save().then(function(x) {
-    console.log(x);
-    console.log('this worked');
     user_image = parseFile;
   }, function(error) {
     console.log(error);
   });
 };
 
-$('#fileupload').on('change', function(e) {
-  console.log(this.files);
-  var file = this.files[0];
+var showImage = function(file) {
   var img = document.createElement("img");
   $(img).width('100px');
   $(img).height('100px');
 
-  img.classList.add("obj");
   img.file = file;
   var image = $('#image');
   image.html(img);
   image.show();
-
   var reader = new FileReader();
   reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
   reader.readAsDataURL(file);
+};
+
+$('#fileupload').on('change', function(e) {
+  console.log(this.files);
+  var file = this.files[0];
+  showImage(file);
   uploadFile(file);
 });
