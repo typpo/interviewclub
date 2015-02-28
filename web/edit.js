@@ -5,6 +5,7 @@ Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9Lvd
 var Expertise = Parse.Object.extend('Expertise');
 var expertiseQuery = new Parse.Query(Expertise);
 var unselected_roles = [];
+var user_image;
 
 var currentUser = Parse.User.current();
 if (!currentUser) {
@@ -54,6 +55,8 @@ $('.form-editExpert').on('submit', function(e) {
   }
   currentUser.set('price', price);
   currentUser.set('details', data[1].value);
+  // This should really wait for the upload promise...
+  if (user_image) currentUser.set('image', user_image);
   currentUser.save();
 });
 
@@ -105,6 +108,17 @@ var renderPills = function() {
   $('.selected_role_pills').html(getRolesPills(selected_roles));
 };
 
+var uploadFile = function(file) {
+  var parseFile = new Parse.File(file.name, file);
+  parseFile.save().then(function(x) {
+    console.log(x);
+    console.log('this worked');
+    user_image = parseFile;
+  }, function(error) {
+    console.log(error);
+  });
+};
+
 $('#fileupload').on('change', function(e) {
   console.log(this.files);
   var file = this.files[0];
@@ -121,4 +135,5 @@ $('#fileupload').on('change', function(e) {
   var reader = new FileReader();
   reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
   reader.readAsDataURL(file);
+  uploadFile(file);
 });
