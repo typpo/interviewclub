@@ -104,3 +104,21 @@ var renderPills = function() {
   $('.unselected_role_pills').html(getRolesPills(unselected_roles));
   $('.selected_role_pills').html(getRolesPills(selected_roles));
 };
+
+$('#fileupload').on('change', function(e) {
+  console.log(this.files);
+  var file = this.files[0];
+  var img = document.createElement("img");
+  $(img).width('100px');
+  $(img).height('100px');
+
+  img.classList.add("obj");
+  img.file = file;
+  var image = $('#image');
+  image.html(img);
+  image.show();
+
+  var reader = new FileReader();
+  reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+  reader.readAsDataURL(file);
+});
