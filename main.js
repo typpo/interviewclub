@@ -28,14 +28,6 @@ $('.form-createExpert').on('submit', function(e) {
   });
 });
 
-$('#company').click(function(e) {
-  console.log('company');
-});
-
-$('#expert').click(function(e) {
-  console.log('expert');
-});
-
 var login = function(email, password) {
   Parse.User.logIn(email, password).then(function() {
     window.alert('log in, not sign up');
