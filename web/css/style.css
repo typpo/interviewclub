@@ -1374,7 +1374,10 @@
 
 	#cta {
 		background: #e89980;
+    /*
 		color: #f9e5df;
+    */
+color: #4F2012;
 		padding: 3.5em 0 4em 0;
 		text-align: center;
 	}
@@ -1395,7 +1398,10 @@
 		#cta .button {
 			box-shadow: none;
 			background: #fff;
+      /*
 			color: #e89980;
+      */
+color: #4F2012;
 		}
 
 		#cta input[type="text"],
@@ -1403,8 +1409,12 @@
 		#cta input[type="email"],
 		#cta select,
 		#cta textarea {
+      /*
 			color: #ffffff;
 			background: rgba(255, 255, 255, 0.15);
+      */
+			color: #404040;
+			background: rgba(255, 255, 255, 0.9);
 			border: 0;
 		}
 
