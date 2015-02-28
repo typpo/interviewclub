@@ -80,9 +80,149 @@ exports.signup = function(req, res) {
 
 var endpoint = 'api.fullcontact.com';
 var apiKey = '&apiKey=2385a160a9dad8bd';
+var mockCreepyData =
+{
+  "status" : 200,
+  "requestId" : "9c14a9bd-8da2-4902-9eda-5ddcd434c140",
+  "likelihood" : 0.91,
+  "photos" : [ {
+    "type" : "facebook",
+    "typeId" : "facebook",
+    "typeName" : "Facebook",
+    "url" : "https://d2ojpxxtu63wzl.cloudfront.net/static/b2aea030f58284da39aba3bd6b9cec82_49d8e742a1435684d2a52d33b323510de98f2d4d349f69cf2bd3980cb2972c1e",
+    "isPrimary" : true
+  }, {
+    "type" : "twitter",
+    "typeId" : "twitter",
+    "typeName" : "Twitter",
+    "url" : "https://d2ojpxxtu63wzl.cloudfront.net/static/6663b9d2f951a2ccdf077050f4af8176_412284ce734b73b7f93f875aa2090b8658743a394cab27b7147079265a465cc0",
+    "isPrimary" : false
+  }, {
+    "type" : "angellist",
+    "typeId" : "angellist",
+    "typeName" : "AngelList",
+    "url" : "https://d2ojpxxtu63wzl.cloudfront.net/static/299fc33805278c3e2b26568b75c43cbb_8ba93165a2fe2fa6fd4e642db17a8c84eec54ec5f3724832500e35b13e811777",
+    "isPrimary" : false
+  }, {
+    "type" : "linkedin",
+    "typeId" : "linkedin",
+    "typeName" : "LinkedIn",
+    "url" : "https://d2ojpxxtu63wzl.cloudfront.net/static/08228fd1e164316e04fc3a9685293b3d_76c56abff7516c6d038e8039b6558f35b372189ece4666d4fbe2d41b46a78ff8",
+    "isPrimary" : false
+  }, {
+    "type" : "gravatar",
+    "typeId" : "gravatar",
+    "typeName" : "Gravatar",
+    "url" : "https://d2ojpxxtu63wzl.cloudfront.net/static/936323b292295cd87712512d4d90adab_79f084ad48cdc1f6ac3b17e89258742953c7e84792ca70cc036278d7a3db5259",
+    "isPrimary" : false,
+    "photoBytesMD5" : "a1719586837f0fdac8835f74cf4ef04a"
+  } ],
+  "contactInfo" : {
+    "familyName" : "Singh",
+    "fullName" : "Hemant Singh",
+    "givenName" : "Hemant"
+  },
+  "organizations" : [ {
+    "isPrimary" : true,
+    "name" : "Birla Institute of Technology and Science Pilani",
+    "title" : "Student",
+    "current" : true
+  } ],
+  "demographics" : {
+    "locationDeduced" : {
+      "normalizedLocation" : "India",
+      "deducedLocation" : "India",
+      "country" : {
+        "deduced" : false,
+        "name" : "India",
+        "code" : "IN"
+      },
+      "continent" : {
+        "deduced" : true,
+        "name" : "Asia"
+      },
+      "likelihood" : 1.0
+    },
+    "gender" : "Male",
+    "locationGeneral" : "Chirawa Area, India"
+  },
+  "socialProfiles" : [ {
+    "type" : "klout",
+    "typeId" : "klout",
+    "typeName" : "Klout",
+    "url" : "http://klout.com/netham91",
+    "username" : "netham91",
+    "id" : "9288686129214007"
+  }, {
+    "bio" : "A neophile. INTP. An addict of cognitive ecstasy. A pattern junkie.",
+    "followers" : 168,
+    "following" : 200,
+    "type" : "twitter",
+    "typeId" : "twitter",
+    "typeName" : "Twitter",
+    "url" : "https://twitter.com/netham91",
+    "username" : "netham91",
+    "id" : "988581061"
+  }, {
+    "type" : "facebook",
+    "typeId" : "facebook",
+    "typeName" : "Facebook",
+    "url" : "https://www.facebook.com/netham91",
+    "username" : "netham91",
+    "id" : "100001449795492"
+  }, {
+    "bio" : "Coordinator @preseed  Web Lab\nFirst Employee @yourbus",
+    "type" : "angellist",
+    "typeId" : "angellist",
+    "typeName" : "AngelList",
+    "url" : "https://angel.co/netham91",
+    "username" : "netham91",
+    "id" : "761298"
+  }, {
+    "bio" : "Google Summer of Code, 2014",
+    "type" : "linkedin",
+    "typeId" : "linkedin",
+    "typeName" : "LinkedIn",
+    "url" : "https://www.linkedin.com/pub/hemant-singh/3a/631/461",
+    "id" : "hemant-singh/3a/631/461"
+  }, {
+    "type" : "gravatar",
+    "typeId" : "gravatar",
+    "typeName" : "Gravatar",
+    "url" : "https://gravatar.com/netham91",
+    "username" : "netham91",
+    "id" : "28630109"
+  } ],
+  "digitalFootprint" : {
+    "scores" : [ {
+      "provider" : "klout",
+      "type" : "general",
+      "value" : 24
+    } ],
+    "topics" : [ {
+      "provider" : "klout",
+      "value" : "Software"
+    }, {
+      "provider" : "klout",
+      "value" : "Richard Branson"
+    }, {
+      "provider" : "klout",
+      "value" : "EMC"
+    }, {
+      "provider" : "klout",
+      "value" : "Forrester"
+    }, {
+      "provider" : "klout",
+      "value" : "Forrester Research"
+    } ]
+  }
+};
 exports.creepyInfo = function(req, res) {
   if (!req.query.email) {
     res.send('');
+    return;
+  } else {
+    res.send(mockCreepyData);
     return;
   }
   var path = '/v2/person.json?email=' + req.query.email + apiKey;

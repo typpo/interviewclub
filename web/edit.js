@@ -27,16 +27,19 @@ expertiseQuery.find().then(function(results) {
     selected_expertises = user.get('expertise');
     init_field(user, 'price');
     init_field(user, 'details');
+    var socialImage = user.get('socialImage');
     var userImage = user.get('image');
-    if (userImage) {
+    if (userImage || socialImage) {
       var img = document.createElement("img");
       $(img).width('100px');
       $(img).height('100px');
-      img.src = userImage.url();
+      img.src = userImage ? userImage.url() : socialImage;
 
       var image = $('#image');
       image.html(img);
       image.show();
+    } else {
+      var socialImage = user.get('socialImage');
     }
     console.log(results);
     var copy_expertises_hack = [];
