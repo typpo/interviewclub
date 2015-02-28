@@ -17,6 +17,8 @@ var userToBox = {};  // user id to box in list
 var expertiseToUser = {};  // expertise id to user id
 var expertiseMap = {};  // expertise id to name
 
+var appliedFilters = [];
+
 $(function() {
   if (!checkCompanyLogin()) {
     alert('This page is just for companies!');
@@ -30,6 +32,7 @@ $(function() {
         var expertise = results[i];
         expertiseMap[expertise.id] = expertise.get("name");
       }
+      setUpFilters(results);
     }
   });
 
@@ -54,7 +57,14 @@ $(function() {
       }
     }, 250);
   });
+
+  $('#filter_container').on('click', '.expertise', toggleFilter);
 });
+
+function toggleFilter(e) {
+  $(this).toggleClass('selected');
+  var id = $(this).data('id');
+}
 
 function setUpUser(user) {
   var box = addBox(user);
@@ -70,9 +80,24 @@ function checkCompanyLogin() {
   return user.get("role") === COMPANY_ROLE;
 }
 
-function setUpFilters(expertise) {
-
+function setUpFilters(expertises) {
+  var expertiseHtml = getExpertisesPills(expertises);
+  $('#filter_container').html(expertiseHtml);
 }
+
+var getExpertisesPills = function(expertises) {
+  var pills_html = [];
+  for (var i in expertises) {
+    pills_html.push(tmpl('expertise_pill', {
+      expertise: {
+        id: expertises[i].id,
+        name: expertises[i].get('name')
+      }
+    }));
+  }
+  console.log(pills_html);
+  return pills_html.join('');
+};
 
 function filter(term) {
   $('#boxes').html('');
