@@ -1,6 +1,5 @@
 var express = require('express')
-  , convert = require('./routes/convert.js')
-  , sitemap = require('./routes/sitemap.js')
+  , main = require('./routes/main.js')
   , http = require('http')
   , path = require('path')
 
@@ -23,16 +22,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', convert.home);
-app.get('/inflation-:year-to-:year2', convert.main);
-app.get('/in-:year-dollars', convert.main);
-app.get('/:year-dollars-in-:year2-dollars', convert.main);
-app.get('/:year-dollars-to-:year2-dollars', convert.main);
-app.get('/:year-dollars-in-:year2', convert.main);
-app.get('/:year-dollars-to-:year2', convert.main);
-app.get('/year-:year', convert.main);
-app.get('/:year/:year2', convert.main);
-app.get('/sitemap.xml', sitemap.main);
+app.get('/', main.home);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
