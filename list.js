@@ -1,19 +1,18 @@
 'use strict';
+Parse.$ = jQuery;
+Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9LvdiJ95Acg9EGyWIgpNf9WNCy");
 
-var data = [
-{
-    name: 'Andy Kearney',
-    tags: 'javascript, java, jslayout, angular, chrome extensions',
-    desc: 'I love pizza and have screened thousands of resumes and conduct interviews for Google.  I enjoy focusing on coding and algo questions that mimic situations your candidates will encounter in the real world.',
-    hourly: 150,
-    img: 'http://i.imgur.com/7NIuzYp.png',
-}
-];
+var currentCompany = Parse.User.current();
+var query = new Parse.Query(Parse.User);
+query.equalTo('role', 'Expert');
 
 $(function() {
-  // TODO get data
-  data.forEach(function(obj) {
-    addBox(obj);
+  query.find({
+    success: function(users) {
+      for (var i in users) {
+        addBox(users[i]);
+      }
+    }
   });
 
   var t = null;
@@ -47,6 +46,10 @@ function exampleBox() {
 }
 
 function addBox(opts) {
-  var $box = tmpl(document.getElementById('box-template').innerHTML, opts);
+  var $box = tmpl(document.getElementById('box-template').innerHTML, {
+    name: opts.getUsername(),
+    desc: opts.get('details'),
+    hourly: opts.get('price')
+  });
   $('#boxes').append($box);
 }
