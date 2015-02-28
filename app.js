@@ -24,7 +24,7 @@ app.configure('development', function(){
 });
 
 app.get('/', function() {
-  res.sendfile('/web/index.html');
+  res.sendfile('/web/launchpage.html');
 });
 app.get('/signup', main.signup);
 app.get('/send', main.request_interview);

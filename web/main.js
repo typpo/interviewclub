@@ -49,6 +49,24 @@ $('.form-createCompany').on('submit', function(e) {
   });
 });
 
+$('.form-createExpert-launchpage').on('submit', function(e) {
+  $.get('/signup?email=' + $('#expertEmail').val() + '&type=expert', function() {
+    alert("You've been added to the waiting list.  Thank you!");
+  });
+});
+
+$('.form-createCompany-launchpage').on('submit', function(e) {
+  $.get('/signup?email=' + $('#companyEmail').val() + '&type=company', function() {
+    alert("You've been added to the waiting list.  Thank you!");
+  });
+});
+
+$('#ctaForm').on('submit', function(e) {
+  $.get('/signup?email=' + $('#ctaEmail').val() + '&type=cta', function() {
+    alert("You've been added to the waiting list.  Thank you!");
+  });
+});
+
 var signUp = function(email, password, data, successCallback, errorCallback) {
   Parse.User.signUp(email, password, data).then(function(x, y, z) {
       console.log('user created success');
