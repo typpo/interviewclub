@@ -1,4 +1,5 @@
-app/secrets.js
+secrets.js
+emails.txt
 
 ### Vim ###
 [._]*.s[a-w][a-z]

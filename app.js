@@ -16,14 +16,17 @@ app.configure(function(){
   app.use(app.router);
   //app.use(require('less-middleware')({ src: __dirname + '/public' }));
   app.use(require('less-middleware')(__dirname + '/public'));
-  app.use(express.static(path.join(__dirname, '../web')));
+  app.use(express.static(path.join(__dirname, '/web')));
 });
 
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', main.home);
+app.get('/', function() {
+  res.sendfile('/web/index.html');
+});
+app.get('/signup', main.signup);
 app.get('/send', main.request_interview);
 
 http.createServer(app).listen(app.get('port'), function(){
