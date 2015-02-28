@@ -1,5 +1,12 @@
 'use strict';
 
+Parse.$ = jQuery;
+Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9LvdiJ95Acg9EGyWIgpNf9WNCy");
+
+var EXPERT_ROLE = "Expert";
+var COMPANY_ROLE = "Company";
+
+
 var data = [
 {
     name: 'Andy Kearney',
@@ -11,6 +18,12 @@ var data = [
 ];
 
 $(function() {
+  if (!checkCompanyLogin()) {
+    alert('This page is just for companies!');
+    window.location.href = 'index.html';
+    return;
+  }
+
   // TODO get data
   data.forEach(function(obj) {
     addBox(obj);
@@ -30,6 +43,11 @@ $(function() {
     }, 250);
   });
 });
+
+function checkCompanyLogin() {
+  var user = Parse.User.current();
+  return user.get("role") === COMPANY_ROLE;
+}
 
 function filter(term) {
   $('#boxes').html('');
