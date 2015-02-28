@@ -52,6 +52,7 @@ $('.form-createCompany').on('submit', function(e) {
 $('.form-createExpert-launchpage').on('submit', function(e) {
   $.get('/signup?email=' + $('#expertEmail').val() + '&type=expert', function() {
     alert("You've been added to the waiting list.  Thank you!");
+    $('#expertSignupModal').modal('hide');
   });
   return false;
 });
@@ -59,6 +60,7 @@ $('.form-createExpert-launchpage').on('submit', function(e) {
 $('.form-createCompany-launchpage').on('submit', function(e) {
   $.get('/signup?email=' + $('#companyEmail').val() + '&type=company', function() {
     alert("You've been added to the waiting list.  Thank you!");
+    $('#companySignupModal').modal('hide');
   });
   return false;
 });
@@ -68,6 +70,18 @@ $('#ctaForm').on('submit', function(e) {
     alert("You've been added to the waiting list.  Thank you!");
   });
   return false;
+});
+
+// Focus hacks below
+$('#company').on('click', function() {
+  setTimeout(function() {
+    $('#companyEmail').focus();
+  }, 500);
+});
+$('#expert').on('click', function() {
+  setTimeout(function() {
+    $('#expertEmail').focus();
+  }, 500);
 });
 
 var signUp = function(email, password, data, successCallback, errorCallback) {
