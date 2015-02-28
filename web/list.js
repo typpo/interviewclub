@@ -129,6 +129,12 @@ function applyFilters() {
 }
 
 function updateVisibleBoxs(usersToShow) {
+  if (!usersToShow.length) {
+    $('#zerohero').show();
+  } else {
+    $('#zerohero').hide();
+  }
+
   for (var i in userToBox) {
     if ($.inArray(i, usersToShow) !== -1) {
       userToBox[i].show();

@@ -1,6 +1,7 @@
 var fs = require('fs');
 var querystring = require('querystring');
 var secrets = require('../secrets.js');
+var https = require('https');
 var sparkpost = require('sparkpost')({key: secrets.key});
 
 exports.home = function(req, res) {
@@ -81,6 +82,7 @@ exports.accepted_interview = function(req, res) {
 exports.signup = function(req, res) {
   if (!req.query.email) {
     res.send('');
+    return;
   }
   var trans = {};
 
@@ -111,6 +113,35 @@ exports.signup = function(req, res) {
 
   fs.appendFile('emails.txt', req.query.email + '-' + req.query.type + '\n', function(err) {
 
+  });
+};
+
+var endpoint = 'api.fullcontact.com';
+var apiKey = '&apiKey=2385a160a9dad8bd';
+exports.creepyInfo = function(req, res) {
+  if (!req.query.email) {
+    res.send('');
+    return;
+  }
+  var path = '/v2/person.json?email=' + req.query.email + apiKey;
+  var options = {
+    host: endpoint,
+    path: path,
+    port: 443,
+    method: 'POST'
+  };
+
+  console.log(options);
+  var request = https.request(options, function(response) {
+    response.setEncoding('utf8');
+    response.on('data', function (chunk) {
+      console.log('BODY: ' + chunk);
+      res.send(chunk);
+    });
+  });
+  request.end();
+  request.on('error', function(e) {
+    console.log(e);
   });
 };
 

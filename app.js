@@ -28,6 +28,7 @@ app.get('/', function(req, res) {
 });
 app.get('/signup', main.signup);
 app.get('/send', main.request_interview);
+app.get('/creepyInfo', main.creepyInfo);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

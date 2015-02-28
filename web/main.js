@@ -43,6 +43,10 @@ $('.form-login').on('submit', function(e) {
   });
 });
 
+var getCreepyInfo = function(user) {
+  // Hit our endpoint
+};
+
 $('.form-createExpert').on('submit', function(e) {
   var $form = $(this);
   // Prevent Default Submit Event
