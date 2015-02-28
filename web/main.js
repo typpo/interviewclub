@@ -9,6 +9,21 @@ $('#login').on('click', function(e) {
   $('#loginModal').modal('show');
 });
 
+$('.open-company-signup').on('click', function() {
+  $('#companySignupModal').modal('show');
+  setTimeout(function() {
+    $('#companyEmail').focus();
+  }, 500);
+  return false;
+});
+$('.open-expert-signup').on('click', function() {
+  $('#expertSignupModal').modal('show');
+  setTimeout(function() {
+    $('#expertEmail').focus();
+  }, 500);
+  return false;
+});
+
 $('.form-login').on('submit', function(e) {
   var $form = $(this);
   // Prevent Default Submit Event

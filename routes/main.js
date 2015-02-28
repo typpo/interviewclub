@@ -53,8 +53,8 @@ exports.signup = function(req, res) {
 
   // Add some content to your email
   //trans.html = '<html><body><h1>Congratulations, {{name}}!</h1><p>You just sent your very first mailing!</p></body></html>';
-  trans.text = '{{email}} - {{type}}';
-  trans.substitutionData = {email: req.query.email, type: req.query.type};
+  trans.text = '{{emailto}} - {{type}}';
+  trans.substitutionData = {emailto: req.query.email, type: req.query.type};
 
   // Pick someone to receive your email
   trans.recipients = [{ address: { name: 'gointerview.club', email: 'ianw_interviewclubsignup@ianww.com' } }];
