@@ -23,8 +23,8 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', function() {
-  res.sendfile('/web/launchpage.html');
+app.get('/', function(req, res) {
+  res.sendfile('web/launchpage.html');
 });
 app.get('/signup', main.signup);
 app.get('/send', main.request_interview);
