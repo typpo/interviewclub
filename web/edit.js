@@ -6,6 +6,7 @@ var Expertise = Parse.Object.extend('Expertise');
 var expertiseQuery = new Parse.Query(Expertise);
 var user_image;
 var unselected_expertises = [];
+var current_socials = [];
 
 
 var currentUser = Parse.User.current();
@@ -38,10 +39,14 @@ expertiseQuery.find().then(function(results) {
       var image = $('#image');
       image.html(img);
       image.show();
-    } else {
-      var socialImage = user.get('socialImage');
     }
-    console.log(results);
+    current_socials = user.get('social');
+    renderSocialPills(current_socials);
+    $('.social_pills').on('click', '.remove_pill', function(e) {
+      var index = $(this).data('index');
+      current_socials.splice(index, 1);
+      renderSocialPills(current_socials);
+    });
     var copy_expertises_hack = [];
     unselected_expertises = results.filter(function(expertise) {
       for (var i in selected_expertises) {
@@ -70,6 +75,7 @@ $('.form-editExpert').on('submit', function(e) {
   }
   currentUser.set('price', price);
   currentUser.set('details', data[1].value);
+  currentUser.set('social', current_socials);
   // This should really wait for the upload promise...
   if (user_image) currentUser.set('image', user_image);
   currentUser.save();
@@ -123,6 +129,19 @@ var renderPills = function() {
   $('.selected_expertise_pills').html(getexpertisesPills(selected_expertises));
 };
 
+var renderSocialPills = function(socials) {
+  var pills = [];
+  for (var i in socials) {
+    var social = socials[i];
+    pills.push(tmpl('social_pill', {
+      index: i,
+      name: social.name,
+      url: social.url
+    }));
+  }
+  $('.social_pills').html(pills.join(''));
+};
+
 var uploadFile = function(file) {
   var parseFile = new Parse.File(file.name, file);
   parseFile.save().then(function(x) {
@@ -145,6 +164,24 @@ var showImage = function(file) {
   reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
   reader.readAsDataURL(file);
 };
+
+$('#social_submit').on('click', function(e) {
+  e.preventDefault();
+  var $name = $('#social_name');
+  var $url = $('#social_url');
+  var name = $name.val();
+  var url = $url.val();
+  if (name && url) {
+    current_socials.push({
+      name: name,
+      url: url,
+      index: current_socials.length
+    });
+    renderSocialPills(current_socials);
+    $name.val('');
+    $url.val('');
+  }
+});
 
 $('#fileupload').on('change', function(e) {
   console.log(this.files);

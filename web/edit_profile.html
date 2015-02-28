@@ -70,6 +70,14 @@
           Unselected expertises
           <ul class="unselected_expertise_pills" style="margin-top: 7px"></ul>
         </div>
+        <div class="social_box">
+          Social links
+          <ul class="social_pills"></ul>
+          <input id="social_name" type="text" placeholder="Name">
+          <input id="social_url" type="text" placeholder="Url">
+          <button id="social_submit">Add Social Link</button>
+        </div>
+        </div>
         <div class="box">
               <button type="submit" class="button" style="background-color:orange;font-size:18px">Save</button>
         </div>
@@ -117,9 +125,12 @@
       </div>
     </div>
     <div style="display:none" id="expertse_placeholder"></div>
-<!--script type="text/html" id="expertise_pill">
-  <li data-id="<%= expertise.id %>"class="expertise"><%= expertise.name %></li>
-</script-->
+<script type="text/html" id="social_pill">
+  <li class="social">
+    <a href="<%= url %>"><%= name %></a>
+    <span data-index="<%= index %>" class="remove_pill">X</span>
+  </li>
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.16.min.js"></script>
 <script type="text/javascript" src="lib/tmpl.js"></script>
