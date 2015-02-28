@@ -1221,8 +1221,15 @@
 
 	#banner {
 		background-attachment: scroll,							fixed;
-		background-color: #666;
-		background-image: url("images/overlay.png"), url("../images/banner.jpg");
+    /*
+		background-color: #000;
+		background-image: url("images/overlay.png");
+    */
+/*, url("../images/banner.jpg")
+ * */
+background-color: #34495e;
+  background-image: -webkit-radial-gradient(top center, circle, #34495e, #2e2f2b);
+    background-image: radial-gradient(top center, circle, #34495e, #2e2f2b);
 		background-position: top left,						center center;
 		background-repeat: repeat,							no-repeat;
 		background-size: auto,							cover;
