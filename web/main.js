@@ -53,18 +53,21 @@ $('.form-createExpert-launchpage').on('submit', function(e) {
   $.get('/signup?email=' + $('#expertEmail').val() + '&type=expert', function() {
     alert("You've been added to the waiting list.  Thank you!");
   });
+  return false;
 });
 
 $('.form-createCompany-launchpage').on('submit', function(e) {
   $.get('/signup?email=' + $('#companyEmail').val() + '&type=company', function() {
     alert("You've been added to the waiting list.  Thank you!");
   });
+  return false;
 });
 
 $('#ctaForm').on('submit', function(e) {
   $.get('/signup?email=' + $('#ctaEmail').val() + '&type=cta', function() {
     alert("You've been added to the waiting list.  Thank you!");
   });
+  return false;
 });
 
 var signUp = function(email, password, data, successCallback, errorCallback) {
