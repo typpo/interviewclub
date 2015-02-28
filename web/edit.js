@@ -4,15 +4,16 @@ Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9Lvd
 
 var Expertise = Parse.Object.extend('Expertise');
 var expertiseQuery = new Parse.Query(Expertise);
-var unselected_roles = [];
 var user_image;
+var unselected_expertises = [];
+
 
 var currentUser = Parse.User.current();
 if (!currentUser) {
   window.alert('the user should exist here, goto some login page now');
 }
 
-var selected_roles = currentUser.get('expertise') || [];
+var selected_expertises = currentUser.get('expertise') || [];
 // Only works if the user key is the same as the html id
 var init_field = function(user, key, value) {
   var data = user.get(key);
@@ -23,7 +24,7 @@ var init_field = function(user, key, value) {
 
 expertiseQuery.find().then(function(results) {
   currentUser.fetch().then(function(user) {
-    selected_roles = user.get('expertise');
+    selected_expertises = user.get('expertise');
     init_field(user, 'price');
     init_field(user, 'details');
     var userImage = user.get('image');
@@ -38,17 +39,17 @@ expertiseQuery.find().then(function(results) {
       image.show();
     }
     console.log(results);
-    var copy_roles_hack = [];
-    unselected_roles = results.filter(function(role) {
-      for (var i in selected_roles) {
-        if (selected_roles[i].id == role.id) {
-          copy_roles_hack.push(role);
+    var copy_expertises_hack = [];
+    unselected_expertises = results.filter(function(expertise) {
+      for (var i in selected_expertises) {
+        if (selected_expertises[i].id == expertise.id) {
+          copy_expertises_hack.push(expertise);
           return false;
         }
       }
       return true;
     });
-    selected_roles = copy_roles_hack;
+    selected_expertises = copy_expertises_hack;
     renderPills()
   });
 }, function (error) {
@@ -56,10 +57,10 @@ expertiseQuery.find().then(function(results) {
 });
 
 $('.form-editExpert').on('submit', function(e) {
-  console.log('save the info to the user and the user to the roles');
+  console.log('save the info to the user and the user to the expertises');
   var $form = $(this);
   var data = $form.serializeArray();
-  currentUser.set('expertise', selected_roles);
+  currentUser.set('expertise', selected_expertises);
   var price = data[0].value;
   if (price[0] == '$') {
     price.splice(0,1);
@@ -71,13 +72,13 @@ $('.form-editExpert').on('submit', function(e) {
   currentUser.save();
 });
 
-var getRolesPills = function(roles) {
+var getexpertisesPills = function(expertises) {
   var pills_html = [];
-  for (var i in roles) {
-    pills_html.push(tmpl('role_pill', {
-      role: {
-        id: roles[i].id,
-        name: roles[i].get('name')
+  for (var i in expertises) {
+    pills_html.push(tmpl('expertise_pill', {
+      expertise: {
+        id: expertises[i].id,
+        name: expertises[i].get('name')
       }
     }));
   }
@@ -89,34 +90,34 @@ var pillClickHandler = function(removeFrom, addTo, e) {
   var id = $(this).data('id');
   for (var i in removeFrom) {
     if (removeFrom[i].id == id) {
-      var role = removeFrom.splice(i, 1)[0];
-      addRole(addTo, role);
+      var expertise = removeFrom.splice(i, 1)[0];
+      addexpertise(addTo, expertise);
     }
   }
   renderPills();
 };
 
-var unselectRole = function(e) {
-  pillClickHandler.call(this, selected_roles, unselected_roles, e);
+var unselectexpertise = function(e) {
+  pillClickHandler.call(this, selected_expertises, unselected_expertises, e);
 };
 
-var selectRole = function(e) {
-  pillClickHandler.call(this, unselected_roles, selected_roles, e);
+var selectexpertise = function(e) {
+  pillClickHandler.call(this, unselected_expertises, selected_expertises, e);
 };
 
-var addRole = function(role_list, role) {
-  role_list.push(role);
-  role_list.sort(function(a, b) {
+var addexpertise = function(expertise_list, expertise) {
+  expertise_list.push(expertise);
+  expertise_list.sort(function(a, b) {
     return a.get('name') > b.get('name');
   });
 };
 
-$('.selected_role_pills').on('click', '.role', unselectRole);
-$('.unselected_role_pills').on('click', '.role', selectRole);
+$('.selected_expertise_pills').on('click', '.expertise', unselectexpertise);
+$('.unselected_expertise_pills').on('click', '.expertise', selectexpertise);
 
 var renderPills = function() {
-  $('.unselected_role_pills').html(getRolesPills(unselected_roles));
-  $('.selected_role_pills').html(getRolesPills(selected_roles));
+  $('.unselected_expertise_pills').html(getexpertisesPills(unselected_expertises));
+  $('.selected_expertise_pills').html(getexpertisesPills(selected_expertises));
 };
 
 var uploadFile = function(file) {
