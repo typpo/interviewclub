@@ -6,7 +6,17 @@ var currentCompany = Parse.User.current();
 var query = new Parse.Query(Parse.User);
 query.equalTo('role', 'Expert');
 
+var EXPERT_ROLE = "Expert";
+var COMPANY_ROLE = "Company";
+
+
 $(function() {
+  if (!checkCompanyLogin()) {
+    alert('This page is just for companies!');
+    window.location.href = 'index.html';
+    return;
+  }
+
   query.find({
     success: function(users) {
       for (var i in users) {
@@ -29,6 +39,11 @@ $(function() {
     }, 250);
   });
 });
+
+function checkCompanyLogin() {
+  var user = Parse.User.current();
+  return user.get("role") === COMPANY_ROLE;
+}
 
 function filter(term) {
   $('#boxes').html('');
