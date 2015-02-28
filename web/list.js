@@ -25,7 +25,10 @@ $(function() {
 
   expertiseQuery.find({
     success: function(results) {
-      console.log(results);
+      for (var i in results) {
+        var expertise = results[i];
+        expertiseMap[expertise.id] = expertise.get("name");
+      }
     }
   });
 
@@ -55,12 +58,19 @@ $(function() {
 function setUpUser(user) {
   var box = addBox(user);
   userToBox[user.id] = box;
-  console.log(user.get("expertise"));
+  var userExpertise = user.get("expertise");
+  for (var i in userExpertise) {
+    expertiseToUser[userExpertise[i].id] = user.id;
+  }
 };
 
 function checkCompanyLogin() {
   var user = Parse.User.current();
   return user.get("role") === COMPANY_ROLE;
+}
+
+function setUpFilters(expertise) {
+
 }
 
 function filter(term) {
