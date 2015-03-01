@@ -1,4 +1,11 @@
-  <script type="template" id="request-template">
+<style>
+.accepted{
+  color: green;
+}
+</style>
+
+
+<script type="template" id="request-template">
     <div class="box">
       <div>
       <% if (!companyView) { %>
@@ -7,11 +14,7 @@
 
         <h2><%= candidateName %></h2>
         <h3><%= candidateEmail %> - <%= candidatePhone %></h3>
-        <% if (state == 'ACCEPTED') { %>
-            Status: <strong style="color:green"><%= state %></strong>
-          <% } else { %>
-            Status: <%= state %>
-          <% } %>
+          Status: <span class="state <%= state.className %>"><%= state.name %></span>
       </div>
     </div>
   </script>
