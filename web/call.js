@@ -156,7 +156,7 @@ $(function() {
     sinchClient.newUser({
       username: user,
       password: code
-    }, function() {
+    }, function(ticket) {
       //On success, start the client
       sinchClient.start(ticket, function() {
         global_username = signUpObj.username;
