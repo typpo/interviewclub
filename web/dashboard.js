@@ -69,6 +69,17 @@ $(function() {
   });
 });
 
+var FEEDBACK_FIELDS = [
+  "hireNoHire",
+  "skillLevel",
+  "wantToWork",
+  "strengths",
+  "weaknesses",
+  "problemSolving",
+  "otherComments",
+  "questionsAsked"
+];
+
 function showFeedback(requestId) {
   var q = new Parse.Query(InterviewRequest);
   q.equalTo('objectId', requestId);
@@ -79,13 +90,19 @@ function showFeedback(requestId) {
         console.log("Something wrong with the interview request");
       }
       var feedback = request[0].get('feedback');
+      var flatFeedback = {};
       if (!feedback) {
         alert('Oops, looks like somebody scammed you!');
         return;
+      } else {
+        for (var i in FEEDBACK_FIELDS) {
+          flatFeedback[FEEDBACK_FIELDS[i]] = feedback.get(FEEDBACK_FIELDS[i]);
+        }
       }
       var feedbackHtml = tmpl(document.getElementById('feedback-template').innerHTML, {
         requestId: requestId,
-        viewOnly: true
+        viewOnly: true,
+        feedback: flatFeedback
       });
       $('#' + requestId).find('.feedback-container').html(feedbackHtml);
       $('#' + requestId).find('.feedback-container').show();
