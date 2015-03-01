@@ -171,13 +171,14 @@ $(function() {
     sinchClient.newUser({
       username: user,
       password: code
-    }, function(ticket) {
+    }).then(function(ticket) {
       //On success, start the client
-      sinchClient.start(ticket, function() {
-        global_username = signUpObj.username;
+      sinchClient.start(ticket, function(signUpObj) {
         //On success, show the UI
         showUI();
       });
+    }).fail(function(test) {
+      window.location.reload();
     });
   });
 });
