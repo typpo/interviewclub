@@ -1,7 +1,32 @@
 <script type="template" id="feedback-template">
-<form class="feedback-form" data-request-id="<%= requestId %>">
-  <label>Would you hire this candidate? Please provide a brief explanation of your answer</label>
-  <textarea name="hireNoHire"></textarea>
+<form class="form-feedback" data-request-id="<%= requestId %>">
+  <label class="prompt">Would you hire this candidate? Please provide a brief explanation of your answer</label>
+  <textarea class="response" name="hireNoHire"></textarea>
+  <label class="prompt">How would you rate this candidate's technical expertise?</label>
+  <div>
+    <% for (var i = 1; i <= 10; i++) { %>
+      <input type="radio" name="skillLevel" value="<%= i %>"><%= i %>
+    <% } %>
+  </div>
+
+  <label class="prompt">What are the candidates strengths?</label>
+  <textarea class="response" name="strengths"></textarea>
+
+  <label class="prompt">What are the candidates weaknesses?</label>
+  <textarea class="response" name="weaknesses"></textarea>
+
+  <label class="prompt">What questions did you ask the candidate?</label>
+  <textarea class="response" name="questionsAsked"></textarea>
+
+  <label class="prompt">How did the candidate handle situations where they did not immediately know the answer?</label>
+  <textarea class="response" name="problemSolving"></textarea>
+
+  <label class="prompt">Would you want to work with this candidate?</label>
+  <textarea class="response" name="wantToWork"></textarea>
+
+  <label class="prompt">Any other comments?</label>
+  <textarea class="response" name="otherComments"></textarea>
+
   <div style="margin-top: 20px">
     <button class="button btn btn-lg btn-primary btn-block" style="background-color:#e89980;font-size:16px;" type="submit">Submit feedback</button>
   </div>
