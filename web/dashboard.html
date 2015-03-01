@@ -22,7 +22,7 @@
 
     <script>
       $(function(){
-        $("#expertse_placeholder").load("expertise.html");
+        $("#request_placeholder").load("request_template.html");
       });
     </script>
     <style>
@@ -84,19 +84,6 @@
 				</ul>
 			</footer>
 
-  <script type="template" id="box-template">
-      <div class="box">
-        <div>
-          <h2><%= candidateName %></h2>
-          <h3><%= candidateEmail %> - <%= candidatePhone %></h3>
-          <% if (state == 'ACCEPTED') { %>
-            Status: <strong style="color:green"><%= state %></strong>
-          <% } else { %>
-            Status: <%= state %>
-          <% } %>
-        </div>
-      </div>
-  </script>
     <div class="modal fade" id="requestModal" tabindex="-1" role="dialog">
       <div class="modal-dialog" style="margin-top: 10%">
         <div class="modal-content">
@@ -133,6 +120,6 @@
       </div>
     </div>
 
-    <div style="display:none" id="expertse_placeholder"></div>
+    <div style="display:none" id="request_placeholder"></div>
 	</body>
 </html>

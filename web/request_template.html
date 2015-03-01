@@ -1,0 +1,17 @@
+  <script type="template" id="request-template">
+    <div class="box">
+      <div>
+      <% if (company) { %>
+        <h2><%= company.name %></h2>
+      <% } %>
+
+        <h2><%= candidateName %></h2>
+        <h3><%= candidateEmail %> - <%= candidatePhone %></h3>
+        <% if (state == 'ACCEPTED') { %>
+            Status: <strong style="color:green"><%= state %></strong>
+          <% } else { %>
+            Status: <%= state %>
+          <% } %>
+      </div>
+    </div>
+  </script>
