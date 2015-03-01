@@ -10,11 +10,9 @@ $(function() {
   var showUI = function() {
     $('video').show();
     $('div#call').show();
-    if (!userToCall) {
-      $('#callButton').hide();
-      $('#callUserName').hide();
-    } else {
-      $('#answer').hide();
+    $('#hangup').show();
+    if (userToCall) {
+      $('#callButton').show();
     }
   }
 
