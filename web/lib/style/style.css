@@ -29,6 +29,7 @@ img.logo {
 }
 
 div.clearfix {
+  height: 0px;
 	clear: both;
 }
 
@@ -352,9 +353,15 @@ form#newCall .caller-button {
 	float: right;
 }
 
-video {
+video#outgoing {
 	width: 260px;
 	height: 195px;
+}
+video#incoming {
+	width: 260px;
+	height: 195px;
+}
+video {
 	margin: 10px 12px 10px 12px;
 	border: 1px solid #B0B0B0;
 	border-radius: 3px;
