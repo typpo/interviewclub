@@ -82,35 +82,13 @@ $(function() {
   requestQuery.find({
     success: function(requests) {
       addRequests(requests);
-
-    $('.actions').on('click', '.action-button', handleRequestStateChange);
+      $('.actions').on('click', '.action-button', handleRequestStateChange);
     }
   });
-});
 
-
-var Feedback = Parse.Object.extend('Feedback');
-$('.feedback-form').on('submit', function(e) {
-  var $form = $(this);
-  var requestId = $form.data("request-id");
-
-  var feedback = new Feedback();
-
-  var data = $form.serializeArray();
-
-  var price = data[0].value;
-  if (price[0] == '$') {
-    price.splice(0,1);
-  }
-  currentUser.set('price', price);
-  currentUser.set('details', data[1].value);
-  currentUser.set('givenName', data[2].value);
-  currentUser.set('familyName', data[3].value);
-  currentUser.set('organization', data[4].value);
-  currentUser.set('social', current_socials);
-  // This should really wait for the upload promise...
-  if (user_image) currentUser.set('image', user_image);
-  currentUser.save();
+  setTimeout(function() {
+    $('.form-feedback').on('submit', submitFeedback);
+  }, 250);
 });
 
 function handleRequestStateChange(e) {
@@ -151,6 +129,17 @@ function updateRequestState(requestId, newState, callback) {
       ir.save();
       if (!newState.skipEmail) {
         sendUpdateEmail();
+        if (newState == 'IN_PROGRESS') {
+          // Start a video call
+          var userRand = Math.floor(Math.random() * 1e6);
+          $.get('/candidateEmail?email=' + ir.get('candidateEmail') +
+                '&user=' + userRand +
+                '&candidateName=' + ir.get('candidateName') +
+                '&expertName=' + currentUser.get('givenName')
+                , function() {
+              window.location.href = '/call.html?user=' + userRand;
+          });
+        }
       }
       callback();
     }, error: function() {
@@ -174,8 +163,31 @@ function showFeedbackForm(requestId) {
   $('#' + requestId).find('.feedback-form-container').html(formHtml);
 }
 
+
+var Feedback = Parse.Object.extend('Feedback');
+
 function submitFeedback() {
-  
+  var $form = $(this);
+  var requestId = $form.data("request-id");
+
+  var feedback = new Feedback();
+
+  var data = $form.serializeArray();
+  for (var i in data) {
+    var field = data[i];
+    if (field.name == 'skillLevel') {
+      feedback.set(field.name, parseInt(field.value, 10));
+    } else {
+      feedback.set(field.name, field.value);
+    }
+  }
+
+  //currentUser.set('details', data[1].value);
+  feedback.save();
+  var request = requestLookup[requestId];
+  request.set('feedback', feedback);
+  request.save();
+  return false;
 }
 
 function addRequests(requests){
@@ -195,7 +207,7 @@ function addRequests(requests){
       }
     });
     $('#requests').append(requestsHtml);
-    //showFeedbackForm(request.id);
+    showFeedbackForm(request.id);
   });
 }
 

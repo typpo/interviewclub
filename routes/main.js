@@ -160,7 +160,7 @@ exports.candidateEmail = function(req, res) {
   trans.subject = 'A link to your interview';
 
   // Add some content to your email
-  trans.text = 'Hi {{candidate}}, your interview with {{interviewer}} is starting soon!  Follow this link to join:  http://gointerview.club/join?user={{id}}';
+  trans.text = 'Hi {{candidate}}, your interview with {{interviewer}} is starting soon!  Follow this link to join:  http://gointerview.club/call.html?user={{id}}';
   trans.substitutionData = {
     candidate: candidateName,
     interviewer: expertName,
