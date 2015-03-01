@@ -181,10 +181,6 @@ var getExpertisesPills = function(expertises) {
   return pills_html.join('');
 };
 
-function exampleBox() {
-  addBox();
-}
-
 function addBox(opts) {
   var image = opts.get('image');
   var socailImage = opts.get('socialImage');
