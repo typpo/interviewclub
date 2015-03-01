@@ -3,47 +3,27 @@
 var STATE_FLOW = {
   "REQUESTED": {
     name: 'Requested',
-    className: 'requested',
-    actions: [{
-      button: "Accept",
-      nextState: "ACCEPTED"
-    }, {
-      button: "Decline",
-      nextState: "REJECTED"
-    }]
+    className: 'requested'
   },
   "REJECTED": {
     name: 'Rejected',
-    className: 'rejected',
-    actions: []
+    className: 'rejected'
   },
   "ACCEPTED": {
     name: 'Accepted',
-    className: 'accepted',
-    actions: [{
-      button: "Start video call now!",
-      nextState: "IN_PROGRESS"
-    }]
+    className: 'accepted'
   },
   "IN_PROGRESS": {
     name: 'Awaiting feedback',
-    className: 'call',
-    skipEmail: true,
-    actions: [{
-      button: 'Enter candidate feedback',
-      nextState: 'WRITING_FEEDBACK'
-    }]
+    className: 'call'
   },
   "WRITING_FEEDBACK": {
     name: 'Awaiting feedback',
-    className: 'writing',
-    skipEmail: true,
-    actions: []
+    className: 'writing'
   },
   "COMPLETED": {
     name: 'Complete',
-    className: 'completed',
-    actions: []
+    className: 'completed'
   }
 };
 
