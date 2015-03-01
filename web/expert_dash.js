@@ -52,6 +52,7 @@ var STATE_FLOW = {
 };
 
 var requestToState = {};
+var requestLookup = {};
 
 var currentUser = Parse.User.current();
 if (!currentUser) {
@@ -87,15 +88,51 @@ $(function() {
   });
 });
 
+
+var Feedback = Parse.Object.extend('Feedback');
+$('.feedback-form').on('submit', function(e) {
+  var $form = $(this);
+  var requestId = $form.data("request-id");
+
+  var feedback = new Feedback();
+
+  var data = $form.serializeArray();
+
+  var price = data[0].value;
+  if (price[0] == '$') {
+    price.splice(0,1);
+  }
+  currentUser.set('price', price);
+  currentUser.set('details', data[1].value);
+  currentUser.set('givenName', data[2].value);
+  currentUser.set('familyName', data[3].value);
+  currentUser.set('organization', data[4].value);
+  currentUser.set('social', current_socials);
+  // This should really wait for the upload promise...
+  if (user_image) currentUser.set('image', user_image);
+  currentUser.save();
+});
+
 function handleRequestStateChange(e) {
   var newState = $(this).data('next-state').toUpperCase();
   var requestId = $(this).data('request-id');
+  var handler;
+  for (var i in requestToState[requestId].actions) {
+    var action = requestToState[requestId].actions[i];
+    if (action.nextState == newState) {
+      handler = action.handler;
+      break;
+    }
+  }
 
   updateRequestState(requestId, newState, function() {
     var newStateFlow = STATE_FLOW[newState];
     requestToState[requestId] = newStateFlow;
     $('.state').text(newStateFlow.name);
     updateActionButtons(requestId, newStateFlow);
+    if (handler) {
+      handler(requestId, newState);
+    }
   });
 }
 
@@ -104,7 +141,7 @@ function updateActionButtons(requestId, stateFlow) {
     requestId: requestId,
     state: stateFlow
   });
-  $('#' + requestId).html(actionsHtml);
+  $('#' + requestId).find('.actions').html(actionsHtml);
 }
 
 function updateRequestState(requestId, newState, callback) {
@@ -122,7 +159,7 @@ function updateRequestState(requestId, newState, callback) {
   });
 }
 
-function generateCall() {
+function generateCall(requestId) {
   // implement
 }
 
@@ -130,16 +167,20 @@ function sendUpdateEmail() {
   // implement
 }
 
-function showFeedbackForm() {
-  // implement
+function showFeedbackForm(requestId) {
+  var formHtml = tmpl(document.getElementById('feedback-template').innerHTML, {
+    requestId: requestId
+  });
+  $('#' + requestId).find('.feedback-form-container').html(formHtml);
 }
 
 function submitFeedback() {
-  // implement
+  
 }
 
 function addRequests(requests){
   requests.forEach(function(request) {
+    requestLookup[request.id] = request;
     var stateName = request.get('state') || 'REQUESTED';
     requestToState[request.id] = STATE_FLOW[stateName.toUpperCase()];
     var requestsHtml = tmpl(document.getElementById('request-template').innerHTML, {
@@ -154,6 +195,7 @@ function addRequests(requests){
       }
     });
     $('#requests').append(requestsHtml);
+    //showFeedbackForm(request.id);
   });
 }
 

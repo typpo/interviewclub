@@ -9,7 +9,7 @@
 
 
 <script type="template" id="request-template">
-    <div class="box">
+    <div class="box" id="<%= requestId %>">
       <div>
       <% if (!companyView) { %>
         <h2>Request from <%= company.name %><% if (state.name !== 'Requested') { %><span class="state <%= state.className %>"> - <%= state.name %></span><% } %></h2>
@@ -23,12 +23,14 @@
 
       <div class="spacer" style="height:15px"></div>
 
-      <% if (!companyView) { %>
-        <div class="actions" id="<%= requestId %>">
+      <% if (!companyView) { %>          
+        <div class="actions">
           <% for (var i = 0; i < state.actions.length; i++) { %>
             <span class="button special action-button" data-request-id="<%= requestId %>" data-next-state="<%= state.actions[i].nextState %>"><%= state.actions[i].button %></span>
           <% } %>
         </div>
+
+        <div class="feedback-form-container"></div>
       <% } %>
       </div>
     </div>

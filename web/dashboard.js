@@ -49,6 +49,7 @@ $(function() {
       requests.forEach(function(request) {
         var stateId = request.get('state') || 'REQUESTED';
         var html = tmpl(document.getElementById('request-template').innerHTML, {
+          requestId: request.id,
           candidateName: request.get('candidateName'),
           candidateEmail: request.get('candidateEmail'),
           candidatePhone: request.get('candidatePhone'),
