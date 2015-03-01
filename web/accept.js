@@ -10,10 +10,16 @@ $(function() {
       console.log(ir);
       ir.set('state', 'ACCEPTED');
       ir.save();
-      // TODO send email to company
-      setTimeout(function() {
-        window.location.href='/edit_profile.html';
-      }, 1000);
+
+      // send email to company
+      // TODO fix this
+      $.get('/accept?email=' + ir.get('company').get('username') +
+            '&company=' + ir.get('company').get('companyName') +
+            '&price=' + ir.get('expert').get('price'), function() {
+        setTimeout(function() {
+          window.location.href='/edit_profile.html';
+        }, 1000);
+      });
     },
   });
 });
