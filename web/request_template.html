@@ -15,11 +15,11 @@
         <h2>Request from <%= company.name %><% if (state.name !== 'Requested') { %> - <span class="state <%= state.className %>"><%= state.name %></span><% } %></h2>
       <% } %>
       <% if (companyView) { %>
-        <h2>Interviewer: <%= expert.name %></h2> - <span class="state <%= state.className %>"><%= state.name %>
+        <h2>Interview by <%= expert.name %> - <span class="state <%= state.className %>"><%= state.name.toLowerCase() %></span></h2>
       <% } %>
 
-        <h3>Candidate: <%= candidateName %></h3>
-        <h3><%= candidateEmail %> - <%= candidatePhone %></h3>
+      <h3>Candidate: <%= candidateName %></h3>
+      <h3><a href="#"><%= candidateEmail %></a> &middot; <a href="#"><%= candidatePhone %></a></h3>
 
       <div class="spacer" style="height:15px"></div>
 
