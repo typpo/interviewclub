@@ -11,21 +11,49 @@ var userQuery = new Parse.Query(Parse.User);
 userQuery.include('expertise');
 userQuery.equalTo('username', currentUser.getUsername());
 
+var InterviewRequest = Parse.Object.extend('InterviewRequest');
+
 $(function() {
   userQuery.find({
     success: function(deepUser) {
       if (deepUser.length !== 1) {
         alert("Fuck");
       } else {
-        addBox(deepUser[0]);
+        addProfile(deepUser[0]);
       }
+    }
+  });
+
+  var requestQuery = new Parse.Query(InterviewRequest);
+  requestQuery.include('company');
+  requestQuery.equalTo('expert', currentUser);
+  requestQuery.find({
+    success: function(requests) {
+      addRequests(requests);
     }
   });
 });
 
-function addBox(user) {
+function addRequests(requests){
+  requests.forEach(function(request) {
+    var state = request.get('state') || 'REQUESTED';
+    var requestsHtml = tmpl(document.getElementById('request-template').innerHTML, {
+      candidateName: request.get('candidateName'),
+      candidateEmail: request.get('candidateEmail'),
+      candidatePhone: request.get('candidatePhone'),
+      state: state,
+      companyView: false,
+      company: {
+        name: request.get('company').get('companyName')
+      }
+    });
+    $('#requests').append(requestsHtml);
+  });
+}
+
+function addProfile(user) {
   var image = user.get('image');
-  var socailImage = opts.get('socialImage');
+  var socialImage = user.get('socialImage');
   var expertise = user.get('expertise');
   var skills = '';
   for (var i in expertise) {
@@ -43,7 +71,7 @@ function addBox(user) {
     hourly: user.get('price'),
     organization: user.get('organization') || '',
     social: user.get('social') || [],
-    image: image ? image.url() : socailImage ? socailImage : '',
+    image: image ? image.url() : socialImage ? socialImage : '',
     skills: skills,
     expert_id: user.id,
     ui: 'profile'

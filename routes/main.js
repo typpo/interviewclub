@@ -52,15 +52,14 @@ exports.accepted_interview = function(req, res) {
   // Set some metadata for your email
   trans.campaign = 'interview-mail';
   trans.from = 'interview_club_manager@gointerview.club';
-  trans.subject = 'Someone wants to pay you to interview';
+  trans.subject = 'Your interview request was accepted!';
 
   // Add some content to your email
   //trans.html = '<html><body><h1>Congratulations, {{name}}!</h1><p>You just sent your very first mailing!</p></body></html>';
-  trans.text = '{{company}} would like to pay you {{price}} to conduct a technical interview.  Click to accept: http://gointerview.club/accept.html?id={{requestId}}.  You\'ll coordinate the interview times with the company.';
+  trans.text = 'Hello {{company}}, you have agreed to pay {{price}} for a technical interview done by an Interview Club expert.  View your dashboard: http://gointerview.club/dashboard.html and reach out to the expert to coordinate the interview time and place.';
   trans.substitutionData = {
     company: req.query.company,
-    price: req.query.price,
-    requestId: req.query.requestId
+    price: req.query.price
   };
 
   // Pick someone to receive your email

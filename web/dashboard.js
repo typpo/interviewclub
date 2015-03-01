@@ -18,11 +18,12 @@ $(function() {
     success: function(requests) {
       requests.forEach(function(request) {
         var state = request.get('state') || 'REQUESTED';
-        var html = tmpl(document.getElementById('box-template').innerHTML, {
+        var html = tmpl(document.getElementById('request-template').innerHTML, {
           candidateName: request.get('candidateName'),
           candidateEmail: request.get('candidateEmail'),
           candidatePhone: request.get('candidatePhone'),
           state: state,
+          companyView: true
         });
         $(html).appendTo($('#boxes'));
       });

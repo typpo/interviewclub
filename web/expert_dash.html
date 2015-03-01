@@ -27,6 +27,10 @@
       $(function(){
         $("#box_template_placeholder").load("expert_box.html");
       });
+
+      $(function(){
+        $("#request_placeholder").load("request_template.html");
+      });
     </script>
     <style>
       .expertise {
@@ -68,6 +72,8 @@
 
         </header>
         <div id="boxes"></div>
+          <div id="profile"></div>
+          <div id="requests"></div>
       </section>
 
     <!-- Footer -->
@@ -88,6 +94,7 @@
 
     <div style="display:none" id="box_template_placeholder"></div>
     <div style="display:none" id="expertse_placeholder"></div>
+    <div style="display:none" id="request_placeholder"></div>
     <script src="expert_dash.js"></script>
   </body>
 </html>
