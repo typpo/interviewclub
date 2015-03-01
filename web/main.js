@@ -58,6 +58,9 @@ var getCreepyInfo = function(user, callback) {
     // I'm sure there's a better way to do this
     user.fetch().then(function() {
       console.log(data);
+      if (typeof data == 'string') {
+        data = JSON.parse(data);
+      }
       for (var i in data.photos) {
         if (data.photos[i].isPrimary) {
           user.set('socialImage', data.photos[i].url);

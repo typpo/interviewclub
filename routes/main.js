@@ -380,11 +380,15 @@ exports.creepyInfo = function(req, res) {
   };
 
   console.log(options);
+  var totalResponse = '';
   var request = https.request(options, function(response) {
-    response.setEncoding('utf8');
     response.on('data', function (chunk) {
       console.log('BODY: ' + chunk);
-      res.send(chunk);
+      totalResponse += chunk;
+    });
+    response.on('end', function () {
+      res.send(totalResponse);
+      res.end();
     });
   });
   request.end();
