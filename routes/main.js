@@ -145,6 +145,44 @@ exports.request_updated = function(req, res) {
   res.send('ok');
 }
 
+exports.candidateEmail = function(req, res) {
+  // TODO accepted interview email to company
+  var trans = {};
+
+  var user = req.query.user; // vid chat id
+  var candidateName = req.query.candidateName;
+  var expertName = req.query.expertName;
+  var email = req.query.email;
+
+  // Set some metadata for your email
+  trans.campaign = 'interview-mail';
+  trans.from = 'interview_club_manager@gointerview.club';
+  trans.subject = 'A link to your interview';
+
+  // Add some content to your email
+  trans.text = 'Hi {{candidate}}, your interview with {{interviewer}} is starting soon!  Follow this link to join:  http://gointerview.club/join?user={{id}}';
+  trans.substitutionData = {
+    candidate: candidateName,
+    interviewer: expertName,
+    id: user,
+  };
+
+  // Pick someone to receive your email
+  trans.recipients = [{ address: { name: 'gointerview.club', email: querystring.unescape(email) } }];
+
+  // Send it off into the world!
+  sparkpost.transmission.send(trans, function(err, res) {
+    if (err) {
+      console.log('Whoops! Something went wrong');
+      console.log(err);
+    } else {
+      console.log('Woohoo! You just sent your first mailing!');
+    }
+  });
+
+  res.send('ok');
+};
+
 exports.signup = function(req, res) {
   if (!req.query.email) {
     res.send('');

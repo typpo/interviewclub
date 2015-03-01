@@ -20,12 +20,18 @@
           Status: <span class="state <%= state.className %>"><%= state.name %></span>
 
       <% if (!companyView) { %>          
-        <div class="actions">
+        <div class="actions" id="<%= requestId %>">
           <% for (var i = 0; i < state.actions.length; i++) { %>
-            <span class="action-button" data-next-state="<%= state.actions[i].nextState %>"><%= state.actions[i].button %></span>
+            <span class="action-button" data-request-id="<%= requestId %>" data-next-state="<%= state.actions[i].nextState %>"><%= state.actions[i].button %></span>
           <% } %>
         </div>
       <% } %>
       </div>
     </div>
   </script>
+
+<script type="template" id="request-action">
+  <% for (var i = 0; i < state.actions.length; i++) { %>
+    <span class="action-button" data-request-id="<%= requestId %>" data-next-state="<%= state.actions[i].nextState %>"><%= state.actions[i].button %></span>
+  <% } %>
+</script>  
