@@ -70,7 +70,7 @@ $(function() {
   userQuery.find({
     success: function(deepUser) {
       if (deepUser.length !== 1) {
-        alert("Fuck");
+        addProfile(currentUser);  // less info
       } else {
         addProfile(deepUser[0]);
       }

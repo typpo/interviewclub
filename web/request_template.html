@@ -5,6 +5,11 @@
 .action-button {
   margin-right: 10px;
 }
+.new {
+  color: green;
+  float: right;
+  margin-top: 14px;
+}
 </style>
 
 
@@ -12,14 +17,27 @@
     <div class="box" id="<%= requestId %>">
       <div>
       <% if (!companyView) { %>
+        <% if (state.name == 'Requested') { %>
+          <div class="new">
+          <i class="fa fa-money"></i> New
+          </div>
+          <% } %>
         <h2>Request from <%= company.name %><% if (state.name !== 'Requested') { %> - <span class="state <%= state.className %>"><%= state.name %></span><% } %></h2>
+
       <% } %>
       <% if (companyView) { %>
-        <h2>Interview by <%= expert.name %> - <span class="state <%= state.className %>"><%= state.name.toLowerCase() %></span></h2>
+        <img src="<%= expert.img %>" style="width: 150px;height:auto; float: left; margin-right: 15px; margin-top:14px;"/>
+        <div style="margin-left: 175px">
+        <h2>Interview by <%= expert.name %> - <%= expert.org %></h2>
       <% } %>
 
-      <h3>Candidate: <%= candidateName %></h3>
-      <h3><a href="#"><%= candidateEmail %></a> &middot; <a href="#"><%= candidatePhone %></a></h3>
+      <h4>Candidate: <%= candidateName %></h4>
+      <h4><a href="#"><%= candidateEmail %></a> &middot; <a href="#"><%= candidatePhone %></a></h4>
+
+      <% if (companyView) { %>
+        <h4> Status: <span class="state <%= state.className %>" style="color: green"><%= state.name %></span> </h4>
+        <h4>"<%= expert.details %>"</h4>
+      <% } %>
 
       <div class="spacer" style="height:15px"></div>
 
@@ -40,6 +58,7 @@
         <% } else if (paymentNeeded) { %>
           <div class="payment-container" style="display:none;"></div>
         <% } %>
+        </div>
       <% } %>
       </div>
     </div>
