@@ -117,7 +117,7 @@ $('.form-createExpert').on('submit', function(e) {
 
   signUp(email, password, userData, function() {
     $form.html('');
-    getCreepyInfo(Parse.User.current(), goToExpertLandingPage);
+    getCreepyInfo(Parse.User.current(), nav.goToExpertLandingPage);
   });
 });
 
@@ -209,18 +209,11 @@ var login = function(email, password) {
 
 var navBasedOnRole = function(role) {
   if (role == EXPERT_ROLE) {
-    goToExpertLandingPage();
+    nav.goToExpertLandingPage();
   } else if (role == COMPANY_ROLE) {
-    goToCompanyLandingPage();
+    nav.goToCompanyLandingPage();
   }
 };
 
-var goToExpertLandingPage = function() {
-  window.location.href = "/edit_profile.html";
-};
-
-var goToCompanyLandingPage = function() {
-  window.location.href = "/list.html";
-};
 
 });

@@ -1,4 +1,6 @@
 'use strict'
+require(['nav'], function(nav) {
+
 Parse.$ = jQuery;
 Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9LvdiJ95Acg9EGyWIgpNf9WNCy");
 
@@ -88,7 +90,7 @@ var handleSubmit = function(e) {
   // This should really wait for the upload promise...
   if (user_image) currentUser.set('image', user_image);
   currentUser.save();
-  setTimeout(goToExpertDash, 500);
+  setTimeout(nav.goToExpertDash, 500);
 };
 
 var getexpertisesPills = function(expertises) {
@@ -200,6 +202,4 @@ $('#fileupload').on('change', function(e) {
   uploadFile(file);
 });
 
-var goToExpertDash = function() {
-  window.location.href = '/expert_dash.html';
-};
+});
