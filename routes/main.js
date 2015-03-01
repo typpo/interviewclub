@@ -91,18 +91,38 @@ exports.request_interview = function(req, res) {
   res.send('ok');
 };
 
-exports.accepted_interview = function(req, res) {
+var stateToMessaging = {
+  "ACCEPTED": {
+    subject: 'Your interview request was accepted',
+    body:  'Hello {{company}}, you have agreed to pay {{price}} for a technical interview done by an Interview Club expert.  View your dashboard: http://gointerview.club/dashboard.html and reach out to the expert to coordinate the interview time and place.'
+  },
+  "REJECTED": {
+    subject: 'Your interview request was declined',
+    body: 'Hello {{company}}, your request with an Interview Club expert was declined. Please check out some of our other experts at http://gointerview.club/list.html'
+  },
+  "COMPLETED": {
+    subject: 'Your candidate feedback is ready!',
+    body: 'Hello {{company}}, good news! Your one of our experts from Interview Club just finished writing feedback for an interview you requested. Take a look on your dashboard: http://gointerview.club/dashboard.html'
+  }
+}
+
+exports.request_updated = function(req, res) {
   // TODO accepted interview email to company
   var trans = {};
+
+  var state = req.query.state;
+  var messages = stateToMessaging[state.toUpperCase()];
+  if (!messages) {
+    console.log("Bad state");
+  }
 
   // Set some metadata for your email
   trans.campaign = 'interview-mail';
   trans.from = 'interview_club_manager@gointerview.club';
-  trans.subject = 'Your interview request was accepted!';
+  trans.subject = messages.subject;
 
   // Add some content to your email
-  //trans.html = ' ';
-  trans.text = 'Hello {{company}}, you have agreed to pay {{price}} for a technical interview done by an Interview Club expert.  View your dashboard: http://gointerview.club/dashboard.html and reach out to the expert to coordinate the interview time and place.';
+  trans.text = messages.body;
   trans.substitutionData = {
     company: req.query.company,
     price: req.query.price
