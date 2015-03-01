@@ -87,31 +87,6 @@ $(function() {
   });
 });
 
-
-var Feedback = Parse.Object.extend('Feedback');
-$('.feedback-form').on('submit', function(e) {
-  var $form = $(this);
-  var requestId = $form.data("request-id");
-
-  var feedback = new Feedback();
-
-  var data = $form.serializeArray();
-
-  var price = data[0].value;
-  if (price[0] == '$') {
-    price.splice(0,1);
-  }
-  currentUser.set('price', price);
-  currentUser.set('details', data[1].value);
-  currentUser.set('givenName', data[2].value);
-  currentUser.set('familyName', data[3].value);
-  currentUser.set('organization', data[4].value);
-  currentUser.set('social', current_socials);
-  // This should really wait for the upload promise...
-  if (user_image) currentUser.set('image', user_image);
-  currentUser.save();
-});
-
 function handleRequestStateChange(e) {
   var newState = $(this).data('next-state').toUpperCase();
   var requestId = $(this).data('request-id');
@@ -184,8 +159,26 @@ function showFeedbackForm(requestId) {
   $('#' + requestId).find('.feedback-form-container').html(formHtml);
 }
 
-function submitFeedback() {
 
+var Feedback = Parse.Object.extend('Feedback');
+$('.form-feedback').on('submit', function(e) {
+  console.log("foo");
+});
+
+function submitFeedback() {
+  var $form = $(this);
+  var requestId = $form.data("request-id");
+
+  var feedback = new Feedback();
+
+  var data = $form.serializeArray();
+  for (var field in data) {
+    feedback.set(field, data[field]);
+  }
+
+  //currentUser.set('details', data[1].value);
+  feedback.save();
+  return false;
 }
 
 function addRequests(requests){
@@ -205,7 +198,7 @@ function addRequests(requests){
       }
     });
     $('#requests').append(requestsHtml);
-    //showFeedbackForm(request.id);
+    showFeedbackForm(request.id);
   });
 }
 
