@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+		<title>The Hiring Club</title>
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.16.min.js"></script>
+		<script src="lib/sinch.min.js"></script>
+		<script src="call.js"></script>
+    <link rel="stylesheet" href="/lib/style/style.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+    <div class="container">
+      <div class="clearfix"></div>
+
+      <div class="frame">
+        <h3>Video Call</h3>
+        <div id="call">
+          <form id="newCall">
+            <a id="callButton">Call</a>
+            <a id="hangup">Hangup</a>
+            <a id="answer">Answer</a>
+
+            <audio id="ringback" src="lib/style/ringback.wav" loop=""></audio>
+            <audio id="ringtone" src="lib/style/phone_ring.wav" loop=""></audio>
+          </form>
+        </div>
+        <div class="clearfix"><br></div>
+
+        <video id="outgoing" autoplay=""></video>
+        <video id="incoming" autoplay=""></video>
+
+        <div id="callLog">
+        </div>
+        <div class="error">
+        </div>
+      </div>
+    </div>
+	</body>
+</html>
