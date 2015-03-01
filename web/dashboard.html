@@ -89,7 +89,11 @@
         <div>
           <h2><%= candidateName %></h2>
           <h3><%= candidateEmail %> - <%= candidatePhone %></h3>
-          Status: <%= state %>
+          <% if (state == 'ACCEPTED') { %>
+            Status: <strong style="color:green"><%= state %></strong>
+          <% } else { %>
+            Status: <%= state %>
+          <% } %>
         </div>
       </div>
   </script>
