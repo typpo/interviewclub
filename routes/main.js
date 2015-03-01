@@ -222,6 +222,7 @@ exports.signup = function(req, res) {
 
 var endpoint = 'api.fullcontact.com';
 var apiKey = '&apiKey=2385a160a9dad8bd';
+/*
 var mockCreepyData =
 {
   "status" : 200,
@@ -359,14 +360,16 @@ var mockCreepyData =
     } ]
   }
 };
+*/
 exports.creepyInfo = function(req, res) {
   if (!req.query.email) {
     res.send('');
     return;
-  } else {
+  }/* else {
     res.send(mockCreepyData);
     return;
   }
+  */
   var path = '/v2/person.json?email=' + req.query.email + apiKey;
   var options = {
     host: endpoint,
