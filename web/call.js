@@ -13,6 +13,9 @@ $(function() {
     $('#hangup').show();
     if (userToCall) {
       $('#callButton').show();
+      $('#expert_msg').show();
+    } else {
+      $('#wait_msg').show();
     }
   }
 
@@ -46,6 +49,8 @@ $(function() {
       $('div#callLog').append('<div id="stats">Ringing...</div>');
     },
     onCallEstablished: function(call) {
+      $('#wait_msg').hide();
+      $('#expert_msg').hide();
       $('video#outgoing').attr('src', call.outgoingStreamURL);
       $('video#incoming').attr('src', call.incomingStreamURL);
       $('audio#ringback').trigger("pause");

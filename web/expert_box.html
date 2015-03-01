@@ -26,10 +26,9 @@ color: #e89980;
         <h2 style="margin-bottom:0px"><%= firstName %> <%= lastName %></h2>
         <h4><%= organization %></h4>
         <h4>"<%= desc %>"</h4>
-        <h4>$<%= hourly %>/hr &middot;
+        <h4>$<%= hourly %>/hr
         <% for (var i = 0; i < social.length; i++) { %>
-          <% if (i > 0) { %> &middot <% } %>
-          <a class="social" href="<%= social[i].url %>"><%= social[i].name %></a>
+          &middot <a target="_blank" class="social" href="<%= social[i].url %>"><%= social[i].name %></a>
         <% } %>
         </h4>
         <div><%= skills %></div>
