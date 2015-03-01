@@ -141,7 +141,7 @@ $(function() {
     startCall();
   });
 
-  // This is some hacky ass code that will attempt to login in with url things,
+  // This is some hacky ass code that will attempt to login with url things,
   // if that fails, it will create a user and then attempt to login... So if
   // this sounds horrible to you (and I think it does) just turn around and go
   // back to where you came from.
