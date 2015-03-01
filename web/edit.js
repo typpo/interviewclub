@@ -43,7 +43,7 @@ expertiseQuery.find().then(function(results) {
       image.html(img);
       image.show();
     }
-    current_socials = user.get('social');
+    current_socials = user.get('social') || [];
     renderSocialPills(current_socials);
     $('.social_pills').on('click', '.remove_pill', function(e) {
       var index = $(this).data('index');
