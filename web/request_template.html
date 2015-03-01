@@ -12,7 +12,7 @@
     <div class="box" id="<%= requestId %>">
       <div>
       <% if (!companyView) { %>
-        <h2>Request from <%= company.name %><% if (state.name !== 'Requested') { %><span class="state <%= state.className %>"> - <%= state.name %></span><% } %></h2>
+        <h2>Request from <%= company.name %><% if (state.name !== 'Requested') { %> - <span class="state <%= state.className %>"><%= state.name %></span><% } %></h2>
       <% } %>
       <% if (companyView) { %>
         <h2>Interviewer: <%= expert.name %></h2>
@@ -23,7 +23,7 @@
 
       <div class="spacer" style="height:15px"></div>
 
-      <% if (!companyView) { %>          
+      <% if (!companyView) { %>
         <div class="actions">
           <% for (var i = 0; i < state.actions.length; i++) { %>
             <span class="button special action-button" data-request-id="<%= requestId %>" data-next-state="<%= state.actions[i].nextState %>"><%= state.actions[i].button %></span>

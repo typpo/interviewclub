@@ -15,7 +15,7 @@ var STATE_FLOW = {
     }]
   },
   "REJECTED": {
-    name: 'Rejected',
+    name: 'Declined',
     className: 'rejected',
     actions: []
   },
@@ -42,6 +42,7 @@ var STATE_FLOW = {
     name: 'Awaiting feedback',
     className: 'writing',
     skipEmail: true,
+    tmpState: true,
     actions: []
   },
   "COMPLETED": {
@@ -85,10 +86,6 @@ $(function() {
       $('.actions').on('click', '.action-button', handleRequestStateChange);
     }
   });
-
-  setTimeout(function() {
-    $('.form-feedback').on('submit', submitFeedback);
-  }, 250);
 });
 
 function handleRequestStateChange(e) {
@@ -103,15 +100,19 @@ function handleRequestStateChange(e) {
     }
   }
 
-  updateRequestState(requestId, newState, function() {
-    var newStateFlow = STATE_FLOW[newState];
-    requestToState[requestId] = newStateFlow;
-    $('.state').text(newStateFlow.name);
-    updateActionButtons(requestId, newStateFlow);
+  updateRequestState(requestId, newState, function(requestId, newState) {
+    afterRequestStateUpdate(requestId, newState);
     if (handler) {
       handler(requestId, newState);
     }
   });
+}
+
+function afterRequestStateUpdate(requestId, newState) {
+  var newStateFlow = STATE_FLOW[newState];
+  requestToState[requestId] = newStateFlow;
+  $('#' + requestId).find('.state').text(newStateFlow.name);
+  updateActionButtons(requestId, newStateFlow);
 }
 
 function updateActionButtons(requestId, stateFlow) {
@@ -125,9 +126,13 @@ function updateActionButtons(requestId, stateFlow) {
 function updateRequestState(requestId, newState, callback) {
   new Parse.Query(InterviewRequest).get(requestId, {
     success: function(ir) {
-      ir.set('state', newState);
-      ir.save();
-      if (!newState.skipEmail) {
+      var stateFlow = STATE_FLOW[newState];
+      if (!stateFlow.tmpState) {
+        // Don't write some states back.
+        ir.set('state', newState);
+        ir.save();
+      }
+      if (!stateFlow.skipEmail) {
         sendUpdateEmail();
         if (newState == 'IN_PROGRESS') {
           // Start a video call
@@ -142,7 +147,7 @@ function updateRequestState(requestId, newState, callback) {
           });
         }
       }
-      callback();
+      callback(requestId, newState);
     }, error: function() {
       alert("Whoops, couldn't update the request. Please try again later.");
     }
@@ -162,13 +167,16 @@ function showFeedbackForm(requestId) {
     requestId: requestId
   });
   $('#' + requestId).find('.feedback-form-container').html(formHtml);
+
+  $('.feedback-submit').off('click');  // clear old handlers if any.
+  $('.feedback-submit').on('click', submitFeedback);
 }
 
 
 var Feedback = Parse.Object.extend('Feedback');
 
 function submitFeedback() {
-  var $form = $(this);
+  var $form = $(this).closest('.form-feedback');
   var requestId = $form.data("request-id");
 
   var feedback = new Feedback();
@@ -188,14 +196,21 @@ function submitFeedback() {
   var request = requestLookup[requestId];
   request.set('feedback', feedback);
   request.save();
-  return false;
+
+  updateRequestState(requestId, "COMPLETED", hideFeedbackForm);
+}
+
+function hideFeedbackForm(requestId, newState) {
+  $('#' + requestId).find('.feedback-form-container').hide();
+  afterRequestStateUpdate(requestId, newState);
 }
 
 function addRequests(requests){
   requests.forEach(function(request) {
     requestLookup[request.id] = request;
     var stateName = request.get('state') || 'REQUESTED';
-    requestToState[request.id] = STATE_FLOW[stateName.toUpperCase()];
+    var stateFlow = STATE_FLOW[stateName.toUpperCase()];
+    requestToState[request.id] = stateFlow;
     var requestsHtml = tmpl(document.getElementById('request-template').innerHTML, {
       requestId: request.id,
       candidateName: request.get('candidateName'),
@@ -208,7 +223,9 @@ function addRequests(requests){
       }
     });
     $('#requests').append(requestsHtml);
-    showFeedbackForm(request.id);
+    if (stateFlow.init) {
+      stateFlow.init(request.id);
+    }
   });
 }
 

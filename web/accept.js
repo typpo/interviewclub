@@ -26,7 +26,7 @@ $(function() {
                     '&company=' + companyObj.get('companyName') +
                     '&price=' + expertObj.get('price') + '&state=' + ACCEPTED, function() {
                 setTimeout(function() {
-                  window.location.href='/edit_profile.html';
+                  window.open('/edit_profile.html', '_blank');
                 }, 1000);
               });
             }
