@@ -13,6 +13,8 @@ $(function() {
     if (!userToCall) {
       $('#callButton').hide();
       $('#callUserName').hide();
+    } else {
+      $('#answer').hide();
     }
   }
 
@@ -62,8 +64,8 @@ $(function() {
       $('video#outgoing').attr('src', '');
       $('video#incoming').attr('src', '');
 
-      $('button').removeClass('incall');
-      $('button').removeClass('callwaiting');
+      $('.caller-button').removeClass('incall');
+      $('.caller-button').removeClass('callwaiting');
 
       //Report call stats
       var callDetails = call.getDetails();
@@ -99,12 +101,12 @@ $(function() {
     //Print statistics
     $('div#callLog').append('<div id="title">Incoming call from ' + incomingCall.fromId + '</div>');
     $('div#callLog').append('<div id="stats">Ringing...</div>');
-    $('button').addClass('incall');
+    $('.caller-button').addClass('incall');
 
     //Manage the call object
       call = incomingCall;
       call.addEventListener(callListeners);
-    $('button').addClass('callwaiting');
+    $('.caller-button').addClass('callwaiting');
 
     call.answer(); //Use to test auto answer
     //call.hangup();
@@ -118,7 +120,7 @@ $(function() {
 
       try {
         call.answer();
-        $('button').removeClass('callwaiting');
+        $('.caller-button').removeClass('callwaiting');
       }
       catch(error) {
         handleError(error);

@@ -193,7 +193,7 @@ div.other #from {
 }
 
 div.other #from span {
-	color: #999;	
+	color: #999;
 }
 
 div.other div.recipients {
@@ -258,7 +258,7 @@ input {
     outline: 0;
 }
 
-button {
+.caller-button {
 	color: #fff;
 	background-color: #63029C;
 	font-size: 14px;
@@ -306,7 +306,7 @@ div.top1 h1 {
 
 
 
-div.frame div#call {
+div.frame div#callButton {
 	display: none;
 }
 
@@ -324,31 +324,31 @@ div#callLog #stats {
 	margin-left: 20px;
 }
 
-button#call.incall {
+.caller-button#callButton.incall {
 	background-color: #d9bfe9;
 }
 
-button#call.callwaiting {
+.caller-button#callButton.callwaiting {
 	background-color: #d9bfe9;
 }
 
-button#hangup {
+.caller-button#hangup {
 	background-color: #d9bfe9;
 }
 
-button#hangup.incall {
+.caller-button#hangup.incall {
 	background-color: #62029d;
 }
 
-button#answer {
+.caller-button#answer {
 	background-color: #d9bfe9;
 }
 
-button#answer.callwaiting {
+.caller-button#answer.callwaiting {
 	background-color: #62029d;
 }
 
-form#newCall button {
+form#newCall .caller-button {
 	float: right;
 }
 
