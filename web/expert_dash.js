@@ -174,11 +174,19 @@ function submitFeedback() {
 
   var data = $form.serializeArray();
   for (var i in data) {
-    feedback.set(data[i].name, data[i].value);
+    var field = data[i];
+    if (field.name == 'skillLevel') {
+      feedback.set(field.name, parseInt(field.value, 10));
+    } else {
+      feedback.set(field.name, field.value);
+    }
   }
 
   //currentUser.set('details', data[1].value);
   feedback.save();
+  var request = requestLookup[requestId];
+  request.set('feedback', feedback);
+  request.save();
   return false;
 }
 

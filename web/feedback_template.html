@@ -2,6 +2,12 @@
 <form class="form-feedback" data-request-id="<%= requestId %>">
   <label>Would you hire this candidate? Please provide a brief explanation of your answer</label>
   <textarea name="hireNoHire"></textarea>
+  <label>How would you rate this candidate's technical expertise?</label>
+  <div>
+    <% for (var i = 1; i <= 10; i++) { %>
+      <input type="radio" name="skillLevel" value="<%= i %>"><%= i %>
+    <% } %>
+  </div>
   <div style="margin-top: 20px">
     <button class="button btn btn-lg btn-primary btn-block" style="background-color:#e89980;font-size:16px;" type="submit">Submit feedback</button>
   </div>
