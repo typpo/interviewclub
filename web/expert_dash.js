@@ -24,25 +24,31 @@ $(function() {
 });
 
 function addBox(user) {
-    var image = user.get('image');
-    var expertise = user.get('expertise');
-    var skills = '';
-    for (var i in expertise) {
-      if (i > 0) skills += ', ';
-      skills += expertise[i].get('name');
-    }
-    if (!skills.length) {
-      skills = 'No skills listed. C\'mon, you\'re better than that!';
-    }
-    var $box = $(tmpl(document.getElementById('box-template').innerHTML, {
-      name: user.getUsername(),
-      desc: user.get('details'),
-      hourly: user.get('price'),
-      image: image ? image.url() : '',
-      skills: skills,
-      expert_id: user.id,
-      ui: 'profile'
-    }));
-    $('#boxes').append($box);
-    return $box;
+  var image = user.get('image');
+  var socailImage = opts.get('socialImage');
+  var expertise = user.get('expertise');
+  var skills = '';
+  for (var i in expertise) {
+    if (i > 0) skills += ', ';
+    skills += expertise[i].get('name');
   }
+  if (!skills.length) {
+    skills = 'No skills listed. C\'mon, you\'re better than that!';
+  }
+  var templateParams = {
+    firstName: user.get('givenName') || '',
+    lastName: user.get('familyName') || '',
+    name: user.getUsername(),
+    desc: user.get('details'),
+    hourly: user.get('price'),
+    organization: user.get('organization') || '',
+    social: user.get('social') || [],
+    image: image ? image.url() : socailImage ? socailImage : '',
+    skills: skills,
+    expert_id: user.id,
+    ui: 'profile'
+  };
+  var $box = $(tmpl(document.getElementById('box-template').innerHTML, templateParams));
+  $('#boxes').append($box);
+  return $box;
+}
