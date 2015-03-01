@@ -12,7 +12,7 @@
     <div class="box">
       <div>
       <% if (!companyView) { %>
-        <h2>Request from <%= company.name %> - <span class="state <%= state.className %>"><%= state.name %></span></h2>
+        <h2>Request from <%= company.name %><% if (state.name !== 'Requested') { %><span class="state <%= state.className %>"> - <%= state.name %></span><% } %></h2>
       <% } %>
       <% if (companyView) { %>
         <h2>Interviewer: <%= expert.name %></h2>
