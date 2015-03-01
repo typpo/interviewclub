@@ -187,21 +187,27 @@ function exampleBox() {
 
 function addBox(opts) {
   var image = opts.get('image');
+  var socailImage = opts.get('socialImage');
   var expertise = opts.get('expertise');
   var skills = '';
   for (var i in expertise) {
     if (i > 0) skills += ', ';
     skills += expertise[i].get('name');
   }
-  var $box = $(tmpl(document.getElementById('box-template').innerHTML, {
+  var templateParams = {
+    firstName: opts.get('givenName') || '',
+    lastName: opts.get('familyName') || '',
     name: opts.getUsername(),
     desc: opts.get('details'),
     hourly: opts.get('price'),
-    image: image ? image.url() : '',
+    organization: opts.get('organization') || '',
+    social: opts.get('social') || [],
+    image: image ? image.url() : socailImage ? socailImage : '',
     skills: skills,
     expert_id: opts.id,
     ui: 'list'
-  }));
+  };
+  var $box = $(tmpl(document.getElementById('box-template').innerHTML, templateParams));
   $('#boxes').append($box);
   return $box;
 }
