@@ -1,7 +1,6 @@
 'use strict'
 require(['nav'], function(nav) {
 
-Parse.$ = jQuery;
 Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9LvdiJ95Acg9EGyWIgpNf9WNCy");
 
 var STATE_FLOW = {
