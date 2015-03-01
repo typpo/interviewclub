@@ -57,7 +57,7 @@ $(function() {
           candidateName: request.get('candidateName'),
           candidateEmail: request.get('candidateEmail'),
           candidatePhone: request.get('candidatePhone'),
-          state: STATE_FLOW[stateId],
+          state: STATE_FLOW[stateId.toUpperCase()],
           companyView: true,
           expert: {
             name: getExpertName(request.get('expert'))
