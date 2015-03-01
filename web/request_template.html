@@ -2,6 +2,9 @@
 .accepted{
   color: green;
 }
+.action-button {
+  margin-right: 10px;
+}
 </style>
 
 
@@ -9,20 +12,21 @@
     <div class="box">
       <div>
       <% if (!companyView) { %>
-        <h2>Company: <%= company.name %></h2>
+        <h2>Request from <%= company.name %><% if (state.name !== 'Requested') { %><span class="state <%= state.className %>"> - <%= state.name %></span><% } %></h2>
       <% } %>
       <% if (companyView) { %>
         <h2>Interviewer: <%= expert.name %></h2>
       <% } %>
 
-        <h2>Candidate: <%= candidateName %></h2>
-        <h3>Contact info: <%= candidateEmail %> - <%= candidatePhone %></h3>
-          Status: <span class="state <%= state.className %>"><%= state.name %></span>
+        <h3>Candidate: <%= candidateName %></h3>
+        <h3><%= candidateEmail %> - <%= candidatePhone %></h3>
 
-      <% if (!companyView) { %>          
+      <div class="spacer" style="height:15px"></div>
+
+      <% if (!companyView) { %>
         <div class="actions" id="<%= requestId %>">
           <% for (var i = 0; i < state.actions.length; i++) { %>
-            <span class="action-button" data-request-id="<%= requestId %>" data-next-state="<%= state.actions[i].nextState %>"><%= state.actions[i].button %></span>
+            <span class="button special action-button" data-request-id="<%= requestId %>" data-next-state="<%= state.actions[i].nextState %>"><%= state.actions[i].button %></span>
           <% } %>
         </div>
       <% } %>
@@ -32,6 +36,6 @@
 
 <script type="template" id="request-action">
   <% for (var i = 0; i < state.actions.length; i++) { %>
-    <span class="action-button" data-request-id="<%= requestId %>" data-next-state="<%= state.actions[i].nextState %>"><%= state.actions[i].button %></span>
+      <span class="button special action-button" data-request-id="<%= requestId %>" data-next-state="<%= state.actions[i].nextState %>"><%= state.actions[i].button %></span>
   <% } %>
-</script>  
+</script>
