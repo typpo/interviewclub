@@ -136,7 +136,7 @@ $('.form-createCompany').on('submit', function(e) {
 
   signUp(email, password, userData, function() {
     $form.html('');
-    goToCompanyLandingPage();
+    nav.goToCompanyLandingPage();
   });
 });
 
