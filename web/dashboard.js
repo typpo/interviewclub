@@ -57,7 +57,10 @@ $(function() {
           state: STATE_FLOW[stateId.toUpperCase()],
           companyView: true,
           expert: {
-            name: getExpertName(request.get('expert'))
+            name: getExpertName(request.get('expert')),
+            img: request.get('expert').get('socialImage'),
+            org: request.get('expert').get('organization'),
+            details: request.get('expert').get('details'),
           },
           paymentNeeded: paymentNeeded
         });
