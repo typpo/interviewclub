@@ -2,6 +2,9 @@
 .profile .hire-link {
   display: none;
 }
+.list .edit-profile-link {
+  display: none;
+}
 </style>
 
 <script type="template" id="box-template">
@@ -21,6 +24,10 @@
       <div><%= skills %></div>
       <div style="margin-top:15px" class="hire-link">
         <a href="#" class="button special request-modal-button" data-expert-id="<%= expert_id %>" class="button special" data-toggle="modal" data-target="#requestModal">Hire this interviewer</a>
+      </div>
+
+      <div style="margin-top:15px" class="edit-profile-link">
+        <a href="/edit_profile.html" class="button special" data-expert-id="<%= expert_id %>" class="button special">Edit your profile</a>
       </div>
     </div>
   </div>
