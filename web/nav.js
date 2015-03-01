@@ -1,6 +1,10 @@
 define([], function() {
   var nav = {};
 
+  nav.goHome = function() {
+    window.location.href = '/index.html';
+  };
+
   nav.goToExpertDash = function() {
     window.location.href = '/expert_dash.html';
   };

@@ -1,4 +1,5 @@
 'use strict';
+require(['nav'], function(nav) {
 Parse.$ = jQuery;
 Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9LvdiJ95Acg9EGyWIgpNf9WNCy");
 
@@ -24,7 +25,7 @@ var appliedFilters = [];
 $(function() {
   if (!checkCompanyLogin()) {
     alert('This page is just for companies!');
-    window.location.href = 'index.html';
+    nav.goHome();
     return;
   }
 
@@ -207,3 +208,5 @@ function addBox(opts) {
   $('#boxes').append($box);
   return $box;
 }
+
+});
