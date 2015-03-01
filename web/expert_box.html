@@ -16,7 +16,7 @@ color: #e89980;
 </style>
 
 <script type="template" id="box-template">
-  <div class="expert-box box <%= ui %>" style="height: 350px">
+  <div class="expert-box box <%= ui %>">
     <div>
       <img src="<%= image %>" style="width:100px;height:100px; float:left; margin-right: 20px;margin-top:13px">
       <div style="margin-left: 130px">
@@ -38,8 +38,8 @@ color: #e89980;
         </div>
       </div>
 
-      <div style="margin-top:15px" class="edit-profile-link">
-        <a href="/edit_profile.html" class="button special" data-expert-id="<%= expert_id %>" class="button special">Edit your profile</a>
+      <div style="margin-top:15px; margin-left: 130px" class="edit-profile-link">
+        <a href="/edit_profile.html" class="" data-expert-id="<%= expert_id %>" class="button special">Edit your profile</a>
       </div>
     </div>
   </div>
