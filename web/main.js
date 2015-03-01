@@ -1,11 +1,9 @@
 'use strict'
 
-require(['nav'], function(nav) {
+require(['nav', 'roles'], function(nav, roles) {
 
 Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9LvdiJ95Acg9EGyWIgpNf9WNCy");
 
-var EXPERT_ROLE = "Expert";
-var COMPANY_ROLE = "Company";
 
 $('#login').on('click', function(e) {
   $('#loginModal').modal('show');
@@ -112,7 +110,7 @@ $('.form-createExpert').on('submit', function(e) {
     email = data[0].value,
     password = data[1].value;
   var userData = {
-    role: EXPERT_ROLE
+    role: roles.EXPERT
   };
 
   signUp(email, password, userData, function() {
@@ -132,7 +130,7 @@ $('.form-createCompany').on('submit', function(e) {
     email = data[1].value,
     password = data[2].value;
   var userData = {
-    role: COMPANY_ROLE,
+    role: roles.COMPANY,
     companyName: data[0].value
   };
 
@@ -208,9 +206,9 @@ var login = function(email, password) {
 };
 
 var navBasedOnRole = function(role) {
-  if (role == EXPERT_ROLE) {
+  if (role.toUpperCase() == roles.EXPERT) {
     nav.goToExpertLandingPage();
-  } else if (role == COMPANY_ROLE) {
+  } else if (role.toUpperCase() == roles.COMPANY) {
     nav.goToCompanyLandingPage();
   }
 };

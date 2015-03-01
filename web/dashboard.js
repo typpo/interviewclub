@@ -1,5 +1,5 @@
 'use strict';
-require([], function() {
+require(['roles'], function(roles) {
 
 var STATE_FLOW = {
   "REQUESTED": {
@@ -34,7 +34,7 @@ Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9Lvd
 var currentCompany = Parse.User.current();
 var userQuery = new Parse.Query(Parse.User);
 userQuery.include('expertise');
-userQuery.equalTo('role', 'Expert');
+userQuery.equalTo('role', roles.EXPERT);
 
 var Expertise = Parse.Object.extend('Expertise');
 var expertiseQuery = new Parse.Query(Expertise);

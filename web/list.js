@@ -1,20 +1,17 @@
 'use strict';
-require(['nav'], function(nav) {
+require(['nav', 'roles'], function(nav, roles) {
 
 Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9LvdiJ95Acg9EGyWIgpNf9WNCy");
 
 var currentCompany = Parse.User.current();
 var userQuery = new Parse.Query(Parse.User);
 userQuery.include('expertise');
-userQuery.equalTo('role', 'Expert');
+userQuery.equalTo('role', roles.EXPERT);
 userQuery.exists('price');
 
 var Expertise = Parse.Object.extend('Expertise');
 var expertiseQuery = new Parse.Query(Expertise);
 var InterviewRequest = Parse.Object.extend('InterviewRequest');
-
-var EXPERT_ROLE = "Expert";
-var COMPANY_ROLE = "Company";
 
 var userToBox = {};  // user id to box in list
 var expertiseToUser = {};  // expertise id to user id
@@ -161,7 +158,7 @@ function setUpUser(user) {
 
 function checkCompanyLogin() {
   var user = Parse.User.current();
-  return user.get("role") === COMPANY_ROLE;
+  return user.get("role").toUpperCase() === roles.COMPANY;
 }
 
 function setUpFilters(expertises) {
