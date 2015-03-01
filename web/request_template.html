@@ -21,6 +21,8 @@
         <h3>Candidate: <%= candidateName %></h3>
         <h3><%= candidateEmail %> - <%= candidatePhone %></h3>
 
+      <div class="spacer" style="height:15px"></div>
+
       <% if (!companyView) { %>
         <div class="actions" id="<%= requestId %>">
           <% for (var i = 0; i < state.actions.length; i++) { %>
