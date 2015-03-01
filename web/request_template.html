@@ -1,7 +1,7 @@
   <script type="template" id="request-template">
     <div class="box">
       <div>
-      <% if (company) { %>
+      <% if (!companyView) { %>
         <h2><%= company.name %></h2>
       <% } %>
 

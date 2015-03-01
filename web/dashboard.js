@@ -23,6 +23,7 @@ $(function() {
           candidateEmail: request.get('candidateEmail'),
           candidatePhone: request.get('candidatePhone'),
           state: state,
+          companyView: true
         });
         $(html).appendTo($('#boxes'));
       });

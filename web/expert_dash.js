@@ -42,6 +42,7 @@ function addRequests(requests){
       candidateEmail: request.get('candidateEmail'),
       candidatePhone: request.get('candidatePhone'),
       state: state,
+      companyView: false,
       company: {
         name: request.get('company').get('companyName')
       }
