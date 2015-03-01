@@ -1,7 +1,7 @@
 <script type="template" id="feedback-template">
 <form class="form-feedback" data-request-id="<%= requestId %>">
   <label class="prompt">Would you hire this candidate? Please provide a brief explanation of your answer</label>
-  <textarea class="response" name="hireNoHire"></textarea>
+  <textarea<% if (viewOnly) { %> disabled <% } %>  class="response" name="hireNoHire"></textarea>
   <label class="prompt">How would you rate this candidate&apos;s technical expertise?</label>
   <div>
     <% for (var i = 1; i <= 10; i++) { %>
@@ -10,22 +10,22 @@
   </div>
 
   <label class="prompt">What are the candidate&apos;s strengths?</label>
-  <textarea class="response" name="strengths"></textarea>
+  <textarea<% if (viewOnly) { %> disabled <% } %>  class="response" name="strengths"></textarea>
 
   <label class="prompt">What are the candidate&apos;s weaknesses?</label>
-  <textarea class="response" name="weaknesses"></textarea>
+  <textarea<% if (viewOnly) { %> disabled <% } %>  class="response" name="weaknesses"></textarea>
 
   <label class="prompt">What questions did you ask the candidate?</label>
-  <textarea class="response" name="questionsAsked"></textarea>
+  <textarea<% if (viewOnly) { %> disabled <% } %>  class="response" name="questionsAsked"></textarea>
 
   <label class="prompt">How did the candidate handle situations where they did not immediately know the answer?</label>
-  <textarea class="response" name="problemSolving"></textarea>
+  <textarea<% if (viewOnly) { %> disabled <% } %>  class="response" name="problemSolving"></textarea>
 
   <label class="prompt">Would you want to work with this candidate?</label>
-  <textarea class="response" name="wantToWork"></textarea>
+  <textarea<% if (viewOnly) { %> disabled <% } %>  class="response" name="wantToWork"></textarea>
 
   <label class="prompt">Any other comments?</label>
-  <textarea class="response" name="otherComments"></textarea>
+  <textarea<% if (viewOnly) { %> disabled <% } %>  class="response" name="otherComments"></textarea>
 
   <div style="margin-top: 20px">
     <a class="feedback-submit button btn btn-lg btn-primary btn-block" style="background-color:#e89980;font-size:16px;" type="submit">Submit feedback</a>

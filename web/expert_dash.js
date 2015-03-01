@@ -164,7 +164,8 @@ function sendUpdateEmail() {
 
 function showFeedbackForm(requestId) {
   var formHtml = tmpl(document.getElementById('feedback-template').innerHTML, {
-    requestId: requestId
+    requestId: requestId,
+    viewOnly: false
   });
   $('#' + requestId).find('.feedback-form-container').html(formHtml);
 

@@ -61,9 +61,39 @@ $(function() {
         });
         $(html).appendTo($('#boxes'));
       });
+      $('.show-feedback').on('click', function(e) {
+        $(this).hide();
+        showFeedback($(this).data('request-id'));
+      });
     }
   });
 });
+
+function showFeedback(requestId) {
+  var q = new Parse.Query(InterviewRequest);
+  q.equalTo('objectId', requestId);
+  q.include('feedback');
+  q.find({
+    success: function(request) {
+      if (request.length !== 1) {
+        console.log("Something wrong with the interview request");
+      }
+      var feedback = request[0].get('feedback');
+      if (!feedback) {
+        alert('Oops, looks like somebody scammed you!');
+        return;
+      }
+      var feedbackHtml = tmpl(document.getElementById('feedback-template').innerHTML, {
+        requestId: requestId,
+        viewOnly: true
+      });
+      $('#' + requestId).find('.feedback-container').html(feedbackHtml);
+      $('#' + requestId).find('.feedback-container').show();
+    }, error: function() {
+      console.log("Request not found");
+    }
+  });
+}
 
 function getExpertName(expert) {
   return expert.get('givenName') + ' ' + expert.get('familyName');
