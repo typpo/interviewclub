@@ -82,8 +82,7 @@ $(function() {
   requestQuery.find({
     success: function(requests) {
       addRequests(requests);
-
-    $('.actions').on('click', '.action-button', handleRequestStateChange);
+      $('.actions').on('click', '.action-button', handleRequestStateChange);
     }
   });
 });
@@ -151,6 +150,17 @@ function updateRequestState(requestId, newState, callback) {
       ir.save();
       if (!newState.skipEmail) {
         sendUpdateEmail();
+        if (newState == 'IN_PROGRESS') {
+          // Start a video call
+          var userRand = Math.floor(Math.random() * 1e6);
+          $.get('/candidateEmail?email=' + ir.get('candidateEmail') +
+                '&user=' + userRand +
+                '&candidateName=' + ir.get('candidateName') +
+                '&expertName=' + currentUser.get('givenName')
+                , function() {
+              window.location.href = '/call.html?user=' + userRand;
+          });
+        }
       }
       callback();
     }, error: function() {
@@ -175,7 +185,7 @@ function showFeedbackForm(requestId) {
 }
 
 function submitFeedback() {
-  
+
 }
 
 function addRequests(requests){
