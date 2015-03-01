@@ -14,12 +14,24 @@ $(function() {
 
       // send email to company
       // TODO fix this
-      $.get('/accept?email=' + ir.get('company').get('username') +
-            '&company=' + ir.get('company').get('companyName') +
-            '&price=' + ir.get('expert').get('price') + '&state=' + ACCEPTED, function() {
-        setTimeout(function() {
-          window.location.href='/edit_profile.html';
-        }, 1000);
+      var company = ir.get('company');
+      company.fetch({
+        success: function(companyObj) {
+          console.log('got go', companyObj);
+          var expert = ir.get('expert');
+          expert.fetch({
+            success: function(expertObj) {
+              console.log('got expert');
+              $.get('/accept?email=' + companyObj.get('username') +
+                    '&company=' + companyObj.get('companyName') +
+                    '&price=' + expertObj.get('price') + '&state=' + ACCEPTED, function() {
+                setTimeout(function() {
+                  window.location.href='/edit_profile.html';
+                }, 1000);
+              });
+            }
+          });
+        },
       });
     },
   });
