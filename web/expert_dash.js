@@ -23,9 +23,26 @@ var STATE_FLOW = {
     name: 'Accepted',
     className: 'accepted',
     actions: [{
-      button: "Enter candidate feedback",
-      nextState: "COMPLETED"
+      button: "Start video call now!",
+      nextState: "IN_PROGRESS",
+      handler: generateCall
     }]
+  },
+  "IN_PROGRESS": {
+    name: 'Awaiting feedback',
+    className: 'call',
+    skipEmail: true,
+    actions: [{
+      button: 'Enter candidate feedback',
+      nextState: 'WRITING_FEEDBACK',
+      handler: showFeedbackForm
+    }]
+  },
+  "WRITING_FEEDBACK": {
+    name: 'Awaiting feedback',
+    className: 'writing',
+    skipEmail: true,
+    actions: []
   },
   "COMPLETED": {
     name: 'Complete',
@@ -34,6 +51,7 @@ var STATE_FLOW = {
   }
 };
 
+var requestToState = {};
 
 var currentUser = Parse.User.current();
 if (!currentUser) {
@@ -63,18 +81,73 @@ $(function() {
   requestQuery.find({
     success: function(requests) {
       addRequests(requests);
+
+    $('.actions').on('click', '.action-button', handleRequestStateChange);
     }
   });
 });
 
+function handleRequestStateChange(e) {
+  var newState = $(this).data('next-state').toUpperCase();
+  var requestId = $(this).data('request-id');
+
+  updateRequestState(requestId, newState, function() {
+    var newStateFlow = STATE_FLOW[newState];
+    requestToState[requestId] = newStateFlow;
+    $('.state').text(newStateFlow.name);
+    updateActionButtons(requestId, newStateFlow);
+  });
+}
+
+function updateActionButtons(requestId, stateFlow) {
+  var actionsHtml = tmpl(document.getElementById('request-action').innerHTML, {
+    requestId: requestId,
+    state: stateFlow
+  });
+  $('#' + requestId).html(actionsHtml);
+}
+
+function updateRequestState(requestId, newState, callback) {
+  new Parse.Query(InterviewRequest).get(requestId, {
+    success: function(ir) {
+      ir.set('state', newState);
+      ir.save();
+      if (!newState.skipEmail) {
+        sendUpdateEmail();
+      }
+      callback();
+    }, error: function() {
+      alert("Whoops, couldn't update the request. Please try again later.");
+    }
+  });
+}
+
+function generateCall() {
+  // implement
+}
+
+function sendUpdateEmail() {
+  // implement
+}
+
+function showFeedbackForm() {
+  // implement
+}
+
+function submitFeedback() {
+  // implement
+}
+
 function addRequests(requests){
   requests.forEach(function(request) {
-    var stateId = request.get('state') || 'REQUESTED';
+    var stateName = request.get('state') || 'REQUESTED';
+    requestToState[request.id] = STATE_FLOW[stateName.toUpperCase()];
     var requestsHtml = tmpl(document.getElementById('request-template').innerHTML, {
+      requestId: request.id,
       candidateName: request.get('candidateName'),
       candidateEmail: request.get('candidateEmail'),
       candidatePhone: request.get('candidatePhone'),
-      state: STATE_FLOW[stateId.toUpperCase()],
+      state: STATE_FLOW[stateName.toUpperCase()],
       companyView: false,
       company: {
         name: request.get('company').get('companyName')

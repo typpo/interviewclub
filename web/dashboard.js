@@ -21,9 +21,24 @@ var STATE_FLOW = {
     name: 'Accepted',
     className: 'accepted',
     actions: [{
-      button: "Enter candidate feedback",
-      nextState: "COMPLETED"
+      button: "Start video call now!",
+      nextState: "IN_PROGRESS"
     }]
+  },
+  "IN_PROGRESS": {
+    name: 'Awaiting feedback',
+    className: 'call',
+    skipEmail: true,
+    actions: [{
+      button: 'Enter candidate feedback',
+      nextState: 'WRITING_FEEDBACK'
+    }]
+  },
+  "WRITING_FEEDBACK": {
+    name: 'Awaiting feedback',
+    className: 'writing',
+    skipEmail: true,
+    actions: []
   },
   "COMPLETED": {
     name: 'Complete',
