@@ -9,7 +9,8 @@ var STATE_FLOW = {
     className: 'requested',
     actions: [{
       button: "Accept",
-      nextState: "ACCEPTED"
+      nextState: "ACCEPTED",
+      handler: fromRequestedToAccepted
     }, {
       button: "Decline",
       nextState: "REJECTED"
@@ -111,7 +112,9 @@ function handleRequestStateChange(e) {
 function afterRequestStateUpdate(requestId, newState) {
   var newStateFlow = STATE_FLOW[newState];
   requestToState[requestId] = newStateFlow;
+  $('#' + requestId).find('.state-container').show();
   $('#' + requestId).find('.state').text(newStateFlow.name);
+  $('#' + requestId).find('.state').addClass(newStateFlow.className);
   updateActionButtons(requestId, newStateFlow);
 }
 
@@ -200,6 +203,10 @@ function submitFeedback() {
 function hideFeedbackForm(requestId, newState) {
   $('#' + requestId).find('.feedback-form-container').hide();
   afterRequestStateUpdate(requestId, newState);
+}
+
+function fromRequestedToAccepted(requestId) {
+  $('#' + requestId).find('.new').hide();
 }
 
 function addRequests(requests){
