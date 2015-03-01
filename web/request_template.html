@@ -22,7 +22,9 @@
           <i class="fa fa-money"></i> New
           </div>
           <% } %>
-        <h2>Request from <%= company.name %><% if (state.name !== 'Requested') { %> - <span class="state <%= state.className %>"><%= state.name %></span><% } %></h2>
+        <h2>Request from <%= company.name %>
+        <span class="state-container"<% if (state.name === 'Requested') { %> style="display:none" <% } %>> - <span class="state <%= state.className %>"><%= state.name %></span></span>
+        </h2>
 
       <% } %>
       <% if (companyView) { %>
