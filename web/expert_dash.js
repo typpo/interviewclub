@@ -43,8 +43,7 @@ var STATE_FLOW = {
     className: 'writing',
     skipEmail: true,
     tmpState: true,
-    actions: [],
-    init: showFeedbackForm
+    actions: []
   },
   "COMPLETED": {
     name: 'Complete',
