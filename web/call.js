@@ -25,7 +25,7 @@ $(function() {
     supportActiveConnection: true,
     //Note: For additional loging, please uncomment the three rows below
     onLogMessage: function(message) {
-      console.log(message);
+      //console.log(message);
     },
   });
 
@@ -67,9 +67,15 @@ $(function() {
 
       //Report call stats
       var callDetails = call.getDetails();
+      $('div#callLog').html('');
       $('div#callLog').append('<div id="stats">Ended: '+new Date(callDetails.endedTime)+'</div>');
       $('div#callLog').append('<div id="stats">Duration (s): '+callDetails.duration+'</div>');
       $('div#callLog').append('<div id="stats">End cause: '+call.getEndCause()+'</div>');
+      // The candidate might be waiting for the email still, let's just keep trying.
+      if (call.getEndCause() == 'TIMEOUT') {
+        $('div#callLog').append('<div id="stats">Trying again. Please be patient.</div>');
+        startCall();
+      }
       if(call.error) {
         $('div#callLog').append('<div id="stats">Failure message: '+call.error.message+'</div>');
       }
@@ -127,9 +133,12 @@ $(function() {
     call && call.hangup();
   });
 
-  $('#callButton').click(function(event) {
+  function startCall() {
     call = callClient.callUser(userToCall);
     call.addEventListener(callListeners);
+  }
+  $('#callButton').click(function(event) {
+    startCall();
   });
 
   // This is some hacky ass code that will attempt to login in with url things,
