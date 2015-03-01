@@ -2,17 +2,17 @@
 <form class="form-feedback" data-request-id="<%= requestId %>">
   <label class="prompt">Would you hire this candidate? Please provide a brief explanation of your answer</label>
   <textarea class="response" name="hireNoHire"></textarea>
-  <label class="prompt">How would you rate this candidate's technical expertise?</label>
+  <label class="prompt">How would you rate this candidate&apos;s technical expertise?</label>
   <div>
     <% for (var i = 1; i <= 10; i++) { %>
       <input type="radio" name="skillLevel" value="<%= i %>"><%= i %>
     <% } %>
   </div>
 
-  <label class="prompt">What are the candidates strengths?</label>
+  <label class="prompt">What are the candidate&apos;s strengths?</label>
   <textarea class="response" name="strengths"></textarea>
 
-  <label class="prompt">What are the candidates weaknesses?</label>
+  <label class="prompt">What are the candidate&apos;s weaknesses?</label>
   <textarea class="response" name="weaknesses"></textarea>
 
   <label class="prompt">What questions did you ask the candidate?</label>
