@@ -8,7 +8,7 @@ var STATE_FLOW = {
       button: "Accept",
       nextState: "ACCEPTED"
     }, {
-      buttons: "Decline",
+      button: "Decline",
       nextState: "REJECTED"
     }]
   },
@@ -48,6 +48,7 @@ var InterviewRequest = Parse.Object.extend('InterviewRequest');
 $(function() {
   var q = new Parse.Query(InterviewRequest);
   q.equalTo('company', currentCompany);
+  q.include('expert');
   q.find({
     success: function(requests) {
       requests.forEach(function(request) {
@@ -56,11 +57,18 @@ $(function() {
           candidateName: request.get('candidateName'),
           candidateEmail: request.get('candidateEmail'),
           candidatePhone: request.get('candidatePhone'),
-          state: STATE_FLOW[stateId],
-          companyView: true
+          state: STATE_FLOW[stateId.toUpperCase()],
+          companyView: true,
+          expert: {
+            name: getExpertName(request.get('expert'))
+          }
         });
         $(html).appendTo($('#boxes'));
       });
     }
   });
 });
+
+function getExpertName(expert) {
+  return expert.get('givenName') + ' ' + expert.get('familyName');
+}

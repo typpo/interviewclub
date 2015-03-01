@@ -6,6 +6,7 @@ var currentCompany = Parse.User.current();
 var userQuery = new Parse.Query(Parse.User);
 userQuery.include('expertise');
 userQuery.equalTo('role', 'Expert');
+userQuery.exists('price');
 
 var Expertise = Parse.Object.extend('Expertise');
 var expertiseQuery = new Parse.Query(Expertise);
