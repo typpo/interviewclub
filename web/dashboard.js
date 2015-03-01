@@ -1,4 +1,5 @@
 'use strict';
+require([], function() {
 
 var STATE_FLOW = {
   "REQUESTED": {
@@ -133,3 +134,5 @@ function showFeedback(requestId) {
 function getExpertName(expert) {
   return expert.get('givenName') + ' ' + expert.get('familyName');
 }
+
+});
