@@ -5,6 +5,11 @@
 .action-button {
   margin-right: 10px;
 }
+.new {
+  color: green;
+  float: right;
+  margin-top: 14px;
+}
 </style>
 
 
@@ -12,7 +17,13 @@
     <div class="box" id="<%= requestId %>">
       <div>
       <% if (!companyView) { %>
+        <% if (state.name == 'Requested') { %>
+          <div class="new">
+          <i class="fa fa-money"></i> New
+          </div>
+          <% } %>
         <h2>Request from <%= company.name %><% if (state.name !== 'Requested') { %> - <span class="state <%= state.className %>"><%= state.name %></span><% } %></h2>
+
       <% } %>
       <% if (companyView) { %>
         <img src="<%= expert.img %>" style="width: 150px;height:auto; float: left; margin-right: 15px; margin-top:14px;"/>
