@@ -48,6 +48,7 @@ $(function() {
     success: function(requests) {
       requests.forEach(function(request) {
         var stateId = request.get('state') || 'REQUESTED';
+        var paymentNeeded = isPaymentNeeded(stateId);
         var html = tmpl(document.getElementById('request-template').innerHTML, {
           requestId: request.id,
           candidateName: request.get('candidateName'),
@@ -57,9 +58,22 @@ $(function() {
           companyView: true,
           expert: {
             name: getExpertName(request.get('expert'))
-          }
+          },
+          paymentNeeded: paymentNeeded
         });
         $(html).appendTo($('#boxes'));
+
+        if (paymentNeeded) {
+          var price = request.get('expert').get('price');
+          var payButton = tmpl(document.getElementById('pay-template').innerHTML, {
+            price: price,
+            cents: price * 100,
+            candidateName: request.get('candidateName'),
+            expertName: getExpertName(request.get('expert'))
+          });
+          $('#' + request.id).find('.payment-container').html(payButton);
+          $('#' + request.id).find('.payment-container').show();
+        }
       });
       $('.show-feedback').on('click', function(e) {
         $(this).hide();
@@ -68,6 +82,10 @@ $(function() {
     }
   });
 });
+
+function isPaymentNeeded(stateId) {
+  return stateId != "REQUESTED" && stateId != "REJECTED" && stateId != "COMPLETED";
+}
 
 var FEEDBACK_FIELDS = [
   "hireNoHire",

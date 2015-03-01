@@ -37,6 +37,8 @@
         <% if (state.name == 'Complete') { %>
           <span class="button action-button show-feedback" data-request-id="<%= requestId %>">Show feedback</span>
           <div class="feedback-container" style="display:none;"></div>
+        <% } else if (paymentNeeded) { %>
+          <div class="payment-container" style="display:none;"></div>
         <% } %>
       <% } %>
       </div>
