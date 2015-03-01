@@ -1,4 +1,6 @@
 'use strict'
+require(['nav'], function(nav) {
+
 Parse.$ = jQuery;
 Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9LvdiJ95Acg9EGyWIgpNf9WNCy");
 
@@ -134,18 +136,18 @@ function updateRequestState(requestId, newState, callback) {
       }
       if (!stateFlow.skipEmail) {
         sendUpdateEmail();
-        if (newState == 'IN_PROGRESS') {
-          // Start a video call
-          var userRand = Math.floor(Math.random() * 1e7);
-          $.get('/candidateEmail?email=' + ir.get('candidateEmail') +
-                '&user=' + userRand +
-                '&candidateName=' + ir.get('candidateName') +
-                '&expertName=' + currentUser.get('givenName')
-                , function() {
-              window.location.href = '/call.html?user=' + (Math.floor(Math.random() * 1e7)) +
-                '&code=' + (Math.floor(Math.random() * 1e7)) + '&call=' + userRand;
+      }
+      if (newState == 'IN_PROGRESS') {
+        // Start a video call
+        var userRand = Math.floor(Math.random() * 1e7);
+        $.get('/candidateEmail?email=' + ir.get('candidateEmail') +
+          '&user=' + userRand +
+          '&candidateName=' + ir.get('candidateName') +
+          '&expertName=' + currentUser.get('givenName')
+          , function() {
+            nav.newTab('/call.html?user=' + (Math.floor(Math.random() * 1e7)) +
+              '&code=' + (Math.floor(Math.random() * 1e7)) + '&call=' + userRand);
           });
-        }
       }
       callback(requestId, newState);
     }, error: function() {
@@ -259,3 +261,5 @@ function addProfile(user) {
   $('#boxes').append($box);
   return $box;
 }
+
+});

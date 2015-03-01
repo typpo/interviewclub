@@ -13,5 +13,9 @@ define([], function() {
     window.location.href = "/list.html";
   };
 
+  nav.newTab = function(url) {
+    window.open(url);
+  };
+
   return nav;
 });
