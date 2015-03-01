@@ -37,7 +37,6 @@ div.frame {
 	padding: 0px 15px 0px 30px;
 	margin: 0px 0px;
 	float: left;
-	width: 578px;
 	display: none;
 }
 
@@ -354,12 +353,13 @@ form#newCall .caller-button {
 }
 
 video#outgoing {
-	width: 260px;
-	height: 195px;
+	width: 146px;
+	height: 110px;
+  vertical-align: top;
 }
 video#incoming {
-	width: 260px;
-	height: 195px;
+	width: 447px;
+	height: 335px;
 }
 video {
 	margin: 10px 12px 10px 12px;
