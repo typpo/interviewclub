@@ -25,8 +25,7 @@ var STATE_FLOW = {
     className: 'accepted',
     actions: [{
       button: "Start video call now!",
-      nextState: "IN_PROGRESS",
-      handler: generateCall
+      nextState: "IN_PROGRESS"
     }]
   },
   "IN_PROGRESS": {
@@ -153,10 +152,6 @@ function updateRequestState(requestId, newState, callback) {
       alert("Whoops, couldn't update the request. Please try again later.");
     }
   });
-}
-
-function generateCall(requestId) {
-  // implement
 }
 
 function sendUpdateEmail() {
