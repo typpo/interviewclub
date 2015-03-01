@@ -5,25 +5,37 @@
 .list .edit-profile-link {
   display: none;
 }
+.expert-box a {
+color: #e89980;
+}
+.verified {
+  color: green;
+  float: right;
+  margin-top: 14px;
+}
 </style>
 
 <script type="template" id="box-template">
-  <div class="box <%= ui %>" style="height: 350px">
+  <div class="expert-box box <%= ui %>" style="height: 350px">
     <div>
-      <img src="<%= image %>" style="width:100px;height:100px;">
-      <h4><%= firstName %> <%= lastName %></h4>
-      <h4><%= name %></h4>
-      <h4>"<%= desc %>"
-      <h4><%= organization %>
-      </h4>
-      $<%= hourly %>/hr &middot;
-      <% for (var i = 0; i < social.length; i++) { %>
-        <% if (i > 0) { %> &middot <% } %>
-        <a class="social" href="<%= social[i].url %>"><%= social[i].name %></a>
-      <% } %>
-      <div><%= skills %></div>
-      <div style="margin-top:15px" class="hire-link">
-        <a href="#" class="button special request-modal-button" data-expert-id="<%= expert_id %>" class="button special" data-toggle="modal" data-target="#requestModal">Hire this interviewer</a>
+      <img src="<%= image %>" style="width:100px;height:100px; float:left; margin-right: 20px;margin-top:4px">
+      <div style="margin-left: 130px">
+        <div class="verified">
+          <i class="fa fa-check-circle"></i> Verified
+        </div>
+        <h2 style="margin-bottom:0px"><%= firstName %> <%= lastName %></h2>
+        <h4><%= organization %></h4>
+        <h4>"<%= desc %>"</h4>
+        <h4>$<%= hourly %>/hr &middot;
+        <% for (var i = 0; i < social.length; i++) { %>
+          <% if (i > 0) { %> &middot <% } %>
+          <a class="social" href="<%= social[i].url %>"><%= social[i].name %></a>
+        <% } %>
+        </h4>
+        <div><%= skills %></div>
+        <div style="margin-top:15px" class="hire-link">
+          <a href="#" class="button special request-modal-button" data-expert-id="<%= expert_id %>" class="button special" data-toggle="modal" data-target="#requestModal">Hire this interviewer</a>
+        </div>
       </div>
 
       <div style="margin-top:15px" class="edit-profile-link">

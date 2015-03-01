@@ -192,8 +192,8 @@ function addBox(opts) {
   var expertise = opts.get('expertise');
   var skills = '';
   for (var i in expertise) {
-    if (i > 0) skills += ', ';
-    skills += expertise[i].get('name');
+    if (i > 0) skills += '</span>';
+    skills += '<span class="button pill" style="font-size: 12px; margin-right: 5px; background-color:#fff; border: 1px solid #ccc; color: #646464;height: 2.2em; line-height: 2.2em;">' + expertise[i].get('name');
   }
   var templateParams = {
     firstName: opts.get('givenName') || '',
