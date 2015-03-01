@@ -8,7 +8,7 @@ var STATE_FLOW = {
       button: "Accept",
       nextState: "ACCEPTED"
     }, {
-      buttons: "Decline",
+      button: "Decline",
       nextState: "REJECTED"
     }]
   },

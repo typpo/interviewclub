@@ -18,6 +18,14 @@
         <h2>Candidate: <%= candidateName %></h2>
         <h3>Contact info: <%= candidateEmail %> - <%= candidatePhone %></h3>
           Status: <span class="state <%= state.className %>"><%= state.name %></span>
+
+      <% if (!companyView) { %>          
+        <div class="actions">
+          <% for (var i = 0; i < state.actions.length; i++) { %>
+            <span class="action-button" data-next-state="<%= state.actions[i].nextState %>"><%= state.actions[i].button %></span>
+          <% } %>
+        </div>
+      <% } %>
       </div>
     </div>
   </script>
