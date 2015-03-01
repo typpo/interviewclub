@@ -203,6 +203,7 @@ function submitFeedback() {
 function hideFeedbackForm(requestId, newState) {
   $('#' + requestId).find('.feedback-form-container').hide();
   afterRequestStateUpdate(requestId, newState);
+  scrollTo(0, $('#' + requestId).position().top - 80);
 }
 
 function fromRequestedToAccepted(requestId) {
