@@ -42,6 +42,7 @@ var STATE_FLOW = {
     name: 'Awaiting feedback',
     className: 'writing',
     skipEmail: true,
+    tmpState: true,
     actions: [],
     init: showFeedbackForm
   },
@@ -126,9 +127,13 @@ function updateActionButtons(requestId, stateFlow) {
 function updateRequestState(requestId, newState, callback) {
   new Parse.Query(InterviewRequest).get(requestId, {
     success: function(ir) {
-      ir.set('state', newState);
-      ir.save();
-      if (!newState.skipEmail) {
+      var stateFlow = STATE_FLOW[newState];
+      if (!stateFlow.tmpState) {
+        // Don't write some states back.
+        ir.set('state', newState);
+        ir.save();
+      }
+      if (!stateFlow.skipEmail) {
         sendUpdateEmail();
         if (newState == 'IN_PROGRESS') {
           // Start a video call
