@@ -28,6 +28,7 @@ expertiseQuery.find().then(function(results) {
     selected_expertises = user.get('expertise');
     init_field(user, 'price');
     init_field(user, 'details');
+    init_field(user, 'organization');
     init_field(user, 'givenName');
     init_field(user, 'familyName');
     var socialImage = user.get('socialImage');
@@ -79,6 +80,7 @@ $('.form-editExpert').on('submit', function(e) {
   currentUser.set('details', data[1].value);
   currentUser.set('givenName', data[2].value);
   currentUser.set('familyName', data[3].value);
+  currentUser.set('organization', data[4].value);
   currentUser.set('social', current_socials);
   // This should really wait for the upload promise...
   if (user_image) currentUser.set('image', user_image);
@@ -193,3 +195,7 @@ $('#fileupload').on('change', function(e) {
   showImage(file);
   uploadFile(file);
 });
+
+var goToExpertDash = function() {
+  window.location.href = '/expert_dash.html';
+};

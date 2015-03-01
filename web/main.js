@@ -208,12 +208,12 @@ var navBasedOnRole = function(role) {
   } else if (role == COMPANY_ROLE) {
     goToCompanyLandingPage();
   }
-}
+};
 
 var goToExpertLandingPage = function() {
   window.location.href = "/edit_profile.html";
-}
+};
 
 var goToCompanyLandingPage = function() {
   window.location.href = "/list.html";
-}
+};
