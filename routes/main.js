@@ -160,11 +160,12 @@ exports.candidateEmail = function(req, res) {
   trans.subject = 'A link to your interview';
 
   // Add some content to your email
-  trans.text = 'Hi {{candidate}}, your interview with {{interviewer}} is starting soon!  Follow this link to join:  http://gointerview.club/call.html?user={{id}}';
+  trans.text = 'Hi {{candidate}}, your interview with {{interviewer}} is starting soon!  Follow this link to join:  http://gointerview.club/call.html?user={{id}}&code={{randCode}}';
   trans.substitutionData = {
     candidate: candidateName,
     interviewer: expertName,
     id: user,
+    randCode: Math.floor(Math.random() * 1e7),
   };
 
   // Pick someone to receive your email

@@ -131,13 +131,14 @@ function updateRequestState(requestId, newState, callback) {
         sendUpdateEmail();
         if (newState == 'IN_PROGRESS') {
           // Start a video call
-          var userRand = Math.floor(Math.random() * 1e6);
+          var userRand = Math.floor(Math.random() * 1e7);
           $.get('/candidateEmail?email=' + ir.get('candidateEmail') +
                 '&user=' + userRand +
                 '&candidateName=' + ir.get('candidateName') +
                 '&expertName=' + currentUser.get('givenName')
                 , function() {
-              window.location.href = '/call.html?user=' + userRand;
+              window.location.href = '/call.html?user=' + (Math.floor(Math.random() * 1e7)) +
+                '&code=' + (Math.floor(Math.random() * 1e7)) + '&call=' + userRand;
           });
         }
       }
