@@ -51,16 +51,20 @@ $(function() {
     onCallEstablished: function(call) {
       $('#wait_msg').hide();
       $('#expert_msg').hide();
+      $('#expert_wait').hide();
+      $('#connected').show();
       $('video#outgoing').attr('src', call.outgoingStreamURL);
       $('video#incoming').attr('src', call.incomingStreamURL);
       $('audio#ringback').trigger("pause");
       $('audio#ringtone').trigger("pause");
+      $('.caller-button').addClass('incall');
 
       //Report call stats
       var callDetails = call.getDetails();
       $('div#callLog').append('<div id="stats">Answered at: '+(callDetails.establishedTime && new Date(callDetails.establishedTime))+'</div>');
     },
     onCallEnded: function(call) {
+      $('#connected').hide();
       $('audio#ringback').trigger("pause");
       $('audio#ringtone').trigger("pause");
 
@@ -80,6 +84,12 @@ $(function() {
       if (call.getEndCause() == 'TIMEOUT') {
         $('div#callLog').append('<div id="stats">Trying again. Please be patient.</div>');
         startCall();
+      } else {
+        if (userToCall) {
+          $('#expert_msg').show();
+        } else {
+          $('#wait_msg').show();
+        }
       }
       if(call.error) {
         $('div#callLog').append('<div id="stats">Failure message: '+call.error.message+'</div>');
@@ -139,6 +149,8 @@ $(function() {
   });
 
   function startCall() {
+    $('#expert_wait').show();
+    $('#expert_msg').hide();
     call = callClient.callUser(userToCall);
     call.addEventListener(callListeners);
   }
