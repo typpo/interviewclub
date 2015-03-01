@@ -85,6 +85,10 @@ $(function() {
       $('.actions').on('click', '.action-button', handleRequestStateChange);
     }
   });
+
+  setTimeout(function() {
+    $('.form-feedback').on('submit', submitFeedback);
+  }, 250);
 });
 
 function handleRequestStateChange(e) {
@@ -161,9 +165,6 @@ function showFeedbackForm(requestId) {
 
 
 var Feedback = Parse.Object.extend('Feedback');
-$('.form-feedback').on('submit', function(e) {
-  console.log("foo");
-});
 
 function submitFeedback() {
   var $form = $(this);
@@ -172,8 +173,8 @@ function submitFeedback() {
   var feedback = new Feedback();
 
   var data = $form.serializeArray();
-  for (var field in data) {
-    feedback.set(field, data[field]);
+  for (var i in data) {
+    feedback.set(data[i].name, data[i].value);
   }
 
   //currentUser.set('details', data[1].value);
