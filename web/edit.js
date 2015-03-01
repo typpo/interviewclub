@@ -61,13 +61,16 @@ expertiseQuery.find().then(function(results) {
       return true;
     });
     selected_expertises = copy_expertises_hack;
-    renderPills()
+    renderPills();
+
+    $('.form-editExpert').on('submit', handleSubmit);
   });
 }, function (error) {
   console.log(error);
 });
 
-$('.form-editExpert').on('submit', function(e) {
+var handleSubmit = function(e) {
+  e.preventDefault();
   console.log('save the info to the user and the user to the expertises');
   var $form = $(this);
   var data = $form.serializeArray();
@@ -85,7 +88,8 @@ $('.form-editExpert').on('submit', function(e) {
   // This should really wait for the upload promise...
   if (user_image) currentUser.set('image', user_image);
   currentUser.save();
-});
+  setTimeout(goToExpertDash, 500);
+};
 
 var getexpertisesPills = function(expertises) {
   var pills_html = [];
