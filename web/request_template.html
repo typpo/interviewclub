@@ -15,7 +15,7 @@
         <h2>Request from <%= company.name %><% if (state.name !== 'Requested') { %> - <span class="state <%= state.className %>"><%= state.name %></span><% } %></h2>
       <% } %>
       <% if (companyView) { %>
-        <h2>Interview request to <%= expert.name %><% if (state.name !== 'Requested') { %> - <span class="state <%= state.className %>"><%= state.name %></span><% } %></h2>
+        <h2>Interview by <%= expert.name %> - <span class="state <%= state.className %>"><%= state.name.toLowerCase() %></span></h2>
       <% } %>
 
       <h3>Candidate: <%= candidateName %></h3>
