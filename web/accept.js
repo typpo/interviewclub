@@ -7,7 +7,6 @@ $(function() {
   console.log(requestId);
   new Parse.Query(InterviewRequest).get(requestId, {
     success: function(ir) {
-      console.log(ir);
       ir.set('state', 'ACCEPTED');
       ir.save();
 
