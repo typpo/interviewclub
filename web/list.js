@@ -178,13 +178,8 @@ var getExpertisesPills = function(expertises) {
       }
     }));
   }
-  console.log(pills_html);
   return pills_html.join('');
 };
-
-function exampleBox() {
-  addBox();
-}
 
 function addBox(opts) {
   var image = opts.get('image');
