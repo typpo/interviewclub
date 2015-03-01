@@ -31,7 +31,7 @@ app.get('/realindex', function(req, res) {
 });
 app.get('/signup', main.signup);
 app.get('/send', main.request_interview);
-app.get('/accept', main.accepted_interview);
+app.get('/accept', main.request_updated);
 app.get('/creepyInfo', main.creepyInfo);
 
 http.createServer(app).listen(app.get('port'), function(){
