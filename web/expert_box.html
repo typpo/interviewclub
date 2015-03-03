@@ -26,9 +26,8 @@ color: #e89980;
         <div class="verified">
           <i class="fa fa-check-circle"></i> Verified
         </div>
-        <h2 style="margin-bottom:0px"><%= firstName %> <%= lastName %></h2>
-        <h4><%= organization %></h4>
-        <h4>"<%= desc %>"</h4>
+        <h3 style="margin-bottom:0px"><%= firstName %> <%= lastName %> - <%= organization %></h3>
+        <h4><strong>"<%= desc %>"</strong></h4>
         <h4>$<%= hourly %>/hr
         <% for (var i = 0; i < social.length; i++) { %>
           &middot <a target="_blank" class="social" href="<%= social[i].url %>"><%= social[i].name %></a>
