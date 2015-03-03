@@ -222,9 +222,14 @@ function addRequests(requests){
     requestToState[request.id] = stateFlow;
     var requestsHtml = tmpl(document.getElementById('request-template').innerHTML, {
       requestId: request.id,
-      candidateName: request.get('candidateName'),
-      candidateEmail: request.get('candidateEmail'),
-      candidatePhone: request.get('candidatePhone'),
+      candidateName: '',
+      candidateEmail: '',
+      candidatePhone: '',
+      //candidateName: request.get('candidateName'),
+      //candidateEmail: request.get('candidateEmail'),
+      //candidatePhone: request.get('candidatePhone'),
+      candidateFocus: request.get('candidateFocus'),
+      otherInfo: request.get('otherInfo'),
       state: STATE_FLOW[stateName.toUpperCase()],
       companyView: false,
       company: {

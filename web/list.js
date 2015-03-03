@@ -56,15 +56,17 @@ $(function() {
     var name = $('#candidateName').val();
     var email = $('#candidateEmail').val();
     var phone = $('#candidatePhone').val();
-    var focus = $('#candidateFocus').val();
+    var focus = $('#candidateFocus option:selected').val();
+    var otherInfo = $('#inputDesc').val();
 
     userQuery.get(currentExpertId, {
       success: function(expert) {
         var ir = new InterviewRequest();
-        ir.set('candidateName', name);
+        //ir.set('candidateName', name);
         ir.set('candidateEmail', email);
-        ir.set('candidatePhone', phone);
+        //ir.set('candidatePhone', phone);
         ir.set('candidateFocus', focus);
+        ir.set('otherInfo', otherInfo);
         ir.set('company', currentCompany);
         ir.set('expert', expert);
         ir.set('state', 'REQUESTED');

@@ -33,8 +33,19 @@
         <h2>Interview by <%= expert.name %> - <%= expert.org %></h2>
       <% } %>
 
+      <% if (candidateName && candidateEmail) { %>
       <h4>Candidate: <%= candidateName %></h4>
       <h4><a href="#"><%= candidateEmail %></a> &middot; <a href="#"><%= candidatePhone %></a></h4>
+      <% } %>
+
+      <% if (candidateFocus || otherInfo) { %>
+        <% if (candidateFocus) { %>
+          <h4>Looking for: <%= candidateFocus %>
+        <% } %>
+        <% if (otherInfo) { %>
+          <h4><%= otherInfo %>
+        <% } %>
+      <% } %>
 
       <% if (companyView) { %>
         <h4> Status: <span class="state <%= state.className %>" style="color: green"><%= state.name %></span> </h4>
