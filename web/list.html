@@ -61,6 +61,27 @@
       #main {
         padding-top: 30px;
       }
+
+      #mainlist {
+        margin-top: 30px;
+        margin-left: 250px;
+      }
+
+      .sidebar {
+      width: 350px;
+float: left;
+background-color: #fff;
+margin: 25px;
+border-radius: 5px;
+border: 3px solid #ccc;
+padding: 30px;
+margin-top: 0;
+      }
+
+      .sidebar label {
+        margin: 0;
+        color: #000;
+      }
     </style>
 
 
@@ -82,19 +103,31 @@
 			</header>
 
 		<!-- Main -->
-			<section id="main" class="container 80%">
-				<header class="container 75%" style="margin: 0 auto">
-          <h4 style="color: #000;margin-bottom: 25px;">What skills are you looking for?</h4>
-          <ul id="filter_container" style="list-style-type: none;"></ul>
-
-          <!--h4>
-            Search: <input id="search" type="search" value="angularjs"/>
-          </h4-->
-					<h4 style="display:none" id="searchterm-container">These hiring experts match your search for <strong><span id="searchterm"></span></strong>.</h4>
-          <h4 style="display:none" id="zerohero">Whoops, looks like our experts aren't <span style="font-style:italic">that</span> good</span></strong>.</h4>
-				</header>
+    <div id="mainlist">
+      <div class="sidebar">
+        <h4>Skills</h4>
+        <ul id="filter_container" style="margin-bottom: 10px" style="list-style-type: none;"></ul>
+        <h4 style="display:none" id="zerohero">Whoops, looks like our experts aren't <span style="font-style:italic">that</span> good</span></strong>.</h4>
+        <h4>Expert Rating</h4>
+        <div style="margin-left:15px;margin-bottom: 10px;">
+          <label><input type="checkbox">Any Score</label>
+          <label><input type="checkbox">No Feedback Yet</label>
+          <label><input type="checkbox">4.5 - 5.0 Stars</label>
+          <label><input type="checkbox">4.0 - 4.5 Stars</label>
+          <label><input type="checkbox">3.0 - 3.9 Stars</label>
+          <label><input type="checkbox">2.0 - 2.9 Stars</label>
+          <label><input type="checkbox">1.0 - 1.9 Stars</label>
+        </div>
+        <h4>Maximum Rate</h4>
+        <div style="margin-left: 15px">
+          <input type="range" min="10" max="1000" step="10" value="500"> <span style="line-height: 2em;
+vertical-align: text-bottom;">$500</span>
+        </div>
+      </div>
+      <div style="width:960px; margin-left: 400px;">
         <div id="boxes"></div>
-			</section>
+      </div>
+    </div>
 
 		<!-- Footer -->
 			<footer id="footer">
