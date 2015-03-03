@@ -111,6 +111,7 @@ function showFeedback(requestId) {
         console.log("Something wrong with the interview request");
       }
       var feedback = request[0].get('feedback');
+      var userid;
       var flatFeedback = {};
       if (!feedback) {
         alert('Oops, looks like somebody scammed you!');
@@ -119,10 +120,12 @@ function showFeedback(requestId) {
         for (var i in FEEDBACK_FIELDS) {
           flatFeedback[FEEDBACK_FIELDS[i]] = feedback.get(FEEDBACK_FIELDS[i]);
         }
+        userid = request[0].get('userid');
       }
       var feedbackHtml = tmpl(document.getElementById('feedback-template').innerHTML, {
         requestId: requestId,
         viewOnly: true,
+        userid: userid,
         feedback: flatFeedback
       });
       $('#' + requestId).find('.feedback-container').html(feedbackHtml);

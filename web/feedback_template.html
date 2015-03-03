@@ -37,5 +37,9 @@
     <a class="feedback-submit button btn btn-lg btn-primary btn-block" style="background-color:#e89980;font-size:16px;" type="submit">Submit feedback</a>
   </div>
   <% } %>
+
+  <% if (userid) { %>
+    <div><iframe id="iframe" style="width:100%" height="300" src="https://beta.etherpad.org/p/inteerviewclub<%= userid %>"></iframe></div>
+  <% } %>
 </form>
 </script>

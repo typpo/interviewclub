@@ -3,6 +3,8 @@ $(function() {
   var user = getParameterByName('user');
   var code = getParameterByName('code');
   var userToCall = getParameterByName('call');
+  $('#iframe').attr('src',
+      'https://beta.etherpad.org/p/inteerviewclub' + userToCall || user);
 
 
   /*** After successful authentication, show user interface ***/

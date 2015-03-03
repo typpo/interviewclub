@@ -141,13 +141,16 @@ function updateRequestState(requestId, newState, callback) {
       if (newState == 'IN_PROGRESS') {
         // Start a video call
         var userRand = Math.floor(Math.random() * 1e7);
+        ir.set('userid', userRand);
         $.get('/candidateEmail?email=' + ir.get('candidateEmail') +
           '&user=' + userRand +
           '&candidateName=' + ir.get('candidateName') +
           '&expertName=' + currentUser.get('givenName')
           , function() {
-            nav.newTab('/call.html?user=' + (Math.floor(Math.random() * 1e7)) +
-              '&code=' + (Math.floor(Math.random() * 1e7)) + '&call=' + userRand);
+            ir.save().then(function() {
+              nav.newTab('/call.html?user=' + (Math.floor(Math.random() * 1e7)) +
+                '&code=' + (Math.floor(Math.random() * 1e7)) + '&call=' + userRand);
+            });
           });
       }
       callback(requestId, newState);
@@ -163,6 +166,7 @@ function sendUpdateEmail() {
 
 function showFeedbackForm(requestId) {
   var formHtml = tmpl(document.getElementById('feedback-template').innerHTML, {
+    userid: null,
     requestId: requestId,
     viewOnly: false
   });
