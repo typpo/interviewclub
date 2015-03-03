@@ -49,6 +49,8 @@
 
       <% if (companyView) { %>
         <h4> Status: <span class="state <%= state.className %>" style="color: green"><%= state.name %></span> </h4>
+        <% if (state.name == 'Complete') { %>
+        <% } %>
         <h4>"<%= expert.details %>"</h4>
       <% } %>
 
@@ -67,6 +69,7 @@
       <% if (companyView) { %>
         <% if (state.name == 'Complete') { %>
           <span class="button action-button show-feedback" data-request-id="<%= requestId %>">Show feedback</span>
+
           <div class="feedback-container" style="display:none;"></div>
         <% } else if (paymentNeeded) { %>
           <div class="payment-container" style="display:none;"></div>
