@@ -31,7 +31,7 @@ $(function() {
     supportActiveConnection: true,
     //Note: For additional loging, please uncomment the three rows below
     onLogMessage: function(message) {
-      //console.log(message);
+      console.log(message);
     },
   });
 
