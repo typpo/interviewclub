@@ -107,6 +107,7 @@ function showFeedback(requestId) {
   var q = new Parse.Query(InterviewRequest);
   q.equalTo('objectId', requestId);
   q.include('feedback');
+  q.include('expert');
   q.find({
     success: function(request) {
       if (request.length !== 1) {
@@ -130,8 +131,30 @@ function showFeedback(requestId) {
         userid: userid,
         feedback: flatFeedback
       });
-      $('#' + requestId).find('.feedback-container').html(feedbackHtml);
-      $('#' + requestId).find('.feedback-container').show();
+      var feedbackContainer = $('#' + requestId).find('.feedback-container');
+      feedbackContainer.html(feedbackHtml);
+      feedbackContainer.show();
+      var expert = request[0].get('expert');
+      console.log(expert.get('score'));
+      var stars = feedbackContainer.find('.rate_stars').raty({
+        score: expert.get('score'),
+        click: function(score, evt) {
+                 expert.set('score', score);
+                 expert.save(null, {
+                   success: function(expert) {
+                              if (score < 3) {
+                                alert("Sorry! We will follow up with the interviewer");
+                              } else {
+                                alert("Thanks for the feedback!");
+                              }
+                            },
+                   error: function(expert, error) {
+                            console.log('oops');
+                          }
+                 });
+               },
+        path: 'lib/raty/images'
+      });
     }, error: function() {
       console.log("Request not found");
     }

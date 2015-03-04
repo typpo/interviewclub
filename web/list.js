@@ -205,6 +205,14 @@ function addBox(opts) {
   };
   var $box = $(tmpl(document.getElementById('box-template').innerHTML, templateParams));
   $('#boxes').append($box);
+  var score = opts.get('score');
+  if (score) {
+    $('#expert' + opts.id).find('.stars').raty({
+      score: opts.get('score'),
+      readOnly: true,
+      path: 'lib/raty/images'
+    });
+  }
   return $box;
 }
 
