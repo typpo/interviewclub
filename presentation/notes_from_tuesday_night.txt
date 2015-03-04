@@ -15,11 +15,28 @@ find the expert that you need
 - expertise
 "data on the outcomes of their past interviews"
 
-once you find, fill out form with details on the candidate and what your looking 
-for 
+once you find, fill out form with details on the candidate and what your looking
+for
 
 android game developer
 
 the expert is notified
-once the expert accepts, 
-company coordinates 
+once the expert accepts,
+company coordinates for a time
+
+now we're ready to start our interview
+put into an interactive interview environment
+shared notepad where the candidate and expert can type in real time
+
+once the interview is over
+the company will get a write-up
+along with
+
+
+
+demo:
+- home
+- list
+- expert dash
+- video
+- company dash
