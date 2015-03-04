@@ -207,7 +207,7 @@ var login = function(email, password) {
 
 var navBasedOnRole = function(role) {
   if (role.toUpperCase() == roles.EXPERT) {
-    nav.goToExpertLandingPage();
+    nav.goToExpertDash();
   } else if (role.toUpperCase() == roles.COMPANY) {
     nav.goToCompanyLandingPage();
   }
