@@ -21,6 +21,12 @@ iframe {
   width: 50%;
 }
 </style>
+<div id="vid">
+<iframe></iframe>
+</div>
+<div id="pad">
+<iframe></iframe>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script>
   function getParameterByName(name) {
@@ -34,9 +40,3 @@ iframe {
   $('#vid iframe').attr('src', 'https://apprtc.appspot.com/r/' + key);
   $('#pad iframe').attr('src', 'https://beta.etherpad.org/p/inteerviewclub-' + key);
 </script>
-<div id="vid">
-<iframe></iframe>
-</div>
-<div id="pad">
-<iframe></iframe>
-</div>
