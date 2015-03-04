@@ -21,9 +21,22 @@ iframe {
   width: 50%;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script>
+  function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+
+  var key = getParameterByName('key');
+  $('#vid iframe').attr('src', 'https://apprtc.appspot.com/r/' + key);
+  $('#pad iframe').attr('src', 'https://beta.etherpad.org/p/inteerviewclub-' + key);
+</script>
 <div id="vid">
-<iframe src="https://apprtc.appspot.com/r/774355737"></iframe>
+<iframe src=""></iframe>
 </div>
 <div id="pad">
-<iframe src="https://beta.etherpad.org/p/inteerviewclub-424242"></iframe>
+<iframe src=""></iframe>
 </div>
