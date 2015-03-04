@@ -22,7 +22,8 @@
 .stars {
   vertical-align: middle
 }
-.interview-count {
+.interview-count,
+.pass-rate {
   font-size: 15px;
 }
 </style>
@@ -40,7 +41,9 @@
           <span class="stars"></span>
           <% if (ui == 'list') { %>
             &nbsp;&middot;&nbsp;
-            <span class="interview-count"><%= interviewCount %> interviews</span>
+            <span class="interview-count"><b><%= interviewCount %></b> interviews</span>
+            &nbsp;&middot;&nbsp;
+            <span class="pass-rate"><b><%= recRate %>%</b> recommendation rate</span>
           <% } %>
         </div>
         <h4><strong>"<%= desc %>"</strong></h4>

@@ -196,6 +196,7 @@ function addBox(opts) {
     desc: opts.get('details'),
     hourly: opts.get('price'),
     interviewCount: opts.get('interviewCount'),
+    recRate: opts.get('recRate'),
     organization: opts.get('organization') || '',
     social: opts.get('social') || [],
     image: expert_util.getImgUrl(opts),

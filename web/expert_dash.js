@@ -261,7 +261,6 @@ function addProfile(user) {
     name: user.getUsername(),
     desc: user.get('details'),
     hourly: user.get('price'),
-    interviewCount: user.get('interviewCount'),
     organization: user.get('organization') || '',
     social: user.get('social') || [],
     image: image ? image.url() : socialImage ? socialImage : '',
