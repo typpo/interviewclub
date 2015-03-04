@@ -49,6 +49,7 @@ $(function() {
       requests.forEach(function(request) {
         var stateId = request.get('state') || 'REQUESTED';
         var paymentNeeded = isPaymentNeeded(stateId);
+        var expert = request.get('expert');
         var html = tmpl(document.getElementById('request-template').innerHTML, {
           requestId: request.id,
           candidateName: request.get('candidateName'),
@@ -60,9 +61,9 @@ $(function() {
           companyView: true,
           expert: {
             name: getExpertName(request.get('expert')),
-            img: request.get('expert').get('socialImage'),
-            org: request.get('expert').get('organization'),
-            details: request.get('expert').get('details'),
+            img: expert ? expert.get('socialImage') : '',
+            org: expert ? expert.get('organization') : '',
+            details: expert ? expert.get('details') : '',
           },
           paymentNeeded: paymentNeeded
         });
@@ -162,7 +163,7 @@ function showFeedback(requestId) {
 }
 
 function getExpertName(expert) {
-  return expert.get('givenName') + ' ' + expert.get('familyName');
+  return expert ? expert.get('givenName') + ' ' + expert.get('familyName') : '';
 }
 
     });
