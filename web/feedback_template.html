@@ -1,8 +1,16 @@
+<style>
+label {
+  font-weight: bold;
+  margin-top: 38px;
+}
+textarea {
+}
+</style>
 <script type="template" id="feedback-template">
 <form class="form-feedback" data-request-id="<%= requestId %>">
   <label class="prompt">Would you hire this candidate? Please provide a brief explanation of your answer</label>
   <textarea<% if (viewOnly) { %> disabled <% } %>  class="response" name="hireNoHire"><% if (viewOnly) { %> <%= feedback.hireNoHire %><% } %></textarea>
-  <label class="prompt">How would you rate this candidate&apos;s technical expertise?</label>
+  <label class="prompt" style="margin-bottom:0">How would you rate this candidate&apos;s technical expertise?</label>
 
   <% if (!viewOnly) { %>
   <div>
@@ -11,7 +19,7 @@
     <% } %>
   </div>
   <% } else { %>
-    <label><%= feedback.skillLevel %></label>
+    <span><%= feedback.skillLevel %></span>
   <% } %>
 
   <label class="prompt">What are the candidate&apos;s strengths?</label>
@@ -39,7 +47,7 @@
   <% } %>
 
   <% if (userid) { %>
-    <div><iframe id="iframe" style="width:100%" height="300" src="https://beta.etherpad.org/p/inteerviewclub<%= userid %>"></iframe></div>
+    <div style="margin-top:40px"><iframe id="iframe" style="width:100%" height="300" src="https://beta.etherpad.org/p/inteerviewclub<%= userid %>"></iframe></div>
   <% } %>
   <div class="rate_interviewer">
     <h4>Rate your interviewer</h4>
