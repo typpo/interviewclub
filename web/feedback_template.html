@@ -49,9 +49,11 @@ textarea {
   <% if (userid) { %>
     <div style="margin-top:40px"><iframe id="iframe" style="width:100%" height="300" src="https://beta.etherpad.org/p/inteerviewclub<%= userid %>"></iframe></div>
   <% } %>
+  <% if (viewOnly) { %>
   <div class="rate_interviewer">
     <h4>Rate your interviewer</h4>
     <div class="rate_stars"></div>
   </div>
+    <% } %>
 </form>
 </script>
