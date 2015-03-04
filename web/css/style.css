@@ -11,7 +11,7 @@
 
 	body {
     background-color: #f5f5f5;
-		background: url(/images/squared_metal.png);
+		/*background: url(/images/squared_metal.png);*/
 	}
 
 	body, input, select, textarea {
