@@ -195,6 +195,7 @@ function addBox(opts) {
     name: opts.getUsername(),
     desc: opts.get('details'),
     hourly: opts.get('price'),
+    interviewCount: opts.get('interviewCount'),
     organization: opts.get('organization') || '',
     social: opts.get('social') || [],
     image: expert_util.getImgUrl(opts),

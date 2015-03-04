@@ -6,7 +6,7 @@
   display: none;
 }
 .expert-box a {
-color: #e89980;
+  color: #e89980;
 }
 .verified {
   color: green;
@@ -15,6 +15,15 @@ color: #e89980;
 }
 .request-modal-button {
   background-color: #D83F0F !important;
+}
+.request-modal-button:hover {
+  background-color: #ED7751 !important;
+}
+.stars {
+  vertical-align: middle
+}
+.interview-count {
+  font-size: 15px;
 }
 </style>
 
@@ -27,7 +36,13 @@ color: #e89980;
           <i class="fa fa-check-circle"></i> Verified
         </div>
         <h3 style="margin-bottom:0px"><%= firstName %> <%= lastName %> - <%= organization %></h3>
-        <div class="stars"></div>
+        <div>
+          <span class="stars"></span>
+          <% if (interviewCount) { %>
+            &nbsp;&middot;&nbsp;
+            <span class="interview-count"><%= interviewCount %> interviews</span>
+          <% } %>
+        </div>
         <h4><strong>"<%= desc %>"</strong></h4>
         <h4>$<%= hourly %>/hr
         <% for (var i = 0; i < social.length; i++) { %>
