@@ -8,6 +8,7 @@ var userQuery = new Parse.Query(Parse.User);
 userQuery.include('expertise');
 userQuery.equalTo('role', roles.EXPERT);
 userQuery.exists('price');
+userQuery.descending('rank');  // puts unranked last
 
 var Expertise = Parse.Object.extend('Expertise');
 var expertiseQuery = new Parse.Query(Expertise);
