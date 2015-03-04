@@ -25,7 +25,7 @@ var STATE_FLOW = {
     name: 'Accepted',
     className: 'accepted',
     actions: [{
-      button: "Start video call now!",
+      button: "Start interview now",
       nextState: "IN_PROGRESS"
     }]
   },
