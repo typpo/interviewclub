@@ -181,7 +181,7 @@ $(function() {
         showUI();
       });
     }).fail(function(test) {
-      window.location.reload();
+      //window.location.reload();
     });
   });
 });
