@@ -1,5 +1,5 @@
 'use strict';
-require(['nav', 'roles'], function(nav, roles) {
+require(['expert_util', 'nav', 'roles'], function(expert_util, nav, roles) {
 
 Parse.initialize("WYKBPP1wtAdbqiTfjKvkrWhEObFvll67wivhst20", "O1AvRyOcTE1aUV9LvdiJ95Acg9EGyWIgpNf9WNCy");
 
@@ -183,8 +183,6 @@ var getExpertisesPills = function(expertises) {
 };
 
 function addBox(opts) {
-  var image = opts.get('image');
-  var socailImage = opts.get('socialImage');
   var expertise = opts.get('expertise');
   var skills = '';
   for (var i in expertise) {
@@ -199,7 +197,7 @@ function addBox(opts) {
     hourly: opts.get('price'),
     organization: opts.get('organization') || '',
     social: opts.get('social') || [],
-    image: image ? image.url() : socailImage ? socailImage : '',
+    image: expert_util.getImgUrl(opts),
     skills: skills,
     expert_id: opts.id,
     ui: 'list'

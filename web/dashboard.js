@@ -1,5 +1,5 @@
 'use strict';
-require(['roles'], function(roles) {
+require(['expert_util', 'roles'], function(expert_util, roles) {
 
 var STATE_FLOW = {
   "REQUESTED": {
@@ -61,7 +61,7 @@ $(function() {
           companyView: true,
           expert: {
             name: getExpertName(request.get('expert')),
-            img: expert ? expert.get('socialImage') : '',
+            img: expert_util.getImgUrl(expert),
             org: expert ? expert.get('organization') : '',
             details: expert ? expert.get('details') : '',
           },
@@ -166,4 +166,4 @@ function getExpertName(expert) {
   return expert ? expert.get('givenName') + ' ' + expert.get('familyName') : '';
 }
 
-    });
+});
