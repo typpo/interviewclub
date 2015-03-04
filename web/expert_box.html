@@ -38,7 +38,7 @@
         <h3 style="margin-bottom:0px"><%= firstName %> <%= lastName %> - <%= organization %></h3>
         <div>
           <span class="stars"></span>
-          <% if (interviewCount) { %>
+          <% if (ui == 'list') { %>
             &nbsp;&middot;&nbsp;
             <span class="interview-count"><%= interviewCount %> interviews</span>
           <% } %>
