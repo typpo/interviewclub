@@ -5,6 +5,9 @@ label {
 }
 textarea {
 }
+.proceed {
+  margin-top: 20px;
+}
 </style>
 <script type="template" id="feedback-template">
 <form class="form-feedback" data-request-id="<%= requestId %>">
@@ -53,6 +56,10 @@ textarea {
   <div class="rate_interviewer">
     <h4>Rate your interviewer</h4>
     <div class="rate_stars"></div>
+
+    <h4 class="proceed">Will you proceed with this candidate?<h4>
+    <input type="radio" name="yn" value="yes">Yes
+    <input type="radio" name="yn" value="no">No
   </div>
     <% } %>
 </form>
